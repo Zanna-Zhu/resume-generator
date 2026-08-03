@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>简历生成器 - 让你的简历脱颖而出</title>
+<meta name="description" content="一款功能丰富的在线简历生成工具，支持实时预览、多主题切换、PDF导出、3D宇宙版成长的痕迹等特色功能。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--primary-dark:#4f46e5;--accent:#f59e0b;--bg:#0f172a;--card:rgba(30,41,59,0.8);--text:#f1f5f9;--text-dim:#94a3b8}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}
+
+/* 星空背景 */
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.stars::before,.stars::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-repeat:repeat}
+.stars::before{background-image:radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(2px 2px at 40px 70px,#a5b4fc,transparent),radial-gradient(1px 1px at 50px 160px,#fff,transparent),radial-gradient(1px 1px at 90px 40px,#fff,transparent),radial-gradient(2px 2px at 130px 80px,#a5b4fc,transparent),radial-gradient(1px 1px at 160px 120px,#fff,transparent);background-size:200px 200px;animation:twinkle 8s ease-in-out infinite;opacity:.6}
+.stars::after{background-image:radial-gradient(1px 1px at 10px 50px,#fff,transparent),radial-gradient(2px 2px at 80px 10px,#c4b5fd,transparent),radial-gradient(1px 1px at 110px 90px,#fff,transparent),radial-gradient(1px 1px at 170px 50px,#fff,transparent),radial-gradient(2px 2px at 190px 140px,#c4b5fd,transparent);background-size:220px 220px;animation:twinkle 6s ease-in-out infinite reverse;opacity:.4}
+@keyframes twinkle{0%,100%{opacity:.3}50%{opacity:.8}}
+
+/* 光晕 */
+.glow{position:fixed;border-radius:50%;filter:blur(80px);z-index:0;pointer-events:none}
+.glow-1{width:500px;height:500px;background:rgba(99,102,241,.15);top:-100px;left:-100px;animation:float1 12s ease-in-out infinite}
+.glow-2{width:400px;height:400px;background:rgba(245,158,11,.1);bottom:-100px;right:-100px;animation:float2 15s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,30px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,-50px)}}
+
+.container{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* 导航 */
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.logo{font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:.9rem;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.btn-github{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:8px;color:var(--text)!important;display:flex;align-items:center;gap:6px;transition:all .2s}
+.btn-github:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+
+/* Hero */
+.hero{text-align:center;padding:60px 0 40px}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:#a5b4fc;padding:6px 14px;border-radius:20px;font-size:.8rem;margin-bottom:20px}
+.badge span{width:6px;height:6px;background:#6366f1;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:3rem;font-weight:800;line-height:1.2;margin-bottom:16px}
+.hero h1 .grad{background:linear-gradient(135deg,#818cf8,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.15rem;color:var(--text-dim);max-width:600px;margin:0 auto 32px;line-height:1.6}
+.cta-group{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{padding:14px 32px;border-radius:12px;font-size:1rem;font-weight:600;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 4px 20px rgba(99,102,241,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(99,102,241,.5)}
+.btn-secondary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:var(--text)}
+.btn-secondary:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
+
+/* Stats */
+.stats{display:flex;gap:40px;justify-content:center;padding:30px 0;flex-wrap:wrap}
+.stat{text-align:center}
+.stat .num{font-size:1.8rem;font-weight:800;color:var(--primary)}
+.stat .label{font-size:.8rem;color:var(--text-dim);margin-top:2px}
+
+/* Features */
+.features{padding:40px 0}
+.section-title{text-align:center;font-size:2rem;font-weight:800;margin-bottom:8px}
+.section-sub{text-align:center;color:var(--text-dim);margin-bottom:40px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.feature-card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;transition:all .3s;backdrop-filter:blur(10px)}
+.feature-card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,.3);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.feature-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:16px}
+.fc-purple{background:rgba(99,102,241,.15);color:#a5b4fc}
+.fc-amber{background:rgba(245,158,11,.15);color:#fcd34d}
+.fc-emerald{background:rgba(16,185,129,.15);color:#6ee7b7}
+.fc-rose{background:rgba(244,63,94,.15);color:#fda4af}
+.fc-sky{background:rgba(14,165,233,.15);color:#7dd3fc}
+.fc-violet{background:rgba(139,92,246,.15);color:#c4b5fd}
+.feature-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.feature-card p{color:var(--text-dim);font-size:.9rem;line-height:1.6}
+
+/* Preview section */
+.preview-section{padding:40px 0;text-align:center}
+.preview-box{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px;max-width:600px;margin:0 auto;backdrop-filter:blur(10px)}
+.preview-box h3{font-size:1.3rem;margin-bottom:12px}
+.preview-box p{color:var(--text-dim);margin-bottom:24px;line-height:1.6}
+
+/* Star CTA */
+.star-cta{padding:50px 0;text-align:center}
+.star-box{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(245,158,11,.08));border:1px solid rgba(99,102,241,.2);border-radius:20px;padding:40px;max-width:500px;margin:0 auto}
+.star-box h3{font-size:1.4rem;margin-bottom:8px}
+.star-box p{color:var(--text-dim);margin-bottom:20px}
+.star-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:600;transition:all .2s;box-shadow:0 4px 20px rgba(245,158,11,.3)}
+.star-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(245,158,11,.4)}
+
+/* Footer */
+footer{text-align:center;padding:30px 0;border-top:1px solid rgba(255,255,255,.06);margin-top:40px}
+footer p{color:var(--text-dim);font-size:.85rem}
+footer a{color:var(--primary);text-decoration:none}
+
+/* 响应式 */
+@media(max-width:600px){
+.hero h1{font-size:2rem}
+.hero p{font-size:1rem}
+.stats{gap:20px}
+.feature-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<div class="container">
+<nav>
+<div class="logo">Resume Generator</div>
+<div class="nav-links">
+<a href="#features">功能</a>
+<a href="https://github.com/Zanna-Zhu/resume-generator" target="_blank" class="btn-github">★ Star</a>
+</div>
+</nav>
+
+<section class="hero">
+<div class="badge"><span></span> 完全免费 · 无需注册 · 浏览器直接使用</div>
+<h1>让你的简历<span class="grad">脱颖而出</span></h1>
+<p>一款功能丰富的在线简历生成工具。实时预览、多主题切换、PDF一键导出、3D宇宙版"成长的痕迹"——告别千篇一律的简历模板。</p>
+<div class="cta-group">
+<a href="简历生成器.html" class="btn btn-primary">立即使用 →</a>
+<a href="https://github.com/Zanna-Zhu/resume-generator" target="_blank" class="btn btn-secondary">查看源码</a>
+</div>
+</section>
+
+<div class="stats">
+<div class="stat"><div class="num">5+</div><div class="label">精选主题</div></div>
+<div class="stat"><div class="num">3D</div><div class="label">宇宙场景</div></div>
+<div class="stat"><div class="num">A4</div><div class="label">PDF导出</div></div>
+<div class="stat"><div class="num">0</div><div class="label">安装依赖</div></div>
+</div>
+
+<section class="features" id="features">
+<h2 class="section-title">核心功能</h2>
+<p class="section-sub">为求职者打造的全方位简历工具</p>
+<div class="feature-grid">
+<div class="feature-card">
+<div class="feature-icon fc-purple">📝</div>
+<h3>实时预览</h3>
+<p>左侧填写，右侧同步预览。所见即所得，告别来回切换的烦恼。</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon fc-amber">🎨</div>
+<h3>多主题切换</h3>
+<p>水仙花、科技感、毛玻璃、羊皮纸、黑白画廊……5+主题随心切换。</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon fc-emerald">📄</div>
+<h3>PDF一键导出</h3>
+<p>A4标准尺寸，一键导出高质量PDF。排版精准，打印即用。</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon fc-sky">🔄</div>
+<h3>板块排序</h3>
+<p>教育、实习、实践、校园……自由拖拽调整板块顺序，突出你的优势。</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon fc-violet">✨</div>
+<h3>AI语句润色</h3>
+<p>内置语句优化引擎，支持专业精炼、结果导向等多种风格，让表达更专业。</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon fc-rose">🌌</div>
+<h3>3D宇宙版"成长的痕迹"</h3>
+<p>使用Three.js构建沉浸式3D星系场景，将人生经历可视化为宇宙星系，点击星球探索每段故事。</p>
+</div>
+</div>
+</section>
+
+<section class="preview-section">
+<div class="preview-box">
+<h3>🚀 零门槛使用</h3>
+<p>无需安装、无需注册、无需联网。打开浏览器即可使用全部功能，数据保存在本地，安全私密。</p>
+<a href="简历生成器.html" class="btn btn-primary">开始制作简历 →</a>
+</div>
+</section>
+
+<section class="star-cta">
+<div class="star-box">
+<h3>⭐ 觉得好用？给个Star！</h3>
+<p>如果这个工具帮助到了你，欢迎在GitHub上给项目点个Star，让更多人看到。你的支持是我持续优化的动力！</p>
+<a href="https://github.com/Zanna-Zhu/resume-generator" target="_blank" class="star-btn">★ Star on GitHub</a>
+</div>
+</section>
+
+<footer>
+<p>Resume Generator · <a href="https://github.com/Zanna-Zhu/resume-generator">GitHub</a> · MIT License</p>
+</footer>
+</div>
+
+<script>
+// 流星效果
+!function(){
+var canvas=document.createElement('canvas');
+canvas.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none';
+document.body.appendChild(canvas);
+var ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+resize();window.onresize=resize;
+var meteors=[];
+function spawn(){
+if(Math.random()<.02){
+meteors.push({
+x:Math.random()*canvas.width,
+y:0,
+len:80+Math.random()*60,
+speed:3+Math.random()*4,
+angle:Math.PI/4+Math.random()*.3,
+opacity:1
+});
+}
+}
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+for(var i=meteors.length-1;i>=0;i--){
+var m=meteors[i];
+var dx=Math.cos(m.angle)*m.len;
+var dy=Math.sin(m.angle)*m.len;
+var grad=ctx.createLinearGradient(m.x,m.y,m.x-dx,m.y-dy);
+grad.addColorStop(0,'rgba(165,180,252,'+m.opacity+')');
+grad.addColorStop(1,'rgba(165,180,252,0)');
+ctx.strokeStyle=grad;
+ctx.lineWidth=2;
+ctx.beginPath();
+ctx.moveTo(m.x,m.y);
+ctx.lineTo(m.x-dx,m.y-dy);
+ctx.stroke();
+m.x+=Math.cos(m.angle)*m.speed;
+m.y+=Math.sin(m.angle)*m.speed;
+m.opacity-=.005;
+if(m.opacity<=0||m.y>canvas.height)meteors.splice(i,1);
+}
+spawn();
+requestAnimationFrame(draw);
+}
+draw();
+}();
+</script>
+</body>
+</html>
