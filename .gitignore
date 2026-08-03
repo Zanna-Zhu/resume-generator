@@ -1,0 +1,23 @@
+# 临时文件
+*.tmp
+*.bak
+*_backup*
+test_export_*.html
+test_export_screenshot.png
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# 激活码生成器（不公开）
+激活码生成器.html
+
+# 调试文件
+debug_*.py
+check_*.py
+verify_*.py
