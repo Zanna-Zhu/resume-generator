@@ -601,7 +601,7 @@
             --resume-bg: #ffffff;
             --resume-text: #1a202c;
         }
-        /* 主题9: 暖萌小黄人 - 灵感来自萌物形象 */
+        /* 主题9: 暖黄微光 - 灵感来自萌物形象 */
         body.theme-sunshine, .theme-sunshine {
             --lake-deep: #FFF8E1;
             --lake-mid: #FFF59D;
@@ -628,20 +628,20 @@
             --primary-light: #FFE082;
             --body-bg: #FFFDE7;
             --body-bg-image: linear-gradient(135deg, #FFFDE7 0%, #FFF8E1 30%, #FFF3C4 60%, #FFE082 100%);
-            --resume-header-bg: linear-gradient(135deg, #FFCA28 0%, #FFB300 100%);
-            --resume-header-text: #5D4037;
-            --resume-title-color: #F57F17;
-            --resume-bullet-color: #FFB300;
-            --resume-exp-title: #E65100;
+            --resume-header-bg: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            --resume-header-text: #FFF8E1;
+            --resume-title-color: #5D4037;
+            --resume-bullet-color: #8B4513;
+            --resume-exp-title: #6D4C41;
             --resume-exp-time: #8D6E63;
-            --resume-pipe-color: #FFCC80;
+            --resume-pipe-color: #BCAAA4;
             --resume-li-color: #6D4C41;
             --resume-body-text: #4E342E;
             --resume-label-text: #5D4037;
             --resume-value-text: #4E342E;
-            --resume-border: #FFE082;
-            --resume-photo-bg: #FFF8E1;
-            --resume-photo-icon: #FFB300;
+            --resume-border: #D7CCC8;
+            --resume-photo-bg: #EFEBE9;
+            --resume-photo-icon: #8B4513;
             --navbar-bg: rgba(255, 253, 231, 0.95);
             --navbar-border: #FFE082;
             --btn-bg: linear-gradient(135deg, #FFCA28, #FFB300);
@@ -3339,6 +3339,10 @@
             background: rgba(255, 255, 255, 0.97);
             border: 1px solid #cecac8;
         }
+        body.theme-parchment .theme-menu .theme-name { color: #2b3a5e; }
+        body.theme-parchment .theme-menu .theme-desc { color: #6b7280; }
+        body.theme-parchment .theme-menu .theme-check { color: #2b59d1; }
+        body.theme-parchment .theme-menu .theme-preview { border-color: #cecac8; }
         body.theme-parchment .theme-menu .theme-option:hover {
             background: rgba(43, 89, 209, 0.06);
         }
@@ -3424,11 +3428,15 @@
             background: rgba(255, 255, 255, 0.98);
             border: 1px solid #e0e0e0;
         }
+        body.theme-gallery .theme-menu .theme-name { color: #101010; }
+        body.theme-gallery .theme-menu .theme-desc { color: #666666; }
+        body.theme-gallery .theme-menu .theme-check { color: #101010; }
+        body.theme-gallery .theme-menu .theme-preview { border-color: #e0e0e0; }
         body.theme-gallery .theme-menu .theme-option:hover {
             background: #f5f5f5;
         }
 
-        /* ============ 暖萌小黄人主题专属样式 ============ */
+        /* ============ 暖黄微光主题专属样式 ============ */
         body.theme-sunshine .export-btn,
         body.theme-sunshine .growth-btn-nav {
             background: var(--btn-bg);
@@ -3452,12 +3460,12 @@
             border-color: #FFB300;
         }
         body.theme-sunshine .section-header {
-            background: linear-gradient(135deg, #FFCA28, #FFB300);
-            color: #5D4037;
-            border-bottom: 2px solid #FFE082;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: #FFF8E1;
+            border-bottom: 2px solid #D7CCC8;
         }
         body.theme-sunshine .section-header::before {
-            background: #FFB300;
+            background: #A0522D;
             opacity: 1;
         }
         body.theme-sunshine .resume-title {
@@ -3478,8 +3486,8 @@
             backdrop-filter: blur(12px);
         }
         body.theme-sunshine .section-title {
-            border-bottom: 2px solid #FFE082;
-            color: #E65100;
+            border-bottom: 2px solid #D7CCC8;
+            color: #5D4037;
         }
         body.theme-sunshine .form-group input,
         body.theme-sunshine .form-group textarea,
@@ -3519,14 +3527,18 @@
             border: 1px solid #FFE082;
             backdrop-filter: blur(16px);
         }
+        body.theme-sunshine .theme-menu .theme-name { color: #5D4037; }
+        body.theme-sunshine .theme-menu .theme-desc { color: #8D6E63; }
+        body.theme-sunshine .theme-menu .theme-check { color: #F57F17; }
+        body.theme-sunshine .theme-menu .theme-preview { border-color: #FFE082; }
         body.theme-sunshine .theme-menu .theme-option:hover {
             background: rgba(255, 202, 40, 0.1);
         }
         body.theme-sunshine .preview-section-title::before {
-            background: #FFB300;
+            background: #8B4513;
         }
         body.theme-sunshine .preview-section-content li::before {
-            color: #FFB300;
+            color: #8B4513;
         }
         body.theme-sunshine .resume-header {
             background: var(--resume-header-bg);
@@ -3719,7 +3731,7 @@
                     <div class="theme-option" data-theme="sunshine" onclick="switchTheme('sunshine')">
                         <div class="theme-preview" style="background:linear-gradient(135deg,#FFFDE7,#FFCA28)"></div>
                         <div class="theme-info">
-                            <div class="theme-name">暖萌小黄人</div>
+                            <div class="theme-name">暖黄微光</div>
                             <div class="theme-desc">阳光治愈系</div>
                         </div>
                         <span class="theme-check">&#10003;</span>
