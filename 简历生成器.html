@@ -6,6 +6,7 @@
     <title>简历生成器</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="job_language_lib.js" onerror="window.__jobLibFailed=true"></script>
+    <script src="resume_templates.js"></script>
     <script type="importmap">
     {
         "imports": {
@@ -1624,7 +1625,7 @@
         /* PDF导出时的打印样式 */
         @media print {
             body { background: var(--resume-bg, white); }
-            .navbar, .form-panel, .preview-label, .optimizer-panel, .optimizer-toggle, .theme-selector { display: none; }
+            .navbar, .form-panel, .preview-label, .optimizer-panel, .optimizer-toggle, .theme-selector, .tpl-select-btn, .tpl-modal-overlay, .tpl-preview-overlay { display: none; }
             .resume-page {
                 box-shadow: none;
                 width: 100%;
@@ -3564,6 +3565,512 @@
             border-color: #FFCA28;
             box-shadow: 0 8px 30px rgba(255, 179, 0, 0.2);
         }
+
+        /* ============ 简历模板库样式 ============ */
+        /* 导航栏模板库按钮 */
+        .tpl-library-btn {
+            background: var(--btn-secondary-bg);
+            color: var(--btn-secondary-color, var(--text-main));
+            border: 1px solid var(--btn-secondary-border);
+            padding: 0.65rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
+        }
+        .tpl-library-btn:hover {
+            background: var(--btn-hover-bg);
+            border-color: var(--btn-hover-border);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08), 0 0 18px rgba(255,255,255,0.1);
+        }
+        .tpl-library-btn svg { width: 16px; height: 16px; }
+
+        /* 表单区模板选择按钮 */
+        .tpl-select-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.7rem 1rem;
+            margin-top: 1rem;
+            background: var(--btn-bg);
+            color: var(--btn-color);
+            border: 1px solid var(--btn-border);
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        .tpl-select-btn:hover {
+            background: var(--btn-hover-bg);
+            border-color: var(--btn-hover-border);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .tpl-select-btn svg { width: 18px; height: 18px; }
+        .tpl-select-btn .tpl-btn-label { font-weight: 500; }
+        .tpl-select-btn .tpl-btn-name {
+            opacity: 0.7; font-size: 0.8rem;
+            border-left: 1px solid currentColor;
+            padding-left: 0.5rem; margin-left: 0.3rem;
+        }
+
+        /* 模板选择弹窗（表单区） */
+        .tpl-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--modal-overlay, rgba(0,0,0,0.4));
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+        }
+        .tpl-modal-overlay.show { display: flex; }
+        .tpl-modal {
+            background: var(--modal-bg, rgba(255,255,255,0.98));
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            max-width: 720px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            animation: tplModalIn 0.3s ease;
+        }
+        @keyframes tplModalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .tpl-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--panel-border);
+        }
+        .tpl-modal-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tpl-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+        .tpl-modal-close:hover {
+            background: rgba(0,0,0,0.08);
+            color: var(--text-main);
+        }
+        .tpl-modal-hint {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        /* 模板网格 */
+        .tpl-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .tpl-option {
+            position: relative;
+            border: 2px solid var(--panel-border);
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--panel-bg);
+        }
+        .tpl-option:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .tpl-option.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.15);
+        }
+        .tpl-preview {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+        }
+        .tpl-preview-mock {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .mock-line {
+            height: 5px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 2px;
+        }
+        .mock-line.mock-title { width: 50%; height: 8px; margin-bottom: 4px; }
+        .mock-line.mock-text { width: 100%; }
+        .mock-line.mock-text.short { width: 70%; }
+        .tpl-info {
+            padding: 0.6rem 0.8rem;
+        }
+        .tpl-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 0.15rem;
+        }
+        .tpl-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.15rem;
+        }
+        .tpl-source {
+            font-size: 0.68rem;
+            color: var(--text-light);
+        }
+        .tpl-check {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .tpl-option.active .tpl-check { display: flex; }
+
+        /* 导航栏模板库弹窗 */
+        .tpl-library-modal {
+            background: var(--modal-bg, rgba(255,255,255,0.98));
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            animation: tplModalIn 0.3s ease;
+        }
+        .lib-tpl-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.2rem;
+        }
+        .lib-tpl-card {
+            border: 2px solid var(--panel-border);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--panel-bg);
+        }
+        .lib-tpl-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        .lib-tpl-card.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.15);
+        }
+        .lib-tpl-preview {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem;
+        }
+        .lib-tpl-body {
+            padding: 0.8rem 1rem;
+        }
+        .lib-tpl-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 0.2rem;
+        }
+        .lib-tpl-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+        .lib-tpl-source {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+        .lib-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--panel-border);
+        }
+        .lib-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+        .lib-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .lib-footer {
+            margin-top: 1.2rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--panel-border);
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        .lib-footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* 深色主题下模板库按钮和选择按钮的适配 */
+        body.theme-tech .tpl-library-btn,
+        body.theme-glass .tpl-library-btn,
+        body.theme-gallery .tpl-library-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.85);
+        }
+        body.theme-tech .tpl-library-btn:hover,
+        body.theme-glass .tpl-library-btn:hover,
+        body.theme-gallery .tpl-library-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        body.theme-tech .tpl-select-btn,
+        body.theme-glass .tpl-select-btn,
+        body.theme-gallery .tpl-select-btn {
+            background: var(--btn-bg);
+            color: var(--btn-color);
+        }
+        /* 暗色主题弹窗文字适配 */
+        body.theme-tech .tpl-modal,
+        body.theme-tech .tpl-library-modal,
+        body.theme-glass .tpl-modal,
+        body.theme-glass .tpl-library-modal,
+        body.theme-gallery .tpl-modal,
+        body.theme-gallery .tpl-library-modal {
+            color: #f1f5f9;
+        }
+        body.theme-tech .tpl-option,
+        body.theme-glass .tpl-option,
+        body.theme-gallery .tpl-option,
+        body.theme-tech .lib-tpl-card,
+        body.theme-glass .lib-tpl-card,
+        body.theme-gallery .lib-tpl-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ============ 模板预览弹窗 ============ */
+        .tpl-preview-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .tpl-preview-overlay.show { display: flex; }
+        .tpl-preview-dialog {
+            background: #fff;
+            border-radius: 20px;
+            max-width: 820px;
+            width: 92%;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            animation: tplModalIn 0.3s ease;
+        }
+        .tpl-preview-dialog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        .tpl-preview-dialog-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .tpl-preview-dialog-source {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 0.15rem;
+        }
+        .tpl-preview-dialog-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .tpl-preview-container {
+            width: 210mm;
+            min-height: 297mm;
+            background: var(--resume-bg, #fff);
+            color: var(--resume-text, #333);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
+            transform: scale(0.65);
+            transform-origin: top center;
+            margin-bottom: -100px;
+        }
+        /* 预览容器内复用简历默认样式 */
+        .tpl-preview-container .resume-content { padding: 18mm 16mm; }
+        .tpl-preview-container .resume-title {
+            text-align: center; font-family: 'Quicksand', 'Noto Sans SC', "SimSun", serif;
+            font-size: 1.7rem; font-weight: 500; color: var(--resume-title-color, #3dbdb3);
+            margin-bottom: 1.2rem; letter-spacing: 6px;
+        }
+        .tpl-preview-container .basic-info-wrapper { position: relative; margin-bottom: 1.2rem; }
+        .tpl-preview-container .basic-info-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 1.5rem;
+            padding-right: 105px; font-size: 0.85rem; color: var(--resume-body-text, #444);
+        }
+        .tpl-preview-container .info-item { display: flex; align-items: baseline; }
+        .tpl-preview-container .info-label { color: var(--resume-label-text, #555); font-weight: 500; white-space: nowrap; min-width: 48px; }
+        .tpl-preview-container .info-value { color: var(--resume-value-text, #444); margin-left: 0.25rem; }
+        .tpl-preview-container .resume-photo-box {
+            position: absolute; top: 0; right: 0; width: 90px; height: 120px;
+            border: 1px solid var(--resume-border, #ddd); overflow: hidden; background: var(--resume-photo-bg, #f5f5f5);
+        }
+        .tpl-preview-container .resume-section { margin-bottom: 0.9rem; }
+        .tpl-preview-container .section-header {
+            background: var(--resume-header-bg, linear-gradient(135deg, #3dbdb3, #5ecdc2));
+            color: var(--resume-header-text, #fff); font-size: 0.88rem; font-weight: 500;
+            padding: 0.3rem 0.8rem; margin-bottom: 0.55rem; display: flex; align-items: center;
+            gap: 0.4rem; letter-spacing: 1px;
+        }
+        .tpl-preview-container .section-header::before {
+            content: ''; display: inline-block; width: 3px; height: 0.95rem;
+            background: #fff; opacity: 0.6;
+        }
+        .tpl-preview-container .section-body { padding: 0 0.2rem; font-size: 0.82rem; color: var(--resume-body-text, #444); line-height: 1.65; }
+        .tpl-preview-container .exp-item { margin-bottom: 0.55rem; }
+        .tpl-preview-container .exp-title { font-weight: 700; color: var(--resume-exp-title, #333); }
+        .tpl-preview-container .exp-pipe { color: var(--resume-pipe-color, #aaa); margin: 0 0.25rem; }
+        .tpl-preview-container .exp-role { color: var(--resume-exp-title, #555); font-weight: 500; }
+        .tpl-preview-container .exp-time { color: var(--resume-exp-time, #888); font-size: 0.78rem; }
+
+        .tpl-preview-dialog-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        .tpl-preview-nav-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .tpl-preview-nav-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            color: #555;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .tpl-preview-nav-btn:hover {
+            background: #f0f0f0;
+            border-color: #ccc;
+        }
+        .tpl-preview-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .tpl-preview-action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .tpl-preview-apply-btn {
+            padding: 0.55rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4ecdc4, #3dbdb3);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+        .tpl-preview-apply-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+        }
+        .tpl-preview-cancel-btn {
+            padding: 0.55rem 1.2rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fff;
+            color: #666;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tpl-preview-cancel-btn:hover {
+            background: #f5f5f5;
+        }
     </style>
 </head>
 <body>
@@ -3633,6 +4140,13 @@
                     <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
                 </svg>
                 成长的痕迹
+            </button>
+            <button class="tpl-library-btn" onclick="openTemplateLibrary()" title="浏览简历模板库">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                模板库
             </button>
             <button class="nav-secondary-btn" onclick="saveResume()" title="保存当前简历数据">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -3853,6 +4367,18 @@
                 <input type="text" id="hobbies" placeholder="如：钢琴（八级）, 篮球, 摄影, 旅行" value="钢琴（八级）, 篮球, 摄影, 旅行">
             </div>
             </div>
+
+            <!-- 模板选择按钮 -->
+            <button class="tpl-select-btn" onclick="openTemplateModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                </svg>
+                <span class="tpl-btn-label">选择模板</span>
+                <span class="tpl-btn-name" id="tpl-btn-text">经典默认</span>
+            </button>
         </div>
 
         <!-- ============ 右侧预览 ============ -->
@@ -8064,6 +8590,89 @@ async function exportGrowthHTML() {
         // 启动
         init();
     </script>
+
+<!-- ============ 模板选择弹窗（表单区） ============ -->
+<div class="tpl-modal-overlay" id="template-modal">
+    <div class="tpl-modal">
+        <div class="tpl-modal-header">
+            <div class="tpl-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
+                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                </svg>
+                选择简历模板
+            </div>
+            <button class="tpl-modal-close" onclick="closeTemplateModal()">&times;</button>
+        </div>
+        <div class="tpl-modal-hint">
+            模板仅改变简历的排版布局和风格，不影响已填写的内容。可随时切换，与主题配色自由组合。
+        </div>
+        <div class="tpl-grid" id="template-grid"></div>
+    </div>
+</div>
+
+<!-- ============ 模板库弹窗（导航栏） ============ -->
+<div class="tpl-modal-overlay" id="template-library-modal">
+    <div class="tpl-library-modal">
+        <div class="lib-header">
+            <div>
+                <div class="lib-title">简历模板库</div>
+            </div>
+            <button class="tpl-modal-close" onclick="closeTemplateLibrary()">&times;</button>
+        </div>
+        <div class="lib-subtitle">
+            整合自 GitHub 开源项目 <a href="https://github.com/dyweb/awesome-resume-for-chinese" target="_blank" style="color:var(--accent);text-decoration:none;">awesome-resume-for-chinese</a>，涵盖 LaTeX 学术风、双栏现代风、极简 Markdown 风、卡片风等多种排版样式。点击任意模板查看预览效果。
+        </div>
+        <div class="lib-tpl-grid" id="template-library-content"></div>
+        <div class="lib-footer">
+            模板来源: <a href="https://github.com/dyweb/awesome-resume-for-chinese" target="_blank">dyweb/awesome-resume-for-chinese</a> · <a href="https://github.com/posquit0/Awesome-CV" target="_blank">posquit0/Awesome-CV</a> · MIT License
+        </div>
+    </div>
+</div>
+
+<!-- ============ 模板预览弹窗 ============ -->
+<div class="tpl-preview-overlay" id="template-preview-modal">
+    <div class="tpl-preview-dialog">
+        <div class="tpl-preview-dialog-header">
+            <div>
+                <div class="tpl-preview-dialog-title" id="tpl-preview-title">模板预览</div>
+                <div class="tpl-preview-dialog-source" id="tpl-preview-source"></div>
+            </div>
+            <button class="tpl-modal-close" onclick="closeTemplatePreview()">&times;</button>
+        </div>
+        <div class="tpl-preview-dialog-body">
+            <div class="tpl-preview-container" id="tpl-preview-content"></div>
+        </div>
+        <div class="tpl-preview-dialog-footer">
+            <div class="tpl-preview-nav-btns">
+                <button class="tpl-preview-nav-btn" id="tpl-preview-prev" onclick="navigateTemplatePreview(-1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><polyline points="15 18 9 12 15 6"/></svg>
+                    上一个
+                </button>
+                <button class="tpl-preview-nav-btn" id="tpl-preview-next" onclick="navigateTemplatePreview(1)">
+                    下一个
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+            <div class="tpl-preview-action-btns">
+                <button class="tpl-preview-cancel-btn" onclick="closeTemplatePreview()">取消</button>
+                <button class="tpl-preview-apply-btn" id="tpl-preview-apply">应用此模板</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 页面加载完成后初始化模板
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof loadSavedTemplate === 'function') {
+        loadSavedTemplate();
+    }
+});
+</script>
+
 <!-- 自建访问统计 -->
 <script>
 !function(){var e=encodeURIComponent,t=document.title,p=location.pathname,r=document.referrer,n=new Image;n.src="https://resume-analytics.zanna-zhu.workers.dev/track?p="+e(p)+"&r="+e(r)+"&t="+e(t);}();
