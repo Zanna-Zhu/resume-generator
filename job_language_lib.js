@@ -1,14 +1,14 @@
 window.JOB_LANG_LIB = {
-    updatedAt: '2026-08-15',
-    version: '3.4.0',
+    updatedAt: '2026-08-16',
+    version: '3.5.0',
     companies: {
         '字节跳动': {
-            keywords: ['数据驱动', 'AB测试', 'ROI', 'DAU', '留存率', '增长闭环', '个性化推荐', '敏捷迭代', '快速试错', '用户增长', '内容分发', '算法引擎', '数据洞察', 'OKR', '字节范', '始终创业', '从0到1', '多元兼容', '勇攀高峰', '豆包', 'Dola助手', '抖音电商', '火山引擎', '剪映', '人才密度', '扩招', 'AI应用工程师', '全栈融合', 'AI原生应用', '5000+Offer', '2027届', 'Seedance', 'Seedream', 'ByteIntern', '7000+转正Offer', '研发岗增长23%', 'Forward Deployed Engineer', '前置部署工程师', 'A2A协议', 'Agent Skills', '飞书', 'AI Coding', 'AI编程工具', 'AI落地能力', 'Agent平台工程师', 'AI for Science', 'Multi-Agent Harness', '番茄小说AI', 'Seed大模型', 'ECS架构师', 'AI工程化落地', '机器人算法', '智能驾驶', '大模型API应用', '工程部署', '性能优化', '抖音搜索', '搜索策略', '大模型能力协同', 'Transformer架构', 'NLP/CV方向', '模型训练经验'],
+            keywords: ['数据驱动', 'AB测试', 'ROI', 'DAU', '留存率', '增长闭环', '个性化推荐', '敏捷迭代', '快速试错', '用户增长', '内容分发', '算法引擎', '数据洞察', 'OKR', '字节范', '始终创业', '从0到1', '多元兼容', '勇攀高峰', '豆包', 'Dola助手', '抖音电商', '火山引擎', '剪映', '人才密度', '扩招', 'AI应用工程师', '全栈融合', 'AI原生应用', '5000+Offer', '2027届', 'Seedance', 'Seedream', 'ByteIntern', '7000+转正Offer', '研发岗增长23%', 'Forward Deployed Engineer', '前置部署工程师', 'A2A协议', 'Agent Skills', '飞书', 'AI Coding', 'AI编程工具', 'AI落地能力', 'Agent平台工程师', 'AI for Science', 'Multi-Agent Harness', '番茄小说AI', 'Seed大模型', 'ECS架构师', 'AI工程化落地', '机器人算法', '智能驾驶', '大模型API应用', '工程部署', '性能优化', '抖音搜索', '搜索策略', '大模型能力协同', 'Transformer架构', 'NLP/CV方向', '模型训练经验', '飞书AI后端开发', '大模型应用开发工程师', 'AI Platform', 'Global Ads Core', '广告产品经理', '多智能体解决方案'],
             style: '数据驱动·敏捷迭代',
             phrases: ['基于数据洞察驱动增长', '通过AB实验验证假设', '以数据为依据进行产品决策', '构建增长闭环实现用户规模突破', '快速迭代验证产品方向', '勇攀高峰提升人才密度', '以豆包/Dola助手构建AI应用高峰', '推动AI原生应用从0到1落地', '以全栈融合思维构建端到端产品交付', '基于A2A协议构建多Agent协作体系', '通过Agent Skills模块化封装专业能力', '基于大模型API构建AI应用快速落地', '以工程部署能力保障AI服务稳定高效', '结合大模型能力协同算法提升搜索体验', '基于Transformer架构深度理解优化推荐算法']
         },
         '腾讯': {
-            keywords: ['用户体验', '产品思维', '海量服务', '用户价值', '社交生态', '连接一切', '开放生态', '极致体验', '技术驱动', '用户至上', '瑞雪文化', '正直进取', '协作创造', '扩招', '实习生计划', '混元大模型', '视频号', '10000+实习', '2027届', 'AI应用工程师', 'AI原生应用', '混元3D', 'AI+', '技术公益', '数字生态', 'AI Coding', 'AI落地能力', 'AI渗透率56%', '技术岗AI渗透率75%', '设计岗AI渗透率63%', '多模态大模型算法专家', 'AI策略产品经理', 'AI工程化落地', '平台', '生态', '社交基因', 'LORA', 'QLORA', 'SFT', 'DPO', 'RLHF', '模型轻量化', '数据预处理', '数据标注', 'WeLM', '微信大语言模型', '青云计划', '弹性薪酬上不封顶', 'Agent框架', '模型推理加速', 'Post-Training'],
+            keywords: ['用户体验', '产品思维', '海量服务', '用户价值', '社交生态', '连接一切', '开放生态', '极致体验', '技术驱动', '用户至上', '瑞雪文化', '正直进取', '协作创造', '扩招', '实习生计划', '混元大模型', '视频号', '10000+实习', '2027届', 'AI应用工程师', 'AI原生应用', '混元3D', 'AI+', '技术公益', '数字生态', 'AI Coding', 'AI落地能力', 'AI渗透率56%', '技术岗AI渗透率75%', '设计岗AI渗透率63%', '多模态大模型算法专家', 'AI策略产品经理', 'AI工程化落地', '平台', '生态', '社交基因', 'LORA', 'QLORA', 'SFT', 'DPO', 'RLHF', '模型轻量化', '数据预处理', '数据标注', 'WeLM', '微信大语言模型', '青云计划', '弹性薪酬上不封顶', 'Agent框架', '模型推理加速', 'Post-Training', '8000+招聘需求', '高性能计算', 'AI算法研究岗位', '2027青云计划'],
             style: '用户体验·产品思维',
             phrases: ['以用户价值为依归', '打造极致用户体验', '连接人与服务的数字生态', '基于海量用户场景优化产品体验', '以产品思维驱动技术方案设计', '基于混元大模型构建智能应用', '以AI应用工程师思维推动全链路智能升级', '以AI+战略赋能多元业务场景', '构建技术公益驱动的数字生态', '基于SFT/DPO/RLHF实现模型价值对齐', '以数据预处理与标注能力构建高质量训练数据', '基于WeLM参与微信大规模语言模型建设', '跟进主流Agent框架并结合业务落地', '参与模型推理加速与强化学习性能优化']
         },
@@ -95,19 +95,19 @@ window.JOB_LANG_LIB = {
     },
     positions: {
         '前端': {
-            hotSkills: ['React 19', 'Vue 3.5', 'TypeScript', 'Next.js 15', '微前端', 'SSR/SSG', 'Vite', 'WebAssembly', 'React Native', 'Flutter', 'Tailwind CSS', 'Node.js', 'WebGL/Three.js', '低代码平台', 'AI应用开发', '端侧AI', 'Cursor', 'Claude Code', 'AI辅助开发', '全栈融合', 'Agent UI', 'shadcn/ui', 'Bun', 'WebGPU', 'AI组件开发', '流式渲染', '多模态交互', 'AI应用工程师', '设计稿转代码', 'Forward Deployed Engineer', 'Radix UI', 'Zustand', 'TanStack Query', 'Million.js', 'Signals', 'Astro', 'Remix', 'Qwik', 'AI代码生成', 'Vercel AI SDK', 'Streaming UI', 'Edge Computing', 'GitHub Copilot', 'Milvus', 'Promise手写实现', 'async/await底层原理', '大模型上下文管理', '对话历史存储', 'AI Coding', '跨端开发框架', '鸿蒙前端开发', 'HarmonyOS前端', '小程序云开发', 'AI工程化落地', '上下文工程', '多模态交互UI', '语音交互界面', '大模型API集成', 'AI可视化应用', 'Rspack', 'Turbopack', 'Melon.js', 'Nuxt 3'],
-            jdKeywords: ['组件化', '前端工程化', '性能优化', '跨端开发', '响应式设计', '用户体验', '可访问性', '状态管理', '构建工具', '端侧AI', '流式交互', '大模型API对接', 'AI辅助编程', '全栈能力', '全链路开发', '模型接口对接', 'AI原生应用', '设计系统', 'Web性能', 'Core Web Vitals', '微交互', 'AI组件库', '设计稿转代码', 'Edge渲染', 'AI Coding', 'AI编程工具', '前端底层原理', '异步编程', '边界场景处理', '鸿蒙生态', '小程序开发', 'AI工程化落地', '上下文工程', '多模态交互', '语音交互', 'AI API集成', 'AI可视化', '页面加载速度', 'TS实战能力', '企业级项目'],
+            hotSkills: ['React 19', 'Vue 3.5', 'TypeScript', 'Next.js 15', '微前端', 'SSR/SSG', 'Vite', 'WebAssembly', 'React Native', 'Flutter', 'Tailwind CSS', 'Node.js', 'WebGL/Three.js', '低代码平台', 'AI应用开发', '端侧AI', 'Cursor', 'Claude Code', 'AI辅助开发', '全栈融合', 'Agent UI', 'shadcn/ui', 'Bun', 'WebGPU', 'AI组件开发', '流式渲染', '多模态交互', 'AI应用工程师', '设计稿转代码', 'Forward Deployed Engineer', 'Radix UI', 'Zustand', 'TanStack Query', 'Million.js', 'Signals', 'Astro', 'Remix', 'Qwik', 'AI代码生成', 'Vercel AI SDK', 'Streaming UI', 'Edge Computing', 'GitHub Copilot', 'Milvus', 'Promise手写实现', 'async/await底层原理', '大模型上下文管理', '对话历史存储', 'AI Coding', '跨端开发框架', '鸿蒙前端开发', 'HarmonyOS前端', '小程序云开发', 'AI工程化落地', '上下文工程', '多模态交互UI', '语音交互界面', '大模型API集成', 'AI可视化应用', 'Rspack', 'Turbopack', 'Melon.js', 'Nuxt 3', '性能预算(Performance Budgeting)', '可访问性工程(a11y)', '跨设备兼容性'],
+            jdKeywords: ['组件化', '前端工程化', '性能优化', '跨端开发', '响应式设计', '用户体验', '可访问性', '状态管理', '构建工具', '端侧AI', '流式交互', '大模型API对接', 'AI辅助编程', '全栈能力', '全链路开发', '模型接口对接', 'AI原生应用', '设计系统', 'Web性能', 'Core Web Vitals', '微交互', 'AI组件库', '设计稿转代码', 'Edge渲染', 'AI Coding', 'AI编程工具', '前端底层原理', '异步编程', '边界场景处理', '鸿蒙生态', '小程序开发', 'AI工程化落地', '上下文工程', '多模态交互', '语音交互', 'AI API集成', 'AI可视化', '页面加载速度', 'TS实战能力', '企业级项目', '性能预算', '可访问性', '跨设备问题解决'],
             phrases: ['基于React 19搭建企业级组件库', '优化首屏加载性能提升XX%', '构建微前端架构支持多团队协作', '使用SSR技术将FCP降低XX%', '搭建AI驱动的智能前端交互体系', '基于Cursor/Claude Code实现AI辅助开发提效', '构建Agent UI框架支撑智能体应用', '基于WebGPU实现端侧AI推理延迟低于XXms', '开发AI组件支持多模型切换与参数化配置', '实现大模型流式输出前端渲染与增量更新', '基于shadcn/ui构建现代化设计系统', '利用Vercel AI SDK实现流式对话UI', '基于Edge Computing优化全球访问性能', '实现Core Web Vitals全绿指标', '基于跨端开发框架实现一次开发多端部署', '构建鸿蒙前端应用接入HarmonyOS生态', '搭建多模态交互UI支持语音/文本/图像输入', '集成大模型API实现AI驱动的智能前端交互', '基于Vue3重构页面将用户操作时长缩短XX%', '使用TypeScript重构项目将类型覆盖率提升至XX%']
         },
         '后端': {
-            hotSkills: ['Go', 'Rust', 'Java', 'Python', 'Spring Cloud Alibaba', 'Spring Boot', 'Kubernetes', 'Docker', '微服务', 'Service Mesh', 'gRPC', 'Kafka', 'Redis', 'MySQL', 'PostgreSQL', 'Elasticsearch', '大模型推理', 'AI Agent', 'LangChain', 'LangGraph', 'FastGPT', 'Dify', 'MCP', 'Serverless', 'eBPF', '向量数据库', 'AI推理服务', 'AI网关', '多模型编排', 'LoRA/QLoRA微调', '模型量化', 'TensorRT', 'DeepSpeed', 'Text Generation Inference(TGI)', 'AI成本优化', 'MCP Server', 'A2A协议', 'Agent Skills', 'CrewAI', 'AutoGen', 'RAG Pipeline', 'Function Calling', '模型上下文协议', 'Milvus', 'AI Coding', '推理优化', 'Seata', 'RocketMQ', 'Gin', 'Echo', 'Django', 'FastAPI', 'AgentScope', '上下文工程', 'Harness', '意图识别', '多步规划', '安全校验', '熔断限流降级', 'AI工程化落地', 'Embedding检索', '分布式事务', 'TPS优化', '接口响应时间优化', 'vLLM', 'Ollama', 'Post-Training', 'RabbitMQ', 'JVM调优', '多线程并发', '集合框架', 'IO模型'],
-            jdKeywords: ['高并发', '分布式', '中间件', '容灾', '高可用', '性能调优', '数据一致性', '消息队列', '缓存设计', '服务治理', '云原生', '可观测性', 'AI服务化', '向量检索', '模型部署', '多模型调度', 'GPU资源调度', 'AI网关', 'MCP Server开发', 'Agent编排', 'A2A通信', '模型推理加速', 'AI成本治理', 'AI Coding', 'AI落地能力', '推理优化', 'Spring Cloud Alibaba', 'Spring Boot', '分布式事务', '熔断限流降级', 'AI工程化落地', '上下文工程', '意图识别', '多步规划', '安全校验', 'Harness', '运行监控', '数据库索引优化', 'QPS/TPS提升', '独立负责系统设计', '复杂业务场景'],
+            hotSkills: ['Go', 'Rust', 'Java', 'Python', 'Spring Cloud Alibaba', 'Spring Boot', 'Kubernetes', 'Docker', '微服务', 'Service Mesh', 'gRPC', 'Kafka', 'Redis', 'MySQL', 'PostgreSQL', 'Elasticsearch', '大模型推理', 'AI Agent', 'LangChain', 'LangGraph', 'FastGPT', 'Dify', 'MCP', 'Serverless', 'eBPF', '向量数据库', 'AI推理服务', 'AI网关', '多模型编排', 'LoRA/QLoRA微调', '模型量化', 'TensorRT', 'DeepSpeed', 'Text Generation Inference(TGI)', 'AI成本优化', 'MCP Server', 'A2A协议', 'Agent Skills', 'CrewAI', 'AutoGen', 'RAG Pipeline', 'Function Calling', '模型上下文协议', 'Milvus', 'AI Coding', '推理优化', 'Seata', 'RocketMQ', 'Gin', 'Echo', 'Django', 'FastAPI', 'AgentScope', '上下文工程', 'Harness', '意图识别', '多步规划', '安全校验', '熔断限流降级', 'AI工程化落地', 'Embedding检索', '分布式事务', 'TPS优化', '接口响应时间优化', 'vLLM', 'Ollama', 'Post-Training', 'RabbitMQ', 'JVM调优', '多线程并发', '集合框架', 'IO模型', '多智能体解决方案', 'Agent Infra'],
+            jdKeywords: ['高并发', '分布式', '中间件', '容灾', '高可用', '性能调优', '数据一致性', '消息队列', '缓存设计', '服务治理', '云原生', '可观测性', 'AI服务化', '向量检索', '模型部署', '多模型调度', 'GPU资源调度', 'AI网关', 'MCP Server开发', 'Agent编排', 'A2A通信', '模型推理加速', 'AI成本治理', 'AI Coding', 'AI落地能力', '推理优化', 'Spring Cloud Alibaba', 'Spring Boot', '分布式事务', '熔断限流降级', 'AI工程化落地', '上下文工程', '意图识别', '多步规划', '安全校验', 'Harness', '运行监控', '数据库索引优化', 'QPS/TPS提升', '独立负责系统设计', '复杂业务场景', 'Agent Infra', 'Agent ROI', '业务评测'],
             phrases: ['设计高可用微服务架构', '支撑日均亿级请求', '重构核心链路降低XX%延迟', '构建弹性扩缩容体系应对峰值流量', '搭建大模型推理平台支撑AI业务落地', '基于LangChain/LangGraph构建Agent服务', '搭建MCP Server实现模型上下文协议对接', '搭建AI模型网关支持多模型路由与流量控制', '通过模型量化降低XX%推理成本', '构建多模型编排系统实现故障降级与结果融合', '基于A2A协议实现Agent间标准化通信', '搭建Agent Skills模块化能力平台', '构建RAG Pipeline支撑知识检索场景', '通过Function Calling实现工具调用标准化', '构建AI成本治理体系降低XX%推理成本', '基于Spring Cloud Alibaba构建微服务治理体系', '通过Seata解决分布式事务数据一致性问题', '构建Agent意图识别与多步规划引擎', '实现熔断限流降级保障AI服务稳定性', '搭建Harness CI/CD流水线加速Agent迭代', '基于AgentScope构建多Agent协作框架', '优化数据库索引将接口响应时间降低XX%', '基于Post-Training技术持续提升模型效率与效果']
         },
         '算法': {
-            hotSkills: ['PyTorch', 'TensorFlow', '大语言模型(LLM)', 'Transformer', 'NLP', '计算机视觉(CV)', '推荐系统', '强化学习', 'RAG', 'Agent', '模型压缩', '分布式训练', 'Prompt Engineering', '多模态', 'MCP', '模型上下文协议', '多Agent协作', '模型微调(LoRA)', '量化部署', 'vLLM', 'Ollama', '知识图谱构建', 'DeepSpeed', 'RLHF', 'LLaVA', 'CLIP', 'ViT', 'YOLO', 'U-Net', 'OpenCV', 'QLoRA', 'TensorRT', 'TensorRT-LLM', '图像分割', '目标检测', 'A2A协议', 'Agent Skills', 'CrewAI', 'AutoGen', 'Dify', 'Coze', '多Agent编排', 'RAG检索增强', '向量检索', '重排序模型', '多模态大模型', '端侧模型部署', '模型蒸馏', 'RLAIF', 'DPO', '对齐技术', 'Milvus', '推理优化', '模型框架', 'AI认证', 'AI落地能力', 'AgentScope', '上下文工程', 'Embedding检索', '机器人算法', '智能驾驶算法', '车联网算法', '多模态大模型算法', 'AI工程化落地', '数据清洗标注', 'SFT', 'Kaggle', 'Post-Training', 'Agent SDK', 'Focal Loss', 'BERT/RoBERTa/LLaMA', '长文本分段采样'],
-            jdKeywords: ['模型训练', '算法优化', '特征工程', 'A/B测试', '业务落地', '论文复现', '模型部署', '效果评估', '数据驱动', '场景抽象', '大模型微调', '模型推理加速', 'Agent设计', 'RAG检索增强', '价值对齐', '多模态开发', '视觉大模型', '推理框架', '多Agent协作', 'A2A通信', 'Skills封装', '模型蒸馏', '端侧部署', '对齐技术', 'RAG系统优化', 'AI落地能力', '推理优化', 'AI认证', '模型框架', '上下文工程', '意图识别', '多步规划', '安全校验', 'AI工程化落地', '机器人算法', '智能驾驶', '车联网', '多模态大模型算法', '数据清洗标注', '顶会论文', '算法建模', 'Post-Training经验', 'Transformer与LLM原理深度理解', 'Agent实战项目经验', 'AI辅助研发能力'],
-            phrases: ['基于大模型构建RAG知识问答系统', '优化推荐算法提升点击率XX%', '设计端到端训练pipeline加速模型迭代', '通过特征工程提升模型AUC XX个千分点', '构建Multi-Agent框架解决复杂业务问题', '基于MCP协议实现模型上下文交互', '通过LoRA微调实现领域模型低成本适配', '基于DeepSpeed加速分布式训练提升XX%效率', '通过RLHF实现模型价值对齐', '开发多模态模型解决跨模态理解任务', '基于A2A协议构建多Agent协作系统', '通过Agent Skills实现专业能力模块化封装', '基于Dify/Coze快速构建AI智能体应用', '通过模型蒸馏降低XX%推理成本', '基于DPO对齐技术提升模型输出质量', '优化RAG系统召回率提升XX%', '构建多模态大模型解决视觉理解任务', '基于AgentScope构建多Agent协作框架', '通过上下文工程优化大模型推理效果提升XX%', '构建机器人算法模型提升感知准确率XX%', '开发多模态大模型算法解决跨模态理解任务', '通过Embedding检索优化提升RAG召回率XX%', '采用Focal Loss+数据增强对比BERT/RoBERTa/LLaMA将F1从0.65提升至0.87', '应用Post-Training前沿算法持续提升模型效率与效果']
+            hotSkills: ['PyTorch', 'TensorFlow', '大语言模型(LLM)', 'Transformer', 'NLP', '计算机视觉(CV)', '推荐系统', '强化学习', 'RAG', 'Agent', '模型压缩', '分布式训练', 'Prompt Engineering', '多模态', 'MCP', '模型上下文协议', '多Agent协作', '模型微调(LoRA)', '量化部署', 'vLLM', 'Ollama', '知识图谱构建', 'DeepSpeed', 'RLHF', 'LLaVA', 'CLIP', 'ViT', 'YOLO', 'U-Net', 'OpenCV', 'QLoRA', 'TensorRT', 'TensorRT-LLM', '图像分割', '目标检测', 'A2A协议', 'Agent Skills', 'CrewAI', 'AutoGen', 'Dify', 'Coze', '多Agent编排', 'RAG检索增强', '向量检索', '重排序模型', '多模态大模型', '端侧模型部署', '模型蒸馏', 'RLAIF', 'DPO', '对齐技术', 'Milvus', '推理优化', '模型框架', 'AI认证', 'AI落地能力', 'AgentScope', '上下文工程', 'Embedding检索', '机器人算法', '智能驾驶算法', '车联网算法', '多模态大模型算法', 'AI工程化落地', '数据清洗标注', 'SFT', 'Kaggle', 'Post-Training', 'Agent SDK', 'Focal Loss', 'BERT/RoBERTa/LLaMA', '长文本分段采样', 'Self-RAG', 'Agentic Retrieval', 'LLM-as-a-judge', '检索评测闭环'],
+            jdKeywords: ['模型训练', '算法优化', '特征工程', 'A/B测试', '业务落地', '论文复现', '模型部署', '效果评估', '数据驱动', '场景抽象', '大模型微调', '模型推理加速', 'Agent设计', 'RAG检索增强', '价值对齐', '多模态开发', '视觉大模型', '推理框架', '多Agent协作', 'A2A通信', 'Skills封装', '模型蒸馏', '端侧部署', '对齐技术', 'RAG系统优化', 'AI落地能力', '推理优化', 'AI认证', '模型框架', '上下文工程', '意图识别', '多步规划', '安全校验', 'AI工程化落地', '机器人算法', '智能驾驶', '车联网', '多模态大模型算法', '数据清洗标注', '顶会论文', '算法建模', 'Post-Training经验', 'Transformer与LLM原理深度理解', 'Agent实战项目经验', 'AI辅助研发能力', 'Self-RAG', 'Agentic Retrieval', 'LLM-as-a-judge', '检索评测闭环'],
+            phrases: ['基于大模型构建RAG知识问答系统', '优化推荐算法提升点击率XX%', '设计端到端训练pipeline加速模型迭代', '通过特征工程提升模型AUC XX个千分点', '构建Multi-Agent框架解决复杂业务问题', '基于MCP协议实现模型上下文交互', '通过LoRA微调实现领域模型低成本适配', '基于DeepSpeed加速分布式训练提升XX%效率', '通过RLHF实现模型价值对齐', '开发多模态模型解决跨模态理解任务', '基于A2A协议构建多Agent协作系统', '通过Agent Skills实现专业能力模块化封装', '基于Dify/Coze快速构建AI智能体应用', '通过模型蒸馏降低XX%推理成本', '基于DPO对齐技术提升模型输出质量', '优化RAG系统召回率提升XX%', '构建多模态大模型解决视觉理解任务', '基于AgentScope构建多Agent协作框架', '通过上下文工程优化大模型推理效果提升XX%', '构建机器人算法模型提升感知准确率XX%', '开发多模态大模型算法解决跨模态理解任务', '通过Embedding检索优化提升RAG召回率XX%', '采用Focal Loss+数据增强对比BERT/RoBERTa/LLaMA将F1从0.65提升至0.87', '应用Post-Training前沿算法持续提升模型效率与效果', '基于Self-RAG与Agentic Retrieval解决大模型幻觉问题', '构建LLM-as-a-judge检索评测闭环量化端到端回答质量']
         },
         '数据': {
             hotSkills: ['SQL', 'Python', 'Spark', 'Flink', 'Hive', 'Kafka', '数据仓库', '数据湖', 'OLAP', 'Tableau', 'Power BI', 'dbt', 'Airflow', 'ClickHouse', '数据治理', '实时计算', 'MCP', '向量数据库', '数据编织', 'Data Fabric', '实时数仓', '指标平台', 'DataOps', '特征平台', 'AI数据管道', '大模型训练数据', '数据血缘', '湖仓一体', '数据资产', 'RAG数据准备', '向量检索', '数据质量监控', '数据清洗', '标注管理', 'Embedding检索', '大模型训练数据集', 'AI工程化落地', '数据标注平台', '数据合规', '数据安全', '高质量训练数据构建', '特征工程'],
@@ -135,8 +135,8 @@ window.JOB_LANG_LIB = {
             phrases: ['通过精细化运营提升用户留存XX%', '策划裂变活动实现XX万用户增长', '搭建用户生命周期运营体系', '以数据驱动运营策略优化ROI', '利用AI工具提升运营效率XX%', '构建私域运营体系提升复购率XX%', '通过内容运营实现XX万自然流量增长', '利用AIGC工具提升内容生产效率XX%', '构建AI驱动的智能运营体系实现自动化增长', '以增长黑客思维驱动用户裂变', '基于AI投放优化提升XX%ROI', '搭建自动化运营体系降低XX%人力成本', '基于AI工程化落地推动运营流程自动化', '搭建AIGC内容标注体系提升内容生产效率', '以AI渗透运营思维推动全链路智能化升级']
         },
         'AI Agent工程师': {
-            hotSkills: ['Python 3.10+', 'asyncio', 'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'Dify', 'Coze', 'FastGPT', 'MCP', 'A2A协议', 'Agent SDK', 'Function Calling', 'RAG Pipeline', '向量数据库', 'Milvus', 'Prompt Engineering', '多Agent编排', 'Agent Skills', '模型微调', '模型蒸馏', '推理优化', '上下文工程', 'Harness', '意图识别', '多步规划', '安全校验', 'vLLM', 'Ollama', 'LoRA/QLoRA', 'Post-Training', '多模态交互', 'Agent行为验证', 'AI工程化落地', 'Postgres', 'Redis', 'Docker', 'Kubernetes'],
-            jdKeywords: ['Agent设计', '多Agent协作', 'Agent编排', 'MCP工具集成', 'A2A通信', 'Skills封装', 'RAG检索增强', 'Agent SDK', 'Function Calling', '模型推理加速', 'Agent实战项目经验', 'Transformer与LLM原理', 'AI辅助研发', '系统设计与工程能力', '多Agent协同', 'Agent行为验证', '意图识别', '多步规划', '安全校验', 'AI工程化落地', '上下文工程', 'Agent稳定性', '任务完成率'],
+            hotSkills: ['Python 3.10+', 'asyncio', 'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'Dify', 'Coze', 'FastGPT', 'MCP', 'A2A协议', 'Agent SDK', 'Function Calling', 'RAG Pipeline', '向量数据库', 'Milvus', 'Prompt Engineering', '多Agent编排', 'Agent Skills', '模型微调', '模型蒸馏', '推理优化', '上下文工程', 'Harness', '意图识别', '多步规划', '安全校验', 'vLLM', 'Ollama', 'LoRA/QLoRA', 'Post-Training', '多模态交互', 'Agent行为验证', 'AI工程化落地', 'Postgres', 'Redis', 'Docker', 'Kubernetes', '多智能体解决方案', 'Agent核心研发', 'Agent Infra', '业务评测', '回归测试', 'Agent ROI优化'],
+            jdKeywords: ['Agent设计', '多Agent协作', 'Agent编排', 'MCP工具集成', 'A2A通信', 'Skills封装', 'RAG检索增强', 'Agent SDK', 'Function Calling', '模型推理加速', 'Agent实战项目经验', 'Transformer与LLM原理', 'AI辅助研发', '系统设计与工程能力', '多Agent协同', 'Agent行为验证', '意图识别', '多步规划', '安全校验', 'AI工程化落地', '上下文工程', 'Agent稳定性', '任务完成率', '多智能体解决方案', 'Agent核心研发', 'Agent Infra', '业务评测', '回归测试', 'Agent ROI'],
             phrases: ['基于LangGraph构建多Agent协作系统解决复杂业务问题', '通过MCP协议集成XX个工具实现Agent能力扩展', '基于A2A协议实现Agent间标准化通信与协作', '通过Agent Skills模块化封装专业能力提升复用率XX%', '构建Agent意图识别与多步规划引擎准确率达XX%', '设计Agent行为验证框架确保智能体可靠性达XX%', '搭建Agent安全校验体系拦截XX%异常请求', '基于CrewAI/AutoGen构建多智能体协同框架', '实现Agent任务自动解决率达XX%', '优化Agent响应延迟低于XXms', '构建Agent成本治理体系降低XX%推理成本', '基于Agent SDK构建智能体应用生态', '通过Post-Training技术持续提升Agent效果']
         }
     },
@@ -153,7 +153,8 @@ window.JOB_LANG_LIB = {
         '大模型API集成', 'AI应用快速落地', '业务价值量化', '技术方案落地', '代码质量保障',
         'Post-Training优化', 'Agent SDK集成', 'Red Teaming验证', '模型鲁棒性测试', 'AI安全合规保障',
         '全链路落地+业务闭环', '模型微调与工具链应用', '部署优化形成完整落地链路',
-        '基础设施即代码', '运维开发一体化', '智能运维体系搭建', 'AIOps平台构建'
+        '基础设施即代码', '运维开发一体化', '智能运维体系搭建', 'AIOps平台构建',
+        'Self-RAG落地', 'Agentic Retrieval构建', 'LLM-as-a-judge评测体系搭建', '多智能体解决方案设计', 'Agent Infra研发', '国产算力适配', '新能源汽车智能驾驶研发'
     ],
     quantifiers: [
         '提升XX%', '覆盖X万用户', '支撑日均X级访问', '降低XX%耗时', '提高XX%转化率', '节省XX成本',
@@ -176,11 +177,12 @@ window.JOB_LANG_LIB = {
         '91%工程组织采用AI编码工具', '75%新企业应用采用AI Agent架构', '60%大型企业采用AIOps',
         '前端开发岗位需求同比下降52%', 'AI相关岗位1-2月同比增长约12倍',
         '互联网企业释放超20万岗位', 'AI Agent开发薪资同比上涨35%', 'Agent开发月薪普遍突破3万',
-        '人工智能工程师职位增速31.1%', '数据工程师职位增速28.3%', '芯片工程师职位增速21.0%'
+        '人工智能工程师职位增速31.1%', '数据工程师职位增速28.3%', '芯片工程师职位增速21.0%', 'AI应届职位数同比增长28.4%', '腾讯8000+技术研究岗位', '字节跳动7000+岗位涵盖大模型应用', 'Agent开发经验月薪突破3万', '检索评测召回率提升XX%', 'Agent ROI提升XX%', '高性能计算岗薪资上不封顶',
+        '腾讯发布招聘需求8000余人', '字节跳动提供约7000个岗位', '2026年1-5月AI应届职位同比增长28.4%', 'AI Agent应用开发岗校招占比超70%'
     ],
     companyStyleHints: {
-        '字节跳动': '强调数据驱动、AB实验、ROI、DAU、快速迭代，突出增长思维和算法能力，重视AI原生应用和全栈融合，偏好"从0到1"经历，研发岗增长23%，搜索策略结合大模型能力',
-        '腾讯': '强调用户体验、产品思维、社交生态，突出连接能力和用户价值，重视AI+战略落地，青云计划弹性薪酬上不封顶，偏好有深度产品思维和长期视野的人才，Agent框架实战经验加分',
+        '字节跳动': '强调数据驱动、AB实验、ROI、DAU、快速迭代，突出增长思维和算法能力，重视AI原生应用和全栈融合，偏好"从0到1"经历，研发岗增长23%，搜索策略结合大模型能力，提供约7000个岗位涵盖大模型应用与AI搜索，飞书AI与AI Coding方向扩招',
+        '腾讯': '强调用户体验、产品思维、社交生态，突出连接能力和用户价值，重视AI+战略落地，2027青云计划发布招聘需求8000余人涵盖AI算法与高性能计算，弹性薪酬上不封顶，偏好有深度产品思维和长期视野的人才，Agent框架实战经验加分',
         '阿里巴巴': '强调业务理解、商业化、GMV、闭环，突出结果导向和客户第一，AI岗占比60%+阿里云AI岗80%淘天超九成重视智能化转型，16个业务集团八大职类，偏好能将技术与业务场景结合的人才',
         '百度': '强调技术驱动、AI原生、简单可依赖，突出技术理想主义和智能体生态建设，重视开源开放和技术深度，飞桨生态和搜索重构',
         '美团': '强调效率优先、消费者第一、精细化运营，突出基本功和落地执行力，重视AI调度和智能履约，明确要求LangChain/LangGraph等Agent框架，偏好有交易闭环思维的人才',
@@ -233,9 +235,9 @@ window.JOB_LANG_LIB = {
     techTrends2026: {
         hotProtocols: ['MCP(Model Context Protocol)', 'A2A(Agent-to-Agent)', 'Function Calling', 'JSON-RPC 2.0', 'Agent SDK', 'Computer Use'],
         hotFrameworks: ['LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'Dify', 'Coze', 'FastGPT', 'Google ADK', 'Milvus', 'GitHub Copilot', 'AgentScope', 'Harness', 'Spring Cloud Alibaba', 'Seata', 'Cursor', 'Claude Code', 'Semantic Kernel', 'Microsoft Agent Framework', 'K8sGPT'],
-        hotPatterns: ['多Agent协作(Orchestrator-Worker/Peer-to-Peer/Hierarchical)', 'Agent Skills模块化', 'RAG检索增强', 'MCP工具集成', 'A2A通信', '模型蒸馏', 'RLHF/RLAIF/DPO对齐', 'AI编程工具打破前后端壁垒', '大模型上下文管理', '对话历史高效存储', '上下文工程', '意图识别', '多步规划', '安全校验', 'Harness CI/CD', '熔断限流降级', 'AI工程化落地', 'Embedding检索优化', '数据清洗标注流水线', 'AI+业务复合型人才', '云原生全栈实操', '业务导向量化工程', 'Post-Training', '全链路落地+业务闭环', '基础设施即代码', '运维开发一体化', 'AIOps智能运维'],
+        hotPatterns: ['多Agent协作(Orchestrator-Worker/Peer-to-Peer/Hierarchical)', 'Agent Skills模块化', 'RAG检索增强', 'MCP工具集成', 'A2A通信', '模型蒸馏', 'RLHF/RLAIF/DPO对齐', 'AI编程工具打破前后端壁垒', '大模型上下文管理', '对话历史高效存储', '上下文工程', '意图识别', '多步规划', '安全校验', 'Harness CI/CD', '熔断限流降级', 'AI工程化落地', 'Embedding检索优化', '数据清洗标注流水线', 'AI+业务复合型人才', '云原生全栈实操', '业务导向量化工程', 'Post-Training', '全链路落地+业务闭环', '基础设施即代码', '运维开发一体化', 'AIOps智能运维', 'Self-RAG', 'Agentic Retrieval', 'LLM-as-a-judge评测', '多智能体解决方案', 'Agent Infra研发', '国产算力突围', '新能源汽车智能驾驶'],
         hotInfra: ['GPU集群管理', '向量数据库', 'AI网关', 'MLOps', '模型推理加速', 'AI成本治理', 'FinOps', 'Milvus', '推理优化', 'AI编程工具集成', 'Harness', '运行监控', '智能驾驶基础设施', '车联网运维', '千级Pod集群', '多云/混合云', 'Operator开发', 'K8sGPT', 'DeepSeek/Kimi API集成', 'eBPF可观测性'],
-        newRoles: ['AI应用工程师', 'Agent工程师', 'Forward Deployed Engineer(前置部署工程师)', 'AI产品经理', '大模型算法工程师', 'AI基础设施工程师', 'AI测试工程师', 'AI策略产品经理', '多模态大模型算法专家', '机器人算法工程师', '智能驾驶系统工程师', '车联网工程师', '嵌入式开发工程师', 'AI Agent编排师', '大模型提示工程师', 'AI训练师', 'AI安全工程师', '多模态开发工程师', 'AI策略运营', 'AI Agent研发工程师', '平台工程师'],
+        newRoles: ['AI应用工程师', 'Agent工程师', 'Forward Deployed Engineer(前置部署工程师)', 'AI产品经理', '大模型算法工程师', 'AI基础设施工程师', 'AI测试工程师', 'AI策略产品经理', '多模态大模型算法专家', '机器人算法工程师', '智能驾驶系统工程师', '车联网工程师', '嵌入式开发工程师', 'AI Agent编排师', '大模型提示工程师', 'AI训练师', 'AI安全工程师', '多模态开发工程师', 'AI策略运营', 'AI Agent研发工程师', '平台工程师', '多智能体解决方案工程师', 'Agent Infra研发工程师', 'AI应用开发工程师'],
         marketData2026: {
             aiJobGrowth: 'AI相关岗位2026年1-2月同比增长约12倍',
             aiAvgSalary: 'AI岗位平均月薪突破6万元',
@@ -261,7 +263,11 @@ window.JOB_LANG_LIB = {
             agentDevSalaryBreakthrough: 'Agent开发经验工程师月薪普遍突破3万',
             aiEngineerGrowth: '人工智能工程师职位增速31.1%',
             dataEngineerGrowth: '数据工程师职位增速28.3%',
-            chipEngineerGrowth: '芯片工程师职位增速21.0%'
+            chipEngineerGrowth: '芯片工程师职位增速21.0%',
+            tencentJobs: '腾讯发布招聘需求8000余人',
+            bytedanceJobs: '字节跳动提供约7000个岗位',
+            aiFreshJobGrowth: '2026年1-5月AI应届职位数同比增长28.4%',
+            agentAppDevRatio: 'AI Agent应用开发岗校招占比超70%'
         }
     }
 };
