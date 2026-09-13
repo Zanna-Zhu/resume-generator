@@ -326,6 +326,231 @@ const RESUME_TEMPLATES = [
 .tpl-typst-clean .exp-time { color: #888; font-size: 0.76rem; }
 .tpl-typst-clean .resume-photo-box { border: 2px solid #0066cc; border-radius: 4px; width: 85px; height: 115px; }
 `
+    },
+    {
+        key: 'dark-sidebar',
+        name: '暗色侧栏',
+        desc: 'Iftimie 风格 · 深灰左侧栏 · 圆形头像',
+        source: 'Iftimie/Resume',
+        preview: 'linear-gradient(135deg, #484444, #2c2f34)',
+        css: `
+.tpl-dark-sidebar .resume-content { padding: 0; font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif; display: grid; grid-template-columns: 33% 67%; gap: 0; }
+.tpl-dark-sidebar .resume-title { grid-column: 2; text-align: left; font-family: 'Julius Sans One', 'Noto Sans SC', sans-serif; font-size: 1.8rem; font-weight: 400; color: #333; text-transform: uppercase; padding: 0.8rem 0 0.3rem 0; margin: 0; letter-spacing: 1px; border-bottom: none; }
+.tpl-dark-sidebar .basic-info-wrapper { grid-column: 2; margin-bottom: 0.6rem; border-bottom: 1px solid #ddd; padding: 0 0 0.5rem 0; }
+.tpl-dark-sidebar .basic-info-grid { grid-template-columns: 1fr; gap: 0.2rem; font-size: 0.78rem; color: #666; padding-right: 0; }
+.tpl-dark-sidebar .resume-photo-box { width: 4cm; height: 4cm; border-radius: 50%; border: 0.15cm solid #484444; position: absolute; top: 0.5cm; left: 0.5cm; z-index: 2; }
+.tpl-dark-sidebar .resume-section { grid-column: 2; margin-bottom: 0.5rem; padding: 0; }
+.tpl-dark-sidebar .section-header { background: transparent; color: #484444; font-family: 'Archivo Narrow', sans-serif; font-size: 0.88rem; font-weight: 700; border-bottom: 2px solid #484444; border-radius: 0; padding: 0.15rem 0; margin-bottom: 0.3rem; letter-spacing: 1.5px; }
+.tpl-dark-sidebar .section-header::before { display: none; }
+.tpl-dark-sidebar .section-body { font-size: 0.78rem; line-height: 1.6; color: #444; }
+.tpl-dark-sidebar .exp-item { margin-bottom: 0.35rem; padding-left: 0.6rem; position: relative; }
+.tpl-dark-sidebar .exp-item::before { content: ''; position: absolute; left: 0; top: 0.3rem; width: 5px; height: 5px; border-radius: 50%; background: #484444; }
+.tpl-dark-sidebar .exp-title { font-weight: 700; color: #2c2f34; }
+.tpl-dark-sidebar .exp-time { color: #888; font-size: 0.74rem; }
+`
+    },
+    {
+        key: 'deep-blue',
+        name: '深蓝青绿',
+        desc: 'drsantos20 风格 · 深蓝侧栏 · 金色高亮 · 圆角',
+        source: 'drsantos20/Resume',
+        preview: 'linear-gradient(135deg, #00204A, #70c6c7)',
+        css: `
+.tpl-deep-blue .resume-content { padding: 0; font-family: 'Roboto', 'Noto Sans SC', sans-serif; display: grid; grid-template-columns: 28% 72%; gap: 0; background: #70c6c7; }
+.tpl-deep-blue .resume-title { grid-column: 2; text-align: left; color: #D6DBDF; font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.8rem 0 0.2rem 0; margin: 0; border-bottom: none; }
+.tpl-deep-blue .basic-info-wrapper { grid-column: 2; margin-bottom: 0.6rem; padding: 0 0 0.4rem 0; }
+.tpl-deep-blue .basic-info-grid { grid-template-columns: 1fr; gap: 0.15rem; font-size: 0.76rem; color: #b0c4d8; padding-right: 0; }
+.tpl-deep-blue .info-label { color: #FDB44B; font-weight: 600; }
+.tpl-deep-blue .resume-photo-box { width: 3.5cm; height: 3.5cm; border-radius: 50%; border: 5px solid #1B2631; position: absolute; top: 0.6cm; left: 0.5cm; z-index: 2; }
+.tpl-deep-blue .resume-section { grid-column: 2; margin-bottom: 0.5rem; background: #4B6982; border-radius: 0 0 0 0; padding: 0.4rem 0.6rem; }
+.tpl-deep-blue .section-header { background: transparent; color: #70C6C7; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; border-radius: 0; padding: 0; margin-bottom: 0.25rem; }
+.tpl-deep-blue .section-header::before { display: none; }
+.tpl-deep-blue .section-body { font-size: 0.76rem; line-height: 1.55; color: #D6DBDF; }
+.tpl-deep-blue .exp-item { margin-bottom: 0.3rem; border-left: 3px solid #a5a3a3; padding-left: 0.4rem; }
+.tpl-deep-blue .exp-title { font-weight: 700; color: #FDB44B; font-size: 0.8rem; text-transform: uppercase; }
+.tpl-deep-blue .exp-time { color: #a5c4d8; font-size: 0.72rem; }
+.tpl-deep-blue .exp-role { color: #b0c4d8; }
+`
+    },
+    {
+        key: 'timeline',
+        name: '垂直时间线',
+        desc: '时间线节点 · 蓝色连线 · 层次分明',
+        source: 'Timeline Resume Design',
+        preview: 'linear-gradient(135deg, #3b82f6, #10b981)',
+        css: `
+.tpl-timeline .resume-content { padding: 18mm 16mm; font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+.tpl-timeline .resume-title { text-align: left; font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-bottom: 0.3rem; letter-spacing: -0.02em; border-bottom: 3px solid #3b82f6; padding-bottom: 0.4rem; }
+.tpl-timeline .basic-info-wrapper { margin-bottom: 1rem; padding: 0; border: none; }
+.tpl-timeline .basic-info-grid { grid-template-columns: 1fr 1fr 1fr; padding-right: 100px; gap: 0.2rem 1rem; font-size: 0.8rem; color: #64748b; }
+.tpl-timeline .resume-section { margin-bottom: 0.8rem; }
+.tpl-timeline .section-header { background: #3b82f6; color: #fff; font-size: 0.82rem; font-weight: 700; border-radius: 6px; padding: 0.2rem 0.7rem; margin-bottom: 0.4rem; letter-spacing: 1px; }
+.tpl-timeline .section-header::before { display: none; }
+.tpl-timeline .section-body { font-size: 0.8rem; line-height: 1.65; position: relative; padding-left: 1.2rem; }
+.tpl-timeline .section-body::before { content: ''; position: absolute; left: 0.3rem; top: 0.2rem; bottom: 0.2rem; width: 2px; background: #3b82f6; opacity: 0.3; }
+.tpl-timeline .exp-item { margin-bottom: 0.5rem; position: relative; padding-left: 0.5rem; }
+.tpl-timeline .exp-item::before { content: ''; position: absolute; left: -0.75rem; top: 0.35rem; width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; border: 2px solid #f8fafc; box-shadow: 0 0 0 1px #3b82f6; }
+.tpl-timeline .exp-title { font-weight: 700; color: #1e293b; }
+.tpl-timeline .exp-time { color: #10b981; font-weight: 600; font-size: 0.76rem; }
+.tpl-timeline .resume-photo-box { border: 3px solid #3b82f6; border-radius: 8px; }
+`
+    },
+    {
+        key: 'skill-bars',
+        name: '技能条可视化',
+        desc: '进度条技能展示 · 蓝色渐变填充',
+        source: 'DesignLumo Skill Visualization',
+        preview: 'linear-gradient(135deg, #0047ab, #3b82f6)',
+        css: `
+.tpl-skill-bars .resume-content { padding: 18mm 16mm; font-family: 'DM Sans', 'Noto Sans SC', sans-serif; }
+.tpl-skill-bars .resume-title { text-align: left; font-size: 1.7rem; font-weight: 700; color: #2c3e50; margin-bottom: 0.3rem; letter-spacing: -0.01em; border-bottom: none; }
+.tpl-skill-bars .basic-info-wrapper { margin-bottom: 0.8rem; border-bottom: 2px solid #e5e5e5; padding-bottom: 0.5rem; }
+.tpl-skill-bars .basic-info-grid { grid-template-columns: 1fr 1fr; padding-right: 100px; gap: 0.2rem 1rem; font-size: 0.8rem; color: #555; }
+.tpl-skill-bars .resume-section { margin-bottom: 0.7rem; }
+.tpl-skill-bars .section-header { background: transparent; color: #0047ab; font-size: 0.88rem; font-weight: 700; border-radius: 0; border-bottom: 2px solid #0047ab; padding: 0.15rem 0; margin-bottom: 0.35rem; letter-spacing: 0.5px; }
+.tpl-skill-bars .section-header::before { display: none; }
+.tpl-skill-bars .section-body { font-size: 0.8rem; line-height: 1.65; color: #444; }
+.tpl-skill-bars .exp-item { margin-bottom: 0.4rem; padding: 0.3rem 0.5rem; background: #f8faff; border-left: 4px solid #3b82f6; border-radius: 0 6px 6px 0; }
+.tpl-skill-bars .exp-title { font-weight: 700; color: #0047ab; }
+.tpl-skill-bars .exp-time { color: #3b82f6; font-size: 0.76rem; }
+.tpl-skill-bars .resume-photo-box { border: 3px solid #0047ab; border-radius: 8px; }
+`
+    },
+    {
+        key: 'navy-gold',
+        name: '海军金',
+        desc: '企业级 · 海军蓝头部 · 金色装饰线',
+        source: 'Piktochart Corporate Design',
+        preview: 'linear-gradient(135deg, #000080, #FFD700)',
+        css: `
+.tpl-navy-gold .resume-content { padding: 0; font-family: 'Georgia', 'Noto Serif SC', serif; }
+.tpl-navy-gold .resume-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #fff; background: #000080; padding: 0.6rem; margin: 0; letter-spacing: 4px; border-bottom: 3px solid #FFD700; }
+.tpl-navy-gold .basic-info-wrapper { margin: 0; background: #001f3f; padding: 0.5rem 1rem; border-bottom: 2px solid #FFD700; }
+.tpl-navy-gold .basic-info-grid { grid-template-columns: 1fr 1fr 1fr; padding-right: 0; gap: 0.2rem 1rem; font-size: 0.78rem; color: #E5E7EB; justify-content: center; }
+.tpl-navy-gold .info-item { justify-content: center; }
+.tpl-navy-gold .info-label { color: #FFD700; }
+.tpl-navy-gold .resume-photo-box { display: none; }
+.tpl-navy-gold .resume-content > .resume-section { padding: 0 1rem; }
+.tpl-navy-gold .resume-section { margin-bottom: 0.6rem; }
+.tpl-navy-gold .section-header { background: transparent; color: #000080; font-family: 'Georgia', serif; font-size: 0.95rem; font-weight: 700; border-radius: 0; border-bottom: 2px solid #c9a24d; padding: 0.15rem 0; margin-bottom: 0.3rem; letter-spacing: 2px; }
+.tpl-navy-gold .section-header::before { display: none; }
+.tpl-navy-gold .section-body { font-size: 0.8rem; line-height: 1.65; color: #333; }
+.tpl-navy-gold .exp-item { margin-bottom: 0.35rem; padding-left: 0.8rem; border-left: 3px solid #c9a24d; }
+.tpl-navy-gold .exp-title { font-weight: 700; color: #000080; }
+.tpl-navy-gold .exp-time { color: #c9a24d; font-size: 0.76rem; }
+`
+    },
+    {
+        key: 'nature-green',
+        name: '自然绿',
+        desc: 'Emerald 风格 · 森林绿标题 · 清新自然',
+        source: 'Eggradients Green Resume',
+        preview: 'linear-gradient(135deg, #1b4332, #52b788)',
+        css: `
+.tpl-nature-green .resume-content { padding: 18mm 16mm; font-family: 'Noto Sans SC', sans-serif; }
+.tpl-nature-green .resume-title { text-align: left; font-size: 1.7rem; font-weight: 600; color: #2d6a4f; margin-bottom: 0.3rem; letter-spacing: 1px; border-bottom: none; }
+.tpl-nature-green .basic-info-wrapper { margin-bottom: 0.8rem; background: #b7e4c7; border-radius: 8px; padding: 0.5rem 0.8rem; border: none; }
+.tpl-nature-green .basic-info-grid { grid-template-columns: 1fr 1fr; padding-right: 100px; gap: 0.2rem 1rem; font-size: 0.8rem; color: #1b4332; }
+.tpl-nature-green .info-label { color: #2d6a4f; font-weight: 600; }
+.tpl-nature-green .resume-section { margin-bottom: 0.7rem; }
+.tpl-nature-green .section-header { background: #2d6a4f; color: #fff; font-size: 0.85rem; font-weight: 700; border-radius: 6px; padding: 0.2rem 0.6rem; margin-bottom: 0.3rem; letter-spacing: 1px; }
+.tpl-nature-green .section-header::before { display: none; }
+.tpl-nature-green .section-body { font-size: 0.8rem; line-height: 1.65; color: #333; }
+.tpl-nature-green .exp-item { margin-bottom: 0.35rem; padding-left: 0.6rem; border-left: 3px solid #87a96b; }
+.tpl-nature-green .exp-title { font-weight: 700; color: #1b4332; }
+.tpl-nature-green .exp-time { color: #52b788; font-size: 0.76rem; }
+.tpl-nature-green .resume-photo-box { border: 3px solid #2d6a4f; border-radius: 8px; }
+`
+    },
+    {
+        key: 'pastel-pink',
+        name: '柔粉甜',
+        desc: '柔和粉彩 · 圆角卡片 · 甜美清新',
+        source: 'Pastel Resume Design',
+        preview: 'linear-gradient(135deg, #fce4ec, #e0bbe4)',
+        css: `
+.tpl-pastel-pink .resume-content { padding: 18mm 16mm; font-family: 'Noto Sans SC', sans-serif; background: #fff5f8; }
+.tpl-pastel-pink .resume-title { text-align: center; font-size: 1.6rem; font-weight: 600; color: #ad6a8c; margin-bottom: 0.8rem; letter-spacing: 3px; border-bottom: none; background: #fce4ec; border-radius: 20px; padding: 0.5rem; }
+.tpl-pastel-pink .basic-info-wrapper { margin-bottom: 0.8rem; background: #fff; border: 1px solid #f8d7e0; border-radius: 12px; padding: 0.5rem 0.8rem; box-shadow: 0 2px 8px rgba(224, 187, 228, 0.12); }
+.tpl-pastel-pink .basic-info-grid { grid-template-columns: 1fr 1fr; padding-right: 100px; gap: 0.2rem 1rem; font-size: 0.8rem; color: #8a5a6e; }
+.tpl-pastel-pink .info-label { color: #ad6a8c; font-weight: 600; }
+.tpl-pastel-pink .resume-section { margin-bottom: 0.6rem; background: #fff; border: 1px solid #f0e0e8; border-radius: 12px; padding: 0.5rem 0.7rem; box-shadow: 0 2px 6px rgba(173, 106, 140, 0.06); }
+.tpl-pastel-pink .section-header { background: transparent; color: #ad6a8c; font-size: 0.88rem; font-weight: 700; border-radius: 0; padding: 0; margin-bottom: 0.3rem; letter-spacing: 1px; }
+.tpl-pastel-pink .section-header::before { width: 10px; height: 10px; background: #e0bbe4; border-radius: 50%; opacity: 1; }
+.tpl-pastel-pink .section-body { font-size: 0.8rem; line-height: 1.65; color: #6b555f; }
+.tpl-pastel-pink .exp-item { margin-bottom: 0.35rem; }
+.tpl-pastel-pink .exp-title { font-weight: 700; color: #ad6a8c; }
+.tpl-pastel-pink .exp-time { color: #c4a0b0; font-size: 0.76rem; }
+.tpl-pastel-pink .resume-photo-box { border: 3px solid #e0bbe4; border-radius: 12px; }
+`
+    },
+    {
+        key: 'gradient-header',
+        name: '渐变头部',
+        desc: '彩色渐变标题栏 · 块状排版 · 视觉冲击',
+        source: 'Tailwind Resume Headline',
+        preview: 'linear-gradient(135deg, #1e3a5f, #3d7ab5, #5ba0e9)',
+        css: `
+.tpl-gradient-header .resume-content { padding: 0; font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif; }
+.tpl-gradient-header .resume-title { text-align: left; font-size: 2rem; font-weight: 700; color: #fff; background: linear-gradient(135deg, #1e3a5f, #2d5a87, #3d7ab5); padding: 1rem 1.2rem; margin: 0; letter-spacing: -0.02em; border-bottom: none; }
+.tpl-gradient-header .basic-info-wrapper { margin: 0; background: linear-gradient(135deg, #3d7ab5, #5ba0e9); padding: 0.5rem 1.2rem; border: none; }
+.tpl-gradient-header .basic-info-grid { grid-template-columns: 1fr 1fr 1fr; padding-right: 0; gap: 0.2rem 1rem; font-size: 0.78rem; color: #f0f8ff; }
+.tpl-gradient-header .info-label { color: #ffd700; }
+.tpl-gradient-header .resume-photo-box { display: none; }
+.tpl-gradient-header .resume-content > .resume-section { padding: 0 1.2rem; }
+.tpl-gradient-header .resume-section { margin-bottom: 0.6rem; }
+.tpl-gradient-header .section-header { background: transparent; color: #1e3a5f; font-size: 0.9rem; font-weight: 700; border-radius: 0; border-bottom: 2px solid #3d7ab5; padding: 0.15rem 0; margin-bottom: 0.3rem; letter-spacing: 1.5px; text-transform: uppercase; }
+.tpl-gradient-header .section-header::before { display: none; }
+.tpl-gradient-header .section-body { font-size: 0.8rem; line-height: 1.65; color: #333; }
+.tpl-gradient-header .exp-item { margin-bottom: 0.35rem; padding: 0.3rem 0.5rem; background: #f0f4f8; border-radius: 6px; }
+.tpl-gradient-header .exp-title { font-weight: 700; color: #1e3a5f; }
+.tpl-gradient-header .exp-time { color: #3d7ab5; font-size: 0.76rem; }
+`
+    },
+    {
+        key: 'dev-dark',
+        name: '开发者暗黑',
+        desc: 'Dev 风格 · 深色背景 · 绿色代码标签',
+        source: 'JaydeepAgravat/Resume',
+        preview: 'linear-gradient(135deg, #050508, #0d0d14)',
+        css: `
+.tpl-dev-dark .resume-content { padding: 16mm 14mm; font-family: 'JetBrains Mono', 'Noto Sans SC', monospace; background: #0d0d14; color: #e0e0e0; }
+.tpl-dev-dark .resume-title { text-align: left; font-size: 1.6rem; font-weight: 700; color: #00ff88; margin-bottom: 0.3rem; letter-spacing: 0px; border-bottom: 1px solid rgba(0, 255, 136, 0.2); padding-bottom: 0.3rem; font-family: 'JetBrains Mono', monospace; }
+.tpl-dev-dark .basic-info-wrapper { margin-bottom: 0.8rem; border-bottom: 1px solid rgba(255, 255, 255, 0.07); padding-bottom: 0.4rem; }
+.tpl-dev-dark .basic-info-grid { grid-template-columns: 1fr 1fr; padding-right: 100px; gap: 0.2rem 1rem; font-size: 0.76rem; color: #b0b0b0; }
+.tpl-dev-dark .info-label { color: #00ff88; font-family: 'JetBrains Mono', monospace; }
+.tpl-dev-dark .resume-section { margin-bottom: 0.6rem; border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 0.4rem 0.6rem; background: #13131c; }
+.tpl-dev-dark .section-header { background: transparent; color: #00ff88; font-size: 0.82rem; font-weight: 600; border-radius: 0; padding: 0; margin-bottom: 0.25rem; letter-spacing: 0.5px; font-family: 'JetBrains Mono', monospace; }
+.tpl-dev-dark .section-header::before { content: '>'; color: #00ff88; margin-right: 0.4rem; font-weight: 700; width: auto; height: auto; background: none; opacity: 1; }
+.tpl-dev-dark .section-body { font-size: 0.78rem; line-height: 1.6; color: #c0c0c0; }
+.tpl-dev-dark .exp-item { margin-bottom: 0.3rem; padding: 0.2rem 0.4rem; background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.1); border-radius: 4px; }
+.tpl-dev-dark .exp-title { font-weight: 700; color: #00ff88; font-size: 0.8rem; }
+.tpl-dev-dark .exp-time { color: #888; font-size: 0.72rem; }
+.tpl-dev-dark .resume-photo-box { border: 2px solid rgba(0, 255, 136, 0.3); border-radius: 6px; }
+`
+    },
+    {
+        key: 'neon-creative',
+        name: '创意霓虹',
+        desc: '渐变文字 · 彩色装饰 · 艺术创意风',
+        source: 'Neon Creative Resume',
+        preview: 'linear-gradient(135deg, #ff00ff, #00ffff)',
+        css: `
+.tpl-neon-creative .resume-content { padding: 18mm 16mm; font-family: 'Inter', 'Noto Sans SC', sans-serif; background: #fff; }
+.tpl-neon-creative .resume-title { text-align: left; font-size: 2rem; font-weight: 800; margin-bottom: 0.3rem; letter-spacing: -0.02em; border-bottom: none; background: linear-gradient(135deg, #ff00ff, #00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.tpl-neon-creative .basic-info-wrapper { margin-bottom: 0.8rem; padding: 0.5rem 0.8rem; border: none; border-radius: 10px; background: linear-gradient(135deg, rgba(255, 0, 255, 0.05), rgba(0, 255, 255, 0.05)); }
+.tpl-neon-creative .basic-info-grid { grid-template-columns: 1fr 1fr; padding-right: 100px; gap: 0.2rem 1rem; font-size: 0.8rem; color: #555; }
+.tpl-neon-creative .info-label { font-weight: 700; background: linear-gradient(135deg, #ff00ff, #00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.tpl-neon-creative .resume-section { margin-bottom: 0.6rem; }
+.tpl-neon-creative .section-header { background: transparent; font-size: 0.9rem; font-weight: 800; border-radius: 0; padding: 0.15rem 0; margin-bottom: 0.3rem; letter-spacing: 1.5px; text-transform: uppercase; background: linear-gradient(135deg, #ff00ff, #00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.tpl-neon-creative .section-header::before { display: none; }
+.tpl-neon-creative .section-body { font-size: 0.8rem; line-height: 1.65; color: #444; }
+.tpl-neon-creative .exp-item { margin-bottom: 0.35rem; padding: 0.3rem 0.5rem; border: 1px solid #eee; border-radius: 8px; position: relative; overflow: hidden; }
+.tpl-neon-creative .exp-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #ff00ff, #00ffff); }
+.tpl-neon-creative .exp-title { font-weight: 700; color: #333; }
+.tpl-neon-creative .exp-time { color: #888; font-size: 0.76rem; }
+.tpl-neon-creative .resume-photo-box { border: 2px solid transparent; border-image: linear-gradient(135deg, #ff00ff, #00ffff) 1; border-radius: 8px; }
+`
     }
 ];
 
