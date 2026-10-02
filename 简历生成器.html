@@ -53,7 +53,7 @@
     }
     console.log('[Three.js] 模块加载成功，OrbitControls 已就绪');
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200;300;400;500;700&family=Quicksand:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200;300;400;500;700&family=Quicksand:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1316,6 +1316,98 @@
             background: rgba(125, 211, 192, 0.15);
             border-color: var(--accent);
             color: var(--text-main);
+        }
+
+        /* 添加自定义字段按钮 */
+        .add-custom-field-btn {
+            width: 100%;
+            background: rgba(125, 211, 192, 0.1);
+            border: 1px dashed rgba(125, 211, 192, 0.4);
+            color: var(--accent);
+            font-size: 0.85rem;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+        .add-custom-field-btn:hover {
+            background: rgba(125, 211, 192, 0.2);
+            border-color: var(--accent);
+            border-style: solid;
+        }
+        .add-custom-field-btn .add-icon {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* 自定义字段项 */
+        .custom-field-item {
+            position: relative;
+            margin-bottom: 0.6rem;
+        }
+        .custom-field-item .form-group {
+            margin-bottom: 0;
+        }
+        .custom-field-item .field-del {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            line-height: 16px;
+            text-align: center;
+            border-radius: 50%;
+            background: rgba(255, 100, 100, 0.15);
+            border: 1px solid rgba(255, 100, 100, 0.25);
+            color: #ff6b6b;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-style: normal;
+            z-index: 2;
+        }
+        .custom-field-item .field-del:hover {
+            background: rgba(255, 100, 100, 0.3);
+            color: #fff;
+        }
+
+        /* 字体选择器 */
+        .font-selector-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 0.8rem;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        .font-selector-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            font-weight: 400;
+        }
+        .font-selector {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            cursor: pointer;
+            outline: none;
+            font-weight: 300;
+        }
+        .font-selector option {
+            background: #fff;
+            color: #333;
         }
 
         /* 证件照上传区 */
@@ -4376,6 +4468,12 @@
                     <input type="text" id="city" placeholder="如：浙江杭州" value="浙江杭州">
                 </div>
             </div>
+            <!-- 自定义字段容器 -->
+            <div id="custom-fields-container"></div>
+            <!-- 添加自定义字段按钮 -->
+            <button class="add-custom-field-btn" onclick="promptAddCustomField()">
+                <span class="add-icon">+</span> 添加自定义字段
+            </button>
             </div>
 
             <!-- 教育背景 -->
@@ -4431,6 +4529,22 @@
                 <label>爱好（用逗号分隔）</label>
                 <input type="text" id="hobbies" placeholder="如：钢琴（八级）, 篮球, 摄影, 旅行" value="钢琴（八级）, 篮球, 摄影, 旅行">
             </div>
+            </div>
+
+            <!-- 字体选择 -->
+            <div class="font-selector-wrap">
+                <span class="font-selector-label">🔤 简历字体</span>
+                <select class="font-selector" id="resume-font-select" onchange="changeResumeFont(this.value)">
+                    <option value="default">默认（思源黑体）</option>
+                    <option value="song">宋体（SimSun）</option>
+                    <option value="hei">黑体（SimHei）</option>
+                    <option value="kaiti">楷体（KaiTi）</option>
+                    <option value="fangsong">仿宋（FangSong）</option>
+                    <option value="yahei">微软雅黑（Microsoft YaHei）</option>
+                    <option value="serif">衬线体（Georgia/Noto Serif）</option>
+                    <option value="mono">等宽字体（JetBrains Mono）</option>
+                    <option value="lxting">站酷快乐体</option>
+                </select>
             </div>
 
             <!-- 模板选择按钮 -->
@@ -4770,6 +4884,8 @@
                 // 不在每条历史记录中存储完整照片，改为存储标志位，节省 localStorage 空间
                 hasPhoto: !!photoData,
                 hiddenBasicFields: getHiddenBasicFields(),
+                customFields: JSON.parse(JSON.stringify(customFields)),
+                resumeFont: getSavedFont(),
                 educationData: educationData,
                 projectData: projectData,
                 practiceData: practiceData,
@@ -4788,6 +4904,23 @@
             if (data.hiddenBasicFields && Array.isArray(data.hiddenBasicFields)) {
                 saveHiddenBasicFields(data.hiddenBasicFields);
                 applyHiddenFieldsUI();
+            } else {
+                // 没有保存的隐藏字段，重置为空
+                saveHiddenBasicFields([]);
+                applyHiddenFieldsUI();
+            }
+            // 恢复自定义字段（兼容旧数据：没有则保留当前localStorage中的）
+            if (data.customFields && Array.isArray(data.customFields)) {
+                customFields = JSON.parse(JSON.stringify(data.customFields));
+                saveCustomFields(customFields);
+                renderCustomFields();
+            }
+            // 恢复字体设置
+            if (data.resumeFont && FONT_OPTIONS[data.resumeFont]) {
+                saveFont(data.resumeFont);
+                const select = document.getElementById('resume-font-select');
+                if (select) select.value = data.resumeFont;
+                changeResumeFont(data.resumeFont);
             }
             // 照片恢复：优先使用记录中的照片，其次使用独立存储的最新照片
             if (data.photoData) {
@@ -6445,14 +6578,20 @@ ${companyContext}
 
         function init() {
             loadSavedTheme();
+            // 先从localStorage加载自定义字段作为初始值
+            customFields = getCustomFields();
             autoLoadLatest();
             renderEducationForm();
             renderExperienceForm('project', projectData);
             renderExperienceForm('practice', practiceData);
             renderExperienceForm('campus', campusData);
             bindEvents();
+            // 渲染自定义字段（autoLoadLatest可能已从历史记录恢复，这里确保渲染）
+            renderCustomFields();
             // 应用保存的隐藏字段状态（在updatePreview之前）
             applyHiddenFieldsUI();
+            // 应用保存的字体设置
+            applySavedFont();
             updatePreview();
             initAmbientDecor();
             // 应用保存的板块顺序
@@ -6563,6 +6702,156 @@ ${companyContext}
                 const fieldEl = document.querySelector('.basic-field[data-field="' + fieldKey + '"]');
                 if (fieldEl) fieldEl.classList.add('hidden-field');
             });
+        }
+
+        // ============ 自定义字段功能 ============
+        let customFields = []; // [{key, label, value}]
+        const CUSTOM_FIELDS_KEY = 'resume_custom_basic_fields';
+
+        function getCustomFields() {
+            try {
+                const saved = localStorage.getItem(CUSTOM_FIELDS_KEY);
+                return saved ? JSON.parse(saved) : [];
+            } catch(e) {
+                return [];
+            }
+        }
+
+        function saveCustomFields(fields) {
+            try {
+                localStorage.setItem(CUSTOM_FIELDS_KEY, JSON.stringify(fields));
+            } catch(e) {}
+        }
+
+        function promptAddCustomField() {
+            const fieldName = prompt('请输入字段名称（如：籍贯、身高、体重、微信号等）：');
+            if (!fieldName || !fieldName.trim()) return;
+            const name = fieldName.trim();
+            // 检查是否重复
+            if (customFields.some(f => f.label === name)) {
+                showToast('该字段已存在');
+                return;
+            }
+            const key = 'custom_' + Date.now();
+            customFields.push({ key: key, label: name, value: '' });
+            saveCustomFields(customFields);
+            renderCustomFields();
+            updatePreview();
+            showToast('已添加字段：' + name);
+        }
+
+        function removeCustomField(key) {
+            const field = customFields.find(f => f.key === key);
+            if (!field) return;
+            customFields = customFields.filter(f => f.key !== key);
+            saveCustomFields(customFields);
+            renderCustomFields();
+            updatePreview();
+            showToast('已删除字段：' + field.label);
+        }
+
+        function updateCustomFieldValue(key, value) {
+            const field = customFields.find(f => f.key === key);
+            if (field) {
+                field.value = value;
+                saveCustomFields(customFields);
+                updatePreview();
+            }
+        }
+
+        function renderCustomFields() {
+            const container = document.getElementById('custom-fields-container');
+            if (!container) return;
+            if (customFields.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            container.innerHTML = customFields.map(field => `
+                <div class="custom-field-item">
+                    <div class="form-group">
+                        <label>${esc(field.label)} <span class="field-del" onclick="removeCustomField('${field.key}')" title="删除此字段">×</span></label>
+                        <input type="text" placeholder="请输入${esc(field.label)}" value="${esc(field.value)}" oninput="updateCustomFieldValue('${field.key}', this.value)">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============ 字体自定义功能 ============
+        const FONT_OPTIONS = {
+            'default': {
+                label: '默认（思源黑体）',
+                fontFamily: "'Noto Sans SC', 'Quicksand', 'Microsoft YaHei', sans-serif"
+            },
+            'song': {
+                label: '宋体（SimSun）',
+                fontFamily: "'SimSun', '宋体', 'Noto Serif SC', serif"
+            },
+            'hei': {
+                label: '黑体（SimHei）',
+                fontFamily: "'SimHei', '黑体', 'Noto Sans SC', sans-serif"
+            },
+            'kaiti': {
+                label: '楷体（KaiTi）',
+                fontFamily: "'KaiTi', '楷体', 'STKaiti', serif"
+            },
+            'fangsong': {
+                label: '仿宋（FangSong）',
+                fontFamily: "'FangSong', '仿宋', 'STFangsong', serif"
+            },
+            'yahei': {
+                label: '微软雅黑（Microsoft YaHei）',
+                fontFamily: "'Microsoft YaHei', '微软雅黑', 'Noto Sans SC', sans-serif"
+            },
+            'serif': {
+                label: '衬线体（Georgia/Noto Serif）',
+                fontFamily: "'Georgia', 'Noto Serif SC', 'SimSun', serif"
+            },
+            'mono': {
+                label: '等宽字体（JetBrains Mono）',
+                fontFamily: "'JetBrains Mono', 'Courier New', 'Consolas', monospace"
+            },
+            'lxting': {
+                label: '站酷快乐体',
+                fontFamily: "'ZCOOL KuaiLe', 'KaiTi', cursive"
+            }
+        };
+
+        const RESUME_FONT_KEY = 'resume_font_family';
+
+        function getSavedFont() {
+            try {
+                return localStorage.getItem(RESUME_FONT_KEY) || 'default';
+            } catch(e) {
+                return 'default';
+            }
+        }
+
+        function saveFont(fontKey) {
+            try {
+                localStorage.setItem(RESUME_FONT_KEY, fontKey);
+            } catch(e) {}
+        }
+
+        function changeResumeFont(fontKey) {
+            const fontOpt = FONT_OPTIONS[fontKey];
+            if (!fontOpt) return;
+            const resumeContent = document.querySelector('.resume-content');
+            if (resumeContent) {
+                resumeContent.style.fontFamily = fontOpt.fontFamily;
+            }
+            // 也更新预览容器内的模板预览
+            const tplPreview = document.querySelector('.tpl-preview-container');
+            if (tplPreview) {
+                tplPreview.style.fontFamily = fontOpt.fontFamily;
+            }
+            saveFont(fontKey);
+        }
+
+        function applySavedFont() {
+            const fontKey = getSavedFont();
+            const select = document.getElementById('resume-font-select');
+            if (select) select.value = fontKey;
+            changeResumeFont(fontKey);
         }
 
         // ============ 证件照 ============
@@ -6746,6 +7035,13 @@ ${companyContext}
                 { key: 'email', label: '邮 箱：', value: email },
                 { key: 'city', label: '现居城市：', value: city }
             ].filter(item => item.value && hiddenFields.indexOf(item.key) === -1);
+
+            // 添加自定义字段
+            customFields.forEach(field => {
+                if (field.value && field.label) {
+                    infoItems.push({ key: field.key, label: field.label + '：', value: field.value });
+                }
+            });
 
             document.getElementById('p-basic-info').innerHTML = infoItems.map(item =>
                 `<div class="info-item"><span class="info-label">${esc(item.label)}</span><span class="info-value">${esc(item.value)}</span></div>`
