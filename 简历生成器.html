@@ -1365,37 +1365,58 @@
 
         /* 自定义字段项 */
         .custom-field-item {
-            position: relative;
             margin-bottom: 0.6rem;
         }
         .custom-field-item .form-group {
             margin-bottom: 0;
         }
+        .custom-field-input-wrap {
+            position: relative;
+        }
+        .custom-field-input-wrap input {
+            width: 100%;
+            padding-right: 42px;
+            box-sizing: border-box;
+        }
         .custom-field-item .field-del {
             position: absolute;
-            top: -6px;
-            right: -6px;
-            width: 22px;
-            height: 22px;
-            line-height: 20px;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 26px;
+            height: 26px;
+            line-height: 24px;
             text-align: center;
             border-radius: 50%;
-            background: #fff;
-            border: 1.5px solid #ff6b6b;
+            background: rgba(255, 107, 107, 0.12);
+            border: 1.5px solid rgba(255, 107, 107, 0.5);
             color: #ff6b6b;
-            font-size: 0.9rem;
+            font-size: 1rem;
             cursor: pointer;
-            opacity: 1;
+            opacity: 0.85;
             transition: all 0.25s ease;
             font-style: normal;
-            font-weight: 500;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            z-index: 2;
+            font-weight: 600;
+            z-index: 3;
         }
         .custom-field-item .field-del:hover {
             background: #ff6b6b;
             color: #fff;
-            transform: scale(1.1);
+            transform: translateY(-50%) scale(1.15);
+            opacity: 1;
+        }
+        /* 移动端：删除按钮更大 */
+        @media (max-width: 768px) {
+            .custom-field-item .field-del {
+                width: 30px;
+                height: 30px;
+                line-height: 28px;
+                font-size: 1.1rem;
+                right: 8px;
+            }
+            .custom-field-input-wrap input {
+                padding-right: 46px;
+            }
         }
 
         /* 字体选择器 */
@@ -6789,8 +6810,11 @@ ${companyContext}
             container.innerHTML = customFields.map(field => `
                 <div class="custom-field-item">
                     <div class="form-group">
-                        <label>${esc(field.label)} <span class="field-del" onclick="removeCustomField('${field.key}')" title="删除此字段">×</span></label>
-                        <input type="text" placeholder="请输入${esc(field.label)}" value="${esc(field.value)}" oninput="updateCustomFieldValue('${field.key}', this.value)">
+                        <label>${esc(field.label)}</label>
+                        <div class="custom-field-input-wrap">
+                            <input type="text" placeholder="请输入${esc(field.label)}" value="${esc(field.value)}" oninput="updateCustomFieldValue('${field.key}', this.value)">
+                            <span class="field-del" onclick="removeCustomField('${field.key}')" title="删除此字段">×</span>
+                        </div>
                     </div>
                 </div>
             `).join('');
