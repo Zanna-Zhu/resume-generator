@@ -1615,6 +1615,131 @@
             color: #333;
         }
 
+        /* 紧凑度调节 */
+        .compactness-wrap {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+        }
+        .compactness-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+        }
+        .compactness-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        .compactness-value {
+            font-size: 0.82rem;
+            color: var(--accent-soft);
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+        }
+        .compactness-slider-row {
+            margin-bottom: 0.7rem;
+        }
+        .compactness-slider-row input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        .compactness-slider-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.15s ease;
+        }
+        .compactness-slider-row input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        .compactness-slider-row input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .compactness-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+        }
+        .compact-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 0.45rem 0.6rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--btn-secondary-bg);
+            color: var(--text-main);
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 400;
+        }
+        .compact-btn:hover {
+            border-color: var(--accent-soft);
+            background: var(--accent-soft);
+            color: #fff;
+        }
+        .compact-btn.auto-fit {
+            background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+            color: #fff;
+            border-color: transparent;
+        }
+        .compact-btn.auto-fit:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .compact-btn.reset {
+            flex: 0 0 auto;
+            padding: 0.45rem 0.8rem;
+        }
+        .page-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border);
+        }
+        .page-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4caf50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+        .page-status.overflow .page-status-dot {
+            background: #ff9800;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+        }
+        .page-status.overflow-far .page-status-dot {
+            background: #f44336;
+            box-shadow: 0 0 8px rgba(244, 67, 54, 0.5);
+        }
+        .page-status-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
         /* 证件照上传区 */
         .photo-upload-area {
             display: flex;
@@ -1720,35 +1845,65 @@
             position: relative;
             overflow: hidden;
             font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
+            /* 紧凑度变量 - 1 为正常，越小越紧凑 */
+            --compact-scale: 1;
+            --content-padding-y: calc(18mm * var(--compact-scale));
+            --content-padding-x: calc(16mm * var(--compact-scale));
+            --title-font-size: calc(1.7rem * var(--compact-scale));
+            --title-margin-bottom: calc(1.2rem * var(--compact-scale));
+            --basic-info-margin-bottom: calc(1.2rem * var(--compact-scale));
+            --basic-info-font-size: calc(0.85rem * var(--compact-scale));
+            --basic-info-gap-y: calc(0.35rem * var(--compact-scale));
+            --basic-info-gap-x: calc(1.5rem * var(--compact-scale));
+            --section-margin-bottom: calc(0.9rem * var(--compact-scale));
+            --section-header-font-size: calc(0.88rem * var(--compact-scale));
+            --section-header-padding-y: calc(0.3rem * var(--compact-scale));
+            --section-header-padding-x: calc(0.8rem * var(--compact-scale));
+            --section-header-margin-bottom: calc(0.55rem * var(--compact-scale));
+            --section-header-bar-height: calc(0.95rem * var(--compact-scale));
+            --section-body-font-size: calc(0.82rem * var(--compact-scale));
+            --section-body-line-height: calc(1.65 * var(--compact-scale) + (1 - var(--compact-scale)) * 0.3);
+            --exp-item-margin-bottom: calc(0.55rem * var(--compact-scale));
+            --exp-title-font-size: calc(0.84rem * var(--compact-scale));
+            --exp-time-font-size: calc(0.78rem * var(--compact-scale));
+            --bullet-li-margin-bottom: calc(0.12rem * var(--compact-scale));
+            --bullet-li-line-height: calc(1.6 * var(--compact-scale) + (1 - var(--compact-scale)) * 0.3);
+            --bullet-li-padding-left: calc(0.9rem * var(--compact-scale));
+            --skill-li-margin-bottom: calc(0.15rem * var(--compact-scale));
+            --skill-li-line-height: calc(1.6 * var(--compact-scale) + (1 - var(--compact-scale)) * 0.3);
+            --skill-li-font-size: calc(0.82rem * var(--compact-scale));
+            --inline-list-font-size: calc(0.82rem * var(--compact-scale));
+            --cert-item-margin-bottom: calc(0.2rem * var(--compact-scale));
+            --edu-font-size: calc(0.84rem * var(--compact-scale));
         }
 
         .resume-content {
-            padding: 18mm 16mm;
+            padding: var(--content-padding-y) var(--content-padding-x);
         }
 
         /* 简历标题 */
         .resume-title {
             text-align: center;
             font-family: 'Quicksand', 'Noto Sans SC', "SimSun", serif;
-            font-size: 1.7rem;
+            font-size: var(--title-font-size);
             font-weight: 500;
             color: var(--resume-title-color);
-            margin-bottom: 1.2rem;
+            margin-bottom: var(--title-margin-bottom);
             letter-spacing: 6px;
         }
 
         /* 基本信息：左侧两列 + 右侧照片 */
         .basic-info-wrapper {
             position: relative;
-            margin-bottom: 1.2rem;
+            margin-bottom: var(--basic-info-margin-bottom);
         }
 
         .basic-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.35rem 1.5rem;
+            gap: var(--basic-info-gap-y) var(--basic-info-gap-x);
             padding-right: 105px;
-            font-size: 0.85rem;
+            font-size: var(--basic-info-font-size);
             color: var(--resume-body-text);
         }
 
@@ -1804,16 +1959,16 @@
 
         /* 湖水色块状标题栏 */
         .resume-section {
-            margin-bottom: 0.9rem;
+            margin-bottom: var(--section-margin-bottom);
         }
 
         .section-header {
             background: var(--resume-header-bg);
             color: var(--resume-header-text);
-            font-size: 0.88rem;
+            font-size: var(--section-header-font-size);
             font-weight: 500;
-            padding: 0.3rem 0.8rem;
-            margin-bottom: 0.55rem;
+            padding: var(--section-header-padding-y) var(--section-header-padding-x);
+            margin-bottom: var(--section-header-margin-bottom);
             display: flex;
             align-items: center;
             gap: 0.4rem;
@@ -1824,21 +1979,21 @@
             content: '';
             display: inline-block;
             width: 3px;
-            height: 0.95rem;
+            height: var(--section-header-bar-height);
             background: #fff;
             opacity: 0.6;
         }
 
         .section-body {
             padding: 0 0.2rem;
-            font-size: 0.82rem;
+            font-size: var(--section-body-font-size);
             color: var(--resume-body-text);
-            line-height: 1.65;
+            line-height: var(--section-body-line-height);
         }
 
         /* 经历条目 */
         .exp-item {
-            margin-bottom: 0.55rem;
+            margin-bottom: var(--exp-item-margin-bottom);
         }
 
         .exp-item:last-child {
@@ -1855,7 +2010,7 @@
         .exp-title {
             font-weight: 600;
             color: var(--resume-exp-title);
-            font-size: 0.84rem;
+            font-size: var(--exp-title-font-size);
         }
 
         .exp-title .pipe {
@@ -1866,7 +2021,7 @@
 
         .exp-time {
             color: var(--resume-exp-time);
-            font-size: 0.78rem;
+            font-size: var(--exp-time-font-size);
             white-space: nowrap;
         }
 
@@ -1878,10 +2033,10 @@
 
         .bullet-list li {
             position: relative;
-            padding-left: 0.9rem;
-            margin-bottom: 0.12rem;
+            padding-left: var(--bullet-li-padding-left);
+            margin-bottom: var(--bullet-li-margin-bottom);
             color: var(--resume-li-color);
-            line-height: 1.6;
+            line-height: var(--bullet-li-line-height);
         }
 
         .bullet-list li::before {
@@ -1897,7 +2052,7 @@
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 0.1rem;
-            font-size: 0.84rem;
+            font-size: var(--edu-font-size);
         }
 
         .edu-line {
@@ -1916,7 +2071,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0 0;
-            font-size: 0.82rem;
+            font-size: var(--inline-list-font-size);
             color: var(--resume-li-color);
         }
 
@@ -1924,7 +2079,7 @@
             position: relative;
             padding-left: 0.9rem;
             margin-right: 1.2rem;
-            margin-bottom: 0.2rem;
+            margin-bottom: var(--cert-item-margin-bottom);
         }
 
         .inline-list .cert-item::before {
@@ -1944,10 +2099,10 @@
         .skill-bullets li {
             position: relative;
             padding-left: 0.9rem;
-            margin-bottom: 0.15rem;
+            margin-bottom: var(--skill-li-margin-bottom);
             color: var(--resume-li-color);
-            line-height: 1.6;
-            font-size: 0.82rem;
+            line-height: var(--skill-li-line-height);
+            font-size: var(--skill-li-font-size);
         }
 
         .skill-bullets li::before {
@@ -4786,6 +4941,39 @@
                 </select>
             </div>
 
+            <!-- 紧凑度调节 -->
+            <div class="compactness-wrap">
+                <div class="compactness-header">
+                    <span class="compactness-label">📏 内容紧凑度</span>
+                    <span class="compactness-value" id="compactness-value">100%</span>
+                </div>
+                <div class="compactness-slider-row">
+                    <input type="range" id="compactness-slider" min="60" max="100" value="100" step="1" oninput="updateCompactness(this.value)">
+                </div>
+                <div class="compactness-buttons">
+                    <button class="compact-btn auto-fit" onclick="autoFitToOnePage()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+                            <path d="M3 7V5a2 2 0 012-2h2"/>
+                            <path d="M17 3h2a2 2 0 012 2v2"/>
+                            <path d="M21 17v2a2 2 0 01-2 2h-2"/>
+                            <path d="M7 21H5a2 2 0 01-2-2v-2"/>
+                        </svg>
+                        自动压缩到一页
+                    </button>
+                    <button class="compact-btn reset" onclick="resetCompactness()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px">
+                            <path d="M3 12a9 9 0 109-9"/>
+                            <path d="M3 4v5h5"/>
+                        </svg>
+                        重置
+                    </button>
+                </div>
+                <div class="page-status" id="page-status">
+                    <span class="page-status-dot"></span>
+                    <span class="page-status-text">内容适配 1 页</span>
+                </div>
+            </div>
+
             <!-- 模板选择按钮 -->
             <button class="tpl-select-btn" onclick="openTemplateModal()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -7237,6 +7425,8 @@ ${companyContext}
             applyHiddenSectionsUI();
             // 应用保存的字体设置
             applySavedFont();
+            // 应用保存的紧凑度设置
+            initCompactness();
             updatePreview();
             initAmbientDecor();
             // 应用保存的板块顺序
@@ -7502,6 +7692,173 @@ ${companyContext}
             changeResumeFont(fontKey);
         }
 
+        // ============ 紧凑度调节功能 ============
+        const COMPACTNESS_KEY = 'resume_compactness';
+        const DEFAULT_COMPACTNESS = 100;
+        const MIN_COMPACTNESS = 60;
+        let currentCompactness = DEFAULT_COMPACTNESS;
+
+        function getSavedCompactness() {
+            try {
+                const saved = localStorage.getItem(COMPACTNESS_KEY);
+                return saved ? parseInt(saved, 10) : DEFAULT_COMPACTNESS;
+            } catch(e) {
+                return DEFAULT_COMPACTNESS;
+            }
+        }
+
+        function saveCompactness(value) {
+            try {
+                localStorage.setItem(COMPACTNESS_KEY, String(value));
+            } catch(e) {}
+        }
+
+        function updateCompactness(percent) {
+            currentCompactness = parseInt(percent, 10);
+            const scale = currentCompactness / 100;
+            const resumePage = document.getElementById('resume-preview');
+            if (resumePage) {
+                resumePage.style.setProperty('--compact-scale', scale);
+            }
+            // 更新显示
+            const valueEl = document.getElementById('compactness-value');
+            if (valueEl) valueEl.textContent = currentCompactness + '%';
+            const slider = document.getElementById('compactness-slider');
+            if (slider && slider.value != percent) slider.value = percent;
+            // 保存设置
+            saveCompactness(currentCompactness);
+            // 更新页面状态
+            setTimeout(updatePageStatus, 50);
+        }
+
+        function resetCompactness() {
+            updateCompactness(DEFAULT_COMPACTNESS);
+            showToast('已恢复默认紧凑度');
+        }
+
+        // 检测内容是否溢出一页
+        function checkPageOverflow() {
+            const resumePage = document.getElementById('resume-preview');
+            const resumeContent = document.querySelector('.resume-content');
+            if (!resumePage || !resumeContent) return { overflow: false, ratio: 1 };
+
+            // 获取A4页面的可用高度（像素）
+            // resume-page 的 min-height 是 297mm，转换为像素
+            const pageStyle = getComputedStyle(resumePage);
+            const pageHeight = resumePage.clientHeight;
+
+            // 获取内容的实际高度
+            const contentHeight = resumeContent.scrollHeight;
+            const contentTop = resumeContent.offsetTop;
+            const paddingBottom = parseFloat(pageStyle.paddingBottom) || 0;
+
+            // 内容底部的位置
+            const contentBottom = contentTop + contentHeight;
+            const availableHeight = pageHeight - (parseFloat(pageStyle.paddingBottom) || 0);
+
+            // 溢出比例
+            const ratio = contentBottom / availableHeight;
+
+            return {
+                overflow: contentBottom > availableHeight + 5, // 5px 容差
+                ratio: ratio,
+                contentBottom: contentBottom,
+                availableHeight: availableHeight
+            };
+        }
+
+        // 更新页面状态指示器
+        function updatePageStatus() {
+            const status = checkPageOverflow();
+            const statusEl = document.getElementById('page-status');
+            const textEl = statusEl ? statusEl.querySelector('.page-status-text') : null;
+            if (!statusEl || !textEl) return;
+
+            statusEl.classList.remove('overflow', 'overflow-far');
+
+            if (!status.overflow) {
+                textEl.textContent = '内容适配 1 页 ✓';
+            } else if (status.ratio < 1.2) {
+                statusEl.classList.add('overflow');
+                const extraPercent = Math.round((status.ratio - 1) * 100);
+                textEl.textContent = `内容超出约 ${extraPercent}%，建议压缩`;
+            } else {
+                statusEl.classList.add('overflow-far');
+                const extraPercent = Math.round((status.ratio - 1) * 100);
+                textEl.textContent = `内容超出约 ${extraPercent}%，请大幅压缩或精简内容`;
+            }
+        }
+
+        // 自动压缩到一页
+        function autoFitToOnePage() {
+            const resumePage = document.getElementById('resume-preview');
+            if (!resumePage) return;
+
+            // 先检查是否已经在一页内
+            let status = checkPageOverflow();
+            if (!status.overflow) {
+                showToast('内容已在一页内，无需压缩');
+                return;
+            }
+
+            // 二分查找最合适的紧凑度
+            let low = MIN_COMPACTNESS;
+            let high = currentCompactness;
+            let bestFit = MIN_COMPACTNESS;
+            const maxIterations = 15;
+            let iteration = 0;
+
+            function tryCompactness(value, callback) {
+                updateCompactness(value);
+                // 等待一帧让DOM更新
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        const s = checkPageOverflow();
+                        callback(s);
+                    });
+                });
+            }
+
+            function binarySearch() {
+                if (iteration >= maxIterations || high - low <= 2) {
+                    // 找到最佳值
+                    tryCompactness(bestFit, () => {
+                        const finalStatus = checkPageOverflow();
+                        if (!finalStatus.overflow) {
+                            showToast(`已自动压缩到 ${bestFit}%，内容适配一页`);
+                        } else {
+                            showToast('已压缩到最小，内容仍超出一页，请精简内容');
+                        }
+                    });
+                    return;
+                }
+
+                iteration++;
+                const mid = Math.round((low + high) / 2);
+
+                tryCompactness(mid, (s) => {
+                    if (!s.overflow) {
+                        // 合适，尝试更大的值（更不紧凑）
+                        bestFit = mid;
+                        low = mid + 1;
+                    } else {
+                        // 溢出，需要更紧凑
+                        high = mid - 1;
+                    }
+                    binarySearch();
+                });
+            }
+
+            showToast('正在自动调整紧凑度...');
+            binarySearch();
+        }
+
+        // 初始化紧凑度
+        function initCompactness() {
+            const saved = getSavedCompactness();
+            updateCompactness(saved);
+        }
+
         // ============ 证件照 ============
         function handlePhotoUpload(event) {
             const file = event.target.files[0];
@@ -7765,6 +8122,9 @@ ${companyContext}
             } else {
                 hobbiesSection.style.display = 'none';
             }
+
+            // 更新页面溢出状态检测
+            setTimeout(updatePageStatus, 10);
         }
 
         // 渲染经历预览（项目/实践/校园通用）
