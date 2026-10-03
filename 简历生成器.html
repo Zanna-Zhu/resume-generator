@@ -1154,6 +1154,170 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* 板块删除按钮 */
+        .section-del-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            border-radius: 5px;
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            padding: 0;
+            transition: all 0.2s ease;
+            line-height: 1;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+        .section-del-btn:hover {
+            background: #ff6b6b;
+            color: #fff;
+            border-color: #ff6b6b;
+            transform: scale(1.1);
+        }
+
+        /* 添加自定义模块 & 恢复模块 按钮 */
+        .add-section-btn, .restore-section-btn {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.7rem 1rem;
+            border: 1px dashed var(--accent);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-soft);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .add-section-btn:hover, .restore-section-btn:hover {
+            background: rgba(168, 230, 207, 0.15);
+            border-style: solid;
+            transform: translateY(-1px);
+        }
+        .restore-section-btn {
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.78rem;
+        }
+        .restore-section-btn:hover {
+            border-color: var(--text-main);
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* 恢复模块弹窗 */
+        .restore-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .restore-modal.show { display: flex; }
+        .restore-dialog {
+            background: var(--modal-bg, #fff);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 380px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: tplModalIn 0.3s ease;
+            color: var(--text-main);
+        }
+        .restore-dialog h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .restore-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .restore-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 1rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .restore-item:hover {
+            background: rgba(168, 230, 207, 0.12);
+            border-color: var(--accent);
+        }
+        .restore-item-label {
+            font-size: 0.85rem;
+        }
+        .restore-item-btn {
+            font-size: 0.75rem;
+            color: var(--accent-soft);
+            padding: 0.25rem 0.6rem;
+            border: 1px solid var(--accent);
+            border-radius: 5px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .restore-item-btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+        .restore-empty {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* 自定义模块重命名输入 */
+        .custom-section-title-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px dashed var(--accent);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+            padding: 0.2rem 0;
+            width: 120px;
+        }
+        .custom-section-title-input:focus {
+            border-bottom-style: solid;
+        }
+
+        /* 手机端：删除按钮常显 */
+        @media (max-width: 768px) {
+            .section-del-btn {
+                opacity: 0.85;
+                width: 28px;
+                height: 28px;
+                font-size: 1.1rem;
+            }
+            .section-sort-btns {
+                opacity: 0.7;
+            }
+        }
+
         .form-group {
             margin-bottom: 1rem;
         }
@@ -4519,14 +4683,14 @@
 
             <!-- 教育背景 -->
             <div class="form-section-wrap" data-section="education">
-            <div class="section-title" style="margin-top:1.5rem">🎓 教育背景<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('education','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('education','down')" title="下移">▼</button></span></div>
+            <div class="section-title" style="margin-top:1.5rem">🎓 教育背景<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('education','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('education','down')" title="下移">▼</button><button class="section-del-btn" onclick="deleteSection('education')" title="删除此模块">×</button></span></div>
             <div id="education-list"></div>
             <button class="add-btn" onclick="addEducation()">+ 添加教育经历</button>
             </div>
 
             <!-- 资格证书与技能 -->
             <div class="form-section-wrap" data-section="cert">
-            <div class="section-title" style="margin-top:1.5rem">📜 资格证书与技能<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('cert','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('cert','down')" title="下移">▼</button></span></div>
+            <div class="section-title" style="margin-top:1.5rem">📜 资格证书与技能<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('cert','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('cert','down')" title="下移">▼</button><button class="section-del-btn" onclick="deleteSection('cert')" title="删除此模块">×</button></span></div>
             <div class="form-group">
                 <label>资格证书（每行一个，自动添加项目符号）</label>
                 <textarea id="certifications" rows="4" placeholder="每行填写一个证书">全国计算机二级
@@ -4544,28 +4708,28 @@
 
             <!-- 实习经历 -->
             <div class="form-section-wrap" data-section="project">
-            <div class="section-title" style="margin-top:1.5rem">💼 实习经历<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('project','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('project','down')" title="下移">▼</button></span></div>
+            <div class="section-title" style="margin-top:1.5rem">💼 实习经历<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('project','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('project','down')" title="下移">▼</button><button class="section-del-btn" onclick="deleteSection('project')" title="删除此模块">×</button></span></div>
             <div id="project-list"></div>
             <button class="add-btn" onclick="addProject()">+ 添加实习经历</button>
             </div>
 
             <!-- 实践经历 -->
             <div class="form-section-wrap" data-section="practice">
-            <div class="section-title" style="margin-top:1.5rem">🤝 实践经历<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('practice','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('practice','down')" title="下移">▼</button></span></div>
+            <div class="section-title" style="margin-top:1.5rem">🤝 实践经历<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('practice','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('practice','down')" title="下移">▼</button><button class="section-del-btn" onclick="deleteSection('practice')" title="删除此模块">×</button></span></div>
             <div id="practice-list"></div>
             <button class="add-btn" onclick="addPractice()">+ 添加实践经历</button>
             </div>
 
             <!-- 校园经历 -->
             <div class="form-section-wrap" data-section="campus">
-            <div class="section-title" style="margin-top:1.5rem">🏫 校园经历<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('campus','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('campus','down')" title="下移">▼</button></span></div>
+            <div class="section-title" style="margin-top:1.5rem">🏫 校园经历<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('campus','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('campus','down')" title="下移">▼</button><button class="section-del-btn" onclick="deleteSection('campus')" title="删除此模块">×</button></span></div>
             <div id="campus-list"></div>
             <button class="add-btn" onclick="addCampus()">+ 添加校园经历</button>
             </div>
 
             <!-- 自我评价 -->
             <div class="form-section-wrap" data-section="selfeval">
-            <div class="section-title" style="margin-top:1.5rem">💡 自我评价<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('selfeval','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('selfeval','down')" title="下移">▼</button></span></div>
+            <div class="section-title" style="margin-top:1.5rem">💡 自我评价<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('selfeval','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('selfeval','down')" title="下移">▼</button><button class="section-del-btn" onclick="deleteSection('selfeval')" title="删除此模块">×</button></span></div>
             <div class="form-group">
                 <label>自我评价（多行，建议 3-5 条）</label>
                 <textarea id="selfeval" rows="5" placeholder="每行一条，如：
@@ -4580,11 +4744,30 @@
 
             <!-- 爱好与特长 -->
             <div class="form-section-wrap" data-section="hobbies">
-            <div class="section-title" style="margin-top:1.5rem">🎨 爱好与特长<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('hobbies','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('hobbies','down')" title="下移">▼</button></span></div>
+            <div class="section-title" style="margin-top:1.5rem">🎨 爱好与特长<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('hobbies','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('hobbies','down')" title="下移">▼</button><button class="section-del-btn" onclick="deleteSection('hobbies')" title="删除此模块">×</button></span></div>
             <div class="form-group">
                 <label>爱好（用逗号分隔）</label>
                 <input type="text" id="hobbies" placeholder="如：钢琴（八级）, 篮球, 摄影, 旅行" value="钢琴（八级）, 篮球, 摄影, 旅行">
             </div>
+            </div>
+
+            <!-- 自定义模块容器 -->
+            <div id="custom-sections-container"></div>
+
+            <!-- 添加自定义模块 & 恢复模块 -->
+            <button class="add-section-btn" onclick="promptAddCustomSection()">
+                <span>+</span> 添加自定义大模块
+            </button>
+            <button class="restore-section-btn" onclick="openRestoreModal()">
+                ↺ 恢复已删除模块
+            </button>
+
+            <!-- 恢复模块弹窗 -->
+            <div class="restore-modal" id="restore-modal" onclick="if(event.target===this)closeRestoreModal()">
+                <div class="restore-dialog">
+                    <h3>恢复已删除的模块</h3>
+                    <div class="restore-list" id="restore-list"></div>
+                </div>
             </div>
 
             <!-- 字体选择 -->
@@ -4677,6 +4860,9 @@
                         <div class="section-header">爱好与特长</div>
                         <div class="section-body" id="p-hobbies-list"></div>
                     </div>
+
+                    <!-- 自定义模块预览容器 -->
+                    <div id="p-custom-sections-container"></div>
                 </div>
             </div>
         </div>
@@ -4948,6 +5134,9 @@
                 hasPhoto: !!photoData,
                 hiddenBasicFields: getHiddenBasicFields(),
                 customFields: JSON.parse(JSON.stringify(customFields)),
+                customSections: JSON.parse(JSON.stringify(customSections)),
+                hiddenSections: getHiddenSections(),
+                sectionOrder: getSectionOrder(),
                 resumeFont: getSavedFont(),
                 educationData: educationData,
                 projectData: projectData,
@@ -4978,6 +5167,33 @@
                 saveCustomFields(customFields);
                 renderCustomFields();
             }
+            // 恢复自定义大模块
+            if (data.customSections && Array.isArray(data.customSections)) {
+                customSections = JSON.parse(JSON.stringify(data.customSections));
+                saveCustomSections(customSections);
+                // 注册到 SECTION_MAP
+                customSections.forEach(function(s) {
+                    SECTION_MAP[s.key] = 'p-' + s.key + '-section';
+                });
+                renderCustomSections();
+                renderCustomSectionsPreview();
+            } else {
+                // 没有自定义模块数据，重置
+                customSections = [];
+                saveCustomSections(customSections);
+                renderCustomSections();
+                renderCustomSectionsPreview();
+            }
+            // 恢复隐藏模块
+            if (data.hiddenSections && Array.isArray(data.hiddenSections)) {
+                saveHiddenSections(data.hiddenSections);
+            } else {
+                saveHiddenSections([]);
+            }
+            // 恢复板块顺序
+            if (data.sectionOrder && Array.isArray(data.sectionOrder)) {
+                saveSectionOrder(data.sectionOrder);
+            }
             // 恢复字体设置
             if (data.resumeFont && FONT_OPTIONS[data.resumeFont]) {
                 saveFont(data.resumeFont);
@@ -5004,6 +5220,11 @@
             renderExperienceForm('project', projectData);
             renderExperienceForm('practice', practiceData);
             renderExperienceForm('campus', campusData);
+            // 应用隐藏模块状态和板块顺序
+            applyHiddenSectionsUI();
+            var order = getSectionOrder();
+            applySectionOrder(order);
+            updateSortBtnStates(order);
             updatePreview();
         }
 
@@ -6640,10 +6861,365 @@ ${companyContext}
             });
         }
 
+        // ========== 模块删除 / 恢复 / 自定义模块 ==========
+        var HIDDEN_SECTIONS_KEY = 'resume_hidden_sections';
+        var CUSTOM_SECTIONS_KEY = 'resume_custom_sections';
+        // 内置模块的中文名映射
+        var BUILTIN_SECTION_NAMES = {
+            education: '🎓 教育背景',
+            cert: '📜 资格证书与技能',
+            project: '💼 实习经历',
+            practice: '🤝 实践经历',
+            campus: '🏫 校园经历',
+            selfeval: '💡 自我评价',
+            hobbies: '🎨 爱好与特长'
+        };
+
+        // 获取被隐藏的模块
+        function getHiddenSections() {
+            try {
+                var saved = localStorage.getItem(HIDDEN_SECTIONS_KEY);
+                return saved ? JSON.parse(saved) : [];
+            } catch(e) { return []; }
+        }
+        function saveHiddenSections(arr) {
+            try { localStorage.setItem(HIDDEN_SECTIONS_KEY, JSON.stringify(arr)); } catch(e) {}
+        }
+
+        // 获取自定义模块
+        var customSections = []; // [{key, title, content, icon}]
+        function getCustomSections() {
+            try {
+                var saved = localStorage.getItem(CUSTOM_SECTIONS_KEY);
+                return saved ? JSON.parse(saved) : [];
+            } catch(e) { return []; }
+        }
+        function saveCustomSections(arr) {
+            try { localStorage.setItem(CUSTOM_SECTIONS_KEY, JSON.stringify(arr)); } catch(e) {}
+        }
+
+        // 删除模块（隐藏）
+        function deleteSection(sectionKey) {
+            var sectionName = BUILTIN_SECTION_NAMES[sectionKey] || sectionKey;
+            if (!confirm('确定要删除"' + (sectionName.replace(/^[^\s]+\s/, '')) + '"模块吗？\n可以在"恢复已删除模块"中找回来。')) return;
+
+            var hidden = getHiddenSections();
+            if (hidden.indexOf(sectionKey) < 0) {
+                hidden.push(sectionKey);
+                saveHiddenSections(hidden);
+            }
+
+            // 从排序中移除
+            var order = getSectionOrder();
+            var idx = order.indexOf(sectionKey);
+            if (idx >= 0) {
+                order.splice(idx, 1);
+                saveSectionOrder(order);
+            }
+
+            // 隐藏表单侧
+            var formWrap = document.querySelector('.form-section-wrap[data-section="' + sectionKey + '"]');
+            if (formWrap) formWrap.style.display = 'none';
+
+            // 隐藏预览侧
+            var previewId = SECTION_MAP[sectionKey];
+            if (previewId) {
+                var previewEl = document.getElementById(previewId);
+                if (previewEl) previewEl.style.display = 'none';
+            }
+
+            updateSortBtnStates(order);
+            showToast('已删除模块，可在"恢复已删除模块"中找回');
+        }
+
+        // 恢复模块
+        function restoreSection(sectionKey) {
+            var hidden = getHiddenSections();
+            var idx = hidden.indexOf(sectionKey);
+            if (idx >= 0) {
+                hidden.splice(idx, 1);
+                saveHiddenSections(hidden);
+            }
+
+            // 添加回排序末尾
+            var order = getSectionOrder();
+            if (order.indexOf(sectionKey) < 0) {
+                order.push(sectionKey);
+                saveSectionOrder(order);
+            }
+
+            // 显示表单侧
+            var formWrap = document.querySelector('.form-section-wrap[data-section="' + sectionKey + '"]');
+            if (formWrap) formWrap.style.display = '';
+
+            // 显示预览侧
+            var previewId = SECTION_MAP[sectionKey];
+            if (previewId) {
+                var previewEl = document.getElementById(previewId);
+                if (previewEl) previewEl.style.display = '';
+            }
+
+            applySectionOrder(order);
+            updateSortBtnStates(order);
+            updatePreview();
+            closeRestoreModal();
+            showToast('已恢复模块');
+        }
+
+        // 打开恢复弹窗
+        function openRestoreModal() {
+            var hidden = getHiddenSections();
+            var listEl = document.getElementById('restore-list');
+            if (!listEl) return;
+
+            if (hidden.length === 0) {
+                listEl.innerHTML = '<div class="restore-empty">暂无已删除的模块</div>';
+            } else {
+                listEl.innerHTML = hidden.map(function(key) {
+                    var name = BUILTIN_SECTION_NAMES[key] || key;
+                    var isCustom = false;
+                    // 自定义模块
+                    var custom = customSections.find(function(s) { return s.key === key; });
+                    if (custom) { name = custom.icon + ' ' + custom.title; isCustom = true; }
+                    var restoreFn = isCustom ? 'restoreCustomSection(\'' + key + '\')' : 'restoreSection(\'' + key + '\')';
+                    return '<div class="restore-item" onclick="' + restoreFn + '">' +
+                        '<span class="restore-item-label">' + esc(name) + '</span>' +
+                        '<button class="restore-item-btn">恢复</button>' +
+                        '</div>';
+                }).join('');
+            }
+
+            document.getElementById('restore-modal').classList.add('show');
+        }
+        function closeRestoreModal() {
+            document.getElementById('restore-modal').classList.remove('show');
+        }
+
+        // 添加自定义大模块
+        function promptAddCustomSection() {
+            var title = prompt('请输入新模块的名称（如：获奖经历、项目经验、技能特长等）：');
+            if (!title || !title.trim()) return;
+            title = title.trim();
+
+            var key = 'custom_section_' + Date.now();
+            var newSection = {
+                key: key,
+                title: title,
+                icon: '📌',
+                content: ''
+            };
+
+            customSections.push(newSection);
+            saveCustomSections(customSections);
+
+            // 注册到 SECTION_MAP
+            SECTION_MAP[key] = 'p-' + key + '-section';
+
+            // 添加到排序末尾
+            var order = getSectionOrder();
+            order.push(key);
+            saveSectionOrder(order);
+
+            renderCustomSections();
+            renderCustomSectionsPreview();
+            applySectionOrder(order);
+            updateSortBtnStates(order);
+            updatePreview();
+            showToast('已添加模块：' + title);
+        }
+
+        // 删除自定义模块
+        function deleteCustomSection(key) {
+            var section = customSections.find(function(s) { return s.key === key; });
+            if (!section) return;
+            if (!confirm('确定要删除"' + section.title + '"模块吗？')) return;
+
+            // 加入隐藏列表（用于恢复）
+            var hidden = getHiddenSections();
+            if (hidden.indexOf(key) < 0) {
+                hidden.push(key);
+                saveHiddenSections(hidden);
+            }
+
+            // 从排序中移除
+            var order = getSectionOrder();
+            var idx = order.indexOf(key);
+            if (idx >= 0) {
+                order.splice(idx, 1);
+                saveSectionOrder(order);
+            }
+
+            // 隐藏
+            var formWrap = document.querySelector('.form-section-wrap[data-section="' + key + '"]');
+            if (formWrap) formWrap.style.display = 'none';
+            var previewEl = document.getElementById('p-' + key + '-section');
+            if (previewEl) previewEl.style.display = 'none';
+
+            updateSortBtnStates(order);
+            showToast('已删除模块，可在"恢复已删除模块"中找回');
+        }
+
+        // 恢复自定义模块
+        function restoreCustomSection(key) {
+            // 从隐藏列表移除
+            var hidden = getHiddenSections();
+            var idx = hidden.indexOf(key);
+            if (idx >= 0) {
+                hidden.splice(idx, 1);
+                saveHiddenSections(hidden);
+            }
+
+            // 加回排序
+            var order = getSectionOrder();
+            if (order.indexOf(key) < 0) {
+                order.push(key);
+                saveSectionOrder(order);
+            }
+
+            // 显示
+            var formWrap = document.querySelector('.form-section-wrap[data-section="' + key + '"]');
+            if (formWrap) formWrap.style.display = '';
+            var previewEl = document.getElementById('p-' + key + '-section');
+            if (previewEl) previewEl.style.display = '';
+
+            applySectionOrder(order);
+            updateSortBtnStates(order);
+            updatePreview();
+            closeRestoreModal();
+            showToast('已恢复模块');
+        }
+
+        // 重命名自定义模块
+        function renameCustomSection(key, newTitle) {
+            var section = customSections.find(function(s) { return s.key === key; });
+            if (!section) return;
+            section.title = newTitle;
+            saveCustomSections(customSections);
+
+            // 更新预览标题
+            var previewHeader = document.querySelector('#p-' + key + '-section .section-header');
+            if (previewHeader) previewHeader.textContent = newTitle;
+
+            // 更新表单标题
+            var formTitleEl = document.querySelector('.form-section-wrap[data-section="' + key + '"] .section-title');
+            if (formTitleEl) {
+                var iconSpan = formTitleEl.querySelector('.custom-section-icon');
+                if (iconSpan) iconSpan.nextSibling.nodeValue = ' ' + newTitle;
+                else formTitleEl.firstChild.nodeValue = section.icon + ' ' + newTitle;
+            }
+        }
+
+        // 更新自定义模块内容
+        function updateCustomSectionContent(key, content) {
+            var section = customSections.find(function(s) { return s.key === key; });
+            if (!section) return;
+            section.content = content;
+            saveCustomSections(customSections);
+
+            // 更新预览
+            var listEl = document.getElementById('p-' + key + '-list');
+            if (listEl) {
+                var lines = content.split('\n').map(function(l) { return l.trim(); }).filter(function(l) { return l; });
+                if (lines.length > 0) {
+                    listEl.innerHTML = '<ul class="bullet-list">' + lines.map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>';
+                } else {
+                    listEl.innerHTML = '';
+                }
+            }
+
+            var sectionEl = document.getElementById('p-' + key + '-section');
+            if (sectionEl) {
+                sectionEl.style.display = (content.trim() && content.trim().length > 0) ? '' : 'none';
+            }
+        }
+
+        // 渲染自定义模块表单
+        function renderCustomSections() {
+            var container = document.getElementById('custom-sections-container');
+            if (!container) return;
+
+            var hidden = getHiddenSections();
+
+            container.innerHTML = customSections.map(function(section) {
+                var isHidden = hidden.indexOf(section.key) >= 0;
+                return '<div class="form-section-wrap" data-section="' + section.key + '" style="' + (isHidden ? 'display:none;' : '') + '">' +
+                    '<div class="section-title" style="margin-top:1.5rem">' +
+                    '<span class="custom-section-icon">' + section.icon + '</span> ' +
+                    '<input type="text" class="custom-section-title-input" value="' + esc(section.title) + '" ' +
+                    'onchange="renameCustomSection(\'' + section.key + '\', this.value)" ' +
+                    'onblur="renameCustomSection(\'' + section.key + '\', this.value)" ' +
+                    'placeholder="模块名称">' +
+                    '<span class="section-sort-btns">' +
+                    '<button class="sort-btn" onclick="moveSection(\'' + section.key + '\',\'up\')" title="上移">▲</button>' +
+                    '<button class="sort-btn" onclick="moveSection(\'' + section.key + '\',\'down\')" title="下移">▼</button>' +
+                    '<button class="section-del-btn" onclick="deleteCustomSection(\'' + section.key + '\')" title="删除此模块">×</button>' +
+                    '</span></div>' +
+                    '<div class="form-group">' +
+                    '<label>模块内容（每行一条，自动添加项目符号）</label>' +
+                    '<textarea rows="5" placeholder="每行一条内容，如：&#10;获得国家奖学金（2024）&#10;优秀学生干部（2023）" ' +
+                    'oninput="updateCustomSectionContent(\'' + section.key + '\', this.value)">' + esc(section.content) + '</textarea>' +
+                    '</div>' +
+                    '</div>';
+            }).join('');
+        }
+
+        // 渲染自定义模块预览
+        function renderCustomSectionsPreview() {
+            var container = document.getElementById('p-custom-sections-container');
+            if (!container) return;
+
+            var hidden = getHiddenSections();
+
+            container.innerHTML = customSections.map(function(section) {
+                var isHidden = hidden.indexOf(section.key) >= 0;
+                var lines = section.content.split('\n').map(function(l) { return l.trim(); }).filter(function(l) { return l; });
+                var contentHtml = lines.length > 0
+                    ? '<ul class="bullet-list">' + lines.map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>'
+                    : '';
+                var display = isHidden ? 'display:none;' : '';
+                return '<div class="resume-section" id="p-' + section.key + '-section" style="' + display + '">' +
+                    '<div class="section-header">' + esc(section.title) + '</div>' +
+                    '<div class="section-body" id="p-' + section.key + '-list">' + contentHtml + '</div>' +
+                    '</div>';
+            }).join('');
+        }
+
+        // 应用隐藏状态到 UI（初始化时调用）
+        function applyHiddenSectionsUI() {
+            var hidden = getHiddenSections();
+            hidden.forEach(function(key) {
+                // 隐藏表单侧
+                var formWrap = document.querySelector('.form-section-wrap[data-section="' + key + '"]');
+                if (formWrap) formWrap.style.display = 'none';
+
+                // 隐藏预览侧
+                var previewId = SECTION_MAP[key];
+                if (previewId) {
+                    var previewEl = document.getElementById(previewId);
+                    if (previewEl) previewEl.style.display = 'none';
+                }
+            });
+
+            // 从排序中移除隐藏的模块
+            var order = getSectionOrder();
+            var newOrder = order.filter(function(k) { return hidden.indexOf(k) < 0; });
+            if (newOrder.length !== order.length) {
+                saveSectionOrder(newOrder);
+                applySectionOrder(newOrder);
+                updateSortBtnStates(newOrder);
+            }
+        }
+
         function init() {
             loadSavedTheme();
             // 先从localStorage加载自定义字段作为初始值
             customFields = getCustomFields();
+            // 加载自定义大模块
+            customSections = getCustomSections();
+            // 注册自定义模块到 SECTION_MAP
+            customSections.forEach(function(s) {
+                SECTION_MAP[s.key] = 'p-' + s.key + '-section';
+            });
             autoLoadLatest();
             renderEducationForm();
             renderExperienceForm('project', projectData);
@@ -6652,8 +7228,13 @@ ${companyContext}
             bindEvents();
             // 渲染自定义字段（autoLoadLatest可能已从历史记录恢复，这里确保渲染）
             renderCustomFields();
+            // 渲染自定义大模块
+            renderCustomSections();
+            renderCustomSectionsPreview();
             // 应用保存的隐藏字段状态（在updatePreview之前）
             applyHiddenFieldsUI();
+            // 应用保存的隐藏模块状态
+            applyHiddenSectionsUI();
             // 应用保存的字体设置
             applySavedFont();
             updatePreview();
