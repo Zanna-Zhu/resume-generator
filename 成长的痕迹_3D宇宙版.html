@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>成长的痕迹（3D宇宙版）</title>
+<!-- 使用 jsdelivr CDN 替代 unpkg，某些网络环境下更稳定 -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js">
+</script>
+<script>
+// 备用：如果主CDN加载失败，尝试其他CDN
+(function() {
+    function checkThree() {
+        if (typeof THREE === "undefined") {
+            var s = document.createElement("script");
+            s.src = "https://unpkg.com/three@0.157.0/build/three.min.js";
+            document.head.appendChild(s);
+        }
+    }
+    setTimeout(checkThree, 2000);
+})();
+</script>
+<script>
+// 内嵌 OrbitControls - 兼容 file:// 协议
+if (typeof THREE !== "undefined" && !THREE.OrbitControls) {
+    (function() {
+        var V2 = THREE.Vector2, V3 = THREE.Vector3, Sp = THREE.Spherical, Qu = THREE.Quaternion;
+        THREE.OrbitControls = function(cam, dom) {
+            var s = this;
+            this.target = new V3();
+            this.enableDamping = true;
+            this.dampingFactor = 0.05;
+            this.minDistance = 0;
+            this.maxDistance = Infinity;
+            this.rotateSpeed = 1;
+            this.zoomSpeed = 1;
+            var sp = new Sp(), spd = new Sp(), sc = 1, po = new V3(), rs = new V2(), rd = new V2();
+            var st = -1;
+            var os = new V3(), qt = new Qu(), qi = new Qu();
+            
+            function rl(a) { spd.theta -= a; }
+            function ru(a) { spd.phi -= a; }
+            function gzs(d) { return Math.pow(0.95, s.zoomSpeed * Math.abs(d) / 100); }
+            function cd(r) { return Math.max(s.minDistance, Math.min(s.maxDistance, r)); }
+            
+            dom.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+            dom.addEventListener("pointerdown", function(e) {
+                if (!s.enabled) return;
+                var rect = dom.getBoundingClientRect();
+                var x = e.clientX - rect.left, y = e.clientY - rect.top;
+                if (e.button === 0) { st = 0; rs.set(x, y); }
+                else if (e.button === 1 || e.button === 2) { st = 2; rs.set(x, y); }
+                dom.setPointerCapture(e.pointerId);
+                dom.style.cursor = "grabbing";
+            });
+            dom.addEventListener("pointermove", function(e) {
+                if (!s.enabled) return;
+                var rect = dom.getBoundingClientRect();
+                var x = e.clientX - rect.left, y = e.clientY - rect.top;
+                if (st === 0) {
+                    rd.set(x, y).sub(rs);
+                    rl(rd.x * 0.005 * s.rotateSpeed);
+                    ru(rd.y * 0.005 * s.rotateSpeed);
+                    rs.set(x, y);
+                } else if (st === 2) {
+                    rd.set(x, y).sub(rs);
+                    os.copy(cam.position).sub(s.target);
+                    var td = os.length() * Math.tan(cam.fov / 2 * Math.PI / 180);
+                    po.x -= 2 * rd.x * td / dom.clientHeight;
+                    po.y += 2 * rd.y * td / dom.clientHeight;
+                    rs.set(x, y);
+                }
+            });
+            dom.addEventListener("pointerup", function() { st = -1; dom.style.cursor = "grab"; });
+            dom.addEventListener("wheel", function(e) {
+                e.preventDefault();
+                var delta = e.deltaY > 0 ? 1 / gzs(e.deltaY) : gzs(e.deltaY);
+                sc *= delta;
+            }, { passive: false });
+            
+            this.update = function() {
+                if (!s.enabled) return;
+                os.copy(cam.position).sub(s.target);
+                qt.setFromUnitVectors(cam.up, new V3(0, 1, 0));
+                qi.copy(qt).invert();
+                os.applyQuaternion(qt);
+                sp.setFromVector3(os);
+                if (s.enableDamping) {
+                    sp.theta += spd.theta * s.dampingFactor;
+                    sp.phi += spd.phi * s.dampingFactor;
+                    s.target.addScaledVector(po, s.dampingFactor);
+                } else {
+                    sp.theta += spd.theta;
+                    sp.phi += spd.phi;
+                    s.target.add(po);
+                }
+                sp.phi = Math.max(0.001, Math.min(Math.PI - 0.001, sp.phi));
+                sp.radius = cd(sp.radius * sc);
+                os.setFromSpherical(sp);
+                os.applyQuaternion(qi);
+                cam.position.copy(s.target).add(os);
+                cam.lookAt(s.target);
+                if (s.enableDamping) {
+                    spd.theta *= (1 - s.dampingFactor);
+                    spd.phi *= (1 - s.dampingFactor);
+                    po.multiplyScalar(1 - s.dampingFactor);
+                } else {
+                    spd.set(0, 0, 0);
+                    po.set(0, 0, 0);
+                }
+                sc = 1;
+                return true;
+            };
+        };
+    })();
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;overflow:hidden;background:#020208;font-family:"Noto Sans SC","Quicksand",sans-serif;}
+#universe-container{position:absolute;inset:0;z-index:1;overflow:hidden;background:#020208;cursor:grab;}
+#universe-container:active{cursor:grabbing;}
+#universe-container canvas{display:block;width:100%;height:100%;}
+.universe-hint{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.4);font-size:0.8rem;letter-spacing:2px;z-index:10;pointer-events:none;font-family:"Quicksand","Noto Sans SC",sans-serif;white-space:nowrap;animation:hintPulse 3s ease-in-out infinite;}
+@keyframes hintPulse{0%,100%{opacity:0.3}50%{opacity:0.7}}
+.universe-nav{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:0.6rem;z-index:20;background:rgba(0,0,0,0.5);backdrop-filter:blur(12px);padding:0.5rem 0.8rem;border-radius:16px;border:1px solid rgba(255,255,255,0.1);flex-wrap:wrap;justify-content:center;}
+.universe-nav-btn{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.4rem 0.9rem;font-size:0.75rem;cursor:pointer;transition:all 0.3s ease;font-family:"Quicksand","Noto Sans SC",sans-serif;font-weight:400;white-space:nowrap;}
+.universe-nav-btn:hover{background:rgba(255,255,255,0.15);color:white;transform:translateY(-1px);}
+.universe-nav-btn.active{background:rgba(255,255,255,0.2);color:white;border-color:rgba(255,255,255,0.35);box-shadow:0 0 20px rgba(255,255,255,0.08);}
+.universe-nav-btn .nav-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;vertical-align:middle;}
+.nav-color-education{background:#4ecdc4}.nav-color-intern{background:#ff6b6b}.nav-color-practice{background:#ffd93d}.nav-color-campus{background:#a88bff}
+.planet-detail-panel{position:absolute;top:50%;right:20px;transform:translateY(-50%);width:340px;max-height:80vh;background:rgba(10,10,30,0.85);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:1.5rem;z-index:30;color:rgba(255,255,255,0.9);font-family:"Quicksand","Noto Sans SC",sans-serif;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);opacity:0;pointer-events:none;transform:translateY(-50%) translateX(30px);overflow-y:auto;}
+.planet-detail-panel.show{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0);}
+.planet-detail-panel::-webkit-scrollbar{width:4px;}
+.planet-detail-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:2px;}
+.planet-detail-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
+.planet-detail-cat-badge{font-size:0.7rem;padding:0.2rem 0.7rem;border-radius:6px;font-weight:500;letter-spacing:1px;}
+.planet-detail-close{background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.2rem;cursor:pointer;padding:0.2rem;transition:color 0.2s;line-height:1;}
+.planet-detail-close:hover{color:white;}
+.planet-detail-time{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;}
+.planet-detail-title{font-size:1.2rem;font-weight:500;color:white;margin-bottom:0.4rem;line-height:1.4;}
+.planet-detail-role{display:inline-block;font-size:0.72rem;padding:0.2rem 0.7rem;border-radius:8px;margin-bottom:0.8rem;color:white;}
+.planet-detail-subtitle{font-size:0.8rem;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;font-weight:300;}
+.planet-detail-desc-label{font-size:0.72rem;color:rgba(255,255,255,0.4);margin-bottom:0.3rem;letter-spacing:1px;}
+.planet-detail-desc{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.7;font-weight:300;margin-bottom:1rem;}
+.planet-detail-desc li{list-style:none;position:relative;padding-left:1rem;margin-bottom:0.2rem;}
+.planet-detail-desc li::before{content:"\25B8";position:absolute;left:0;color:#4ecdc4;font-size:0.75rem;}
+.planet-detail-photos{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:0.8rem;}
+.planet-detail-photos .photo-item{position:relative;border-radius:6px;overflow:hidden;}
+.planet-detail-photos .photo-item img{width:100%;height:80px;object-fit:cover;display:block;}
+@media(max-width:768px){.planet-detail-panel{width:280px;right:10px;padding:1rem;max-height:70vh;}.universe-nav{gap:0.4rem;padding:0.4rem 0.6rem;}.universe-nav-btn{font-size:0.7rem;padding:0.3rem 0.6rem;}.universe-hint{font-size:0.7rem;bottom:80px;}}
+@media(max-width:480px){.planet-detail-panel{width:calc(100% - 20px);right:10px;top:auto;bottom:80px;transform:none;max-height:50vh;}.planet-detail-panel.show{transform:none;}}
+</style>
+</head>
+<body>
+<div id="universe-container">
+<div id="universe-loading" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);font-family:Quicksand,'Noto Sans SC',sans-serif;text-align:center;padding:2rem;z-index:2;pointer-events:none;">
+<div style="font-size:3rem;margin-bottom:1rem;">🌌</div>
+<div style="font-size:1.1rem;margin-bottom:0.5rem;">3D 宇宙加载中</div>
+<div style="font-size:0.8rem;opacity:0.6;"><span style="display:inline-block;animation:loadingDot 1.4s infinite">.</span><span style="display:inline-block;animation:loadingDot 1.4s 0.2s infinite">.</span><span style="display:inline-block;animation:loadingDot 1.4s 0.4s infinite">.</span></div>
+</div>
+</div>
+<style>
+@keyframes loadingDot{0%,80%,100%{opacity:0.3}40%{opacity:1}}
+</style>
+<div class="planet-detail-panel" id="planet-detail-panel">
+<div class="planet-detail-header">
+<span class="planet-detail-cat-badge" id="detail-cat"></span>
+<button class="planet-detail-close" onclick="closeDetailPanel()">&#10005;</button>
+</div>
+<div class="planet-detail-body">
+<div class="planet-detail-time" id="detail-time"></div>
+<div class="planet-detail-title" id="detail-title"></div>
+<div class="planet-detail-role" id="detail-role"></div>
+<div class="planet-detail-subtitle" id="detail-subtitle"></div>
+<div class="planet-detail-desc-label">&#128203; 详细经历</div>
+<div class="planet-detail-desc" id="detail-desc"></div>
+<div class="planet-detail-photos" id="detail-photos"></div>
+</div>
+</div>
+<div class="universe-hint">&#129656; 拖拽旋转 · 滚轮缩放 · 点击行星查看详情</div>
+<div class="universe-nav">
+<button class="universe-nav-btn" data-cat="education"><span class="nav-dot nav-color-education"></span>&#127891; 教育</button>
+<button class="universe-nav-btn" data-cat="intern"><span class="nav-dot nav-color-intern"></span>&#128188; 实习</button>
+<button class="universe-nav-btn" data-cat="practice"><span class="nav-dot nav-color-practice"></span>&#127760; 实践</button>
+<button class="universe-nav-btn" data-cat="campus"><span class="nav-dot nav-color-campus"></span>&#127963; 校园</button>
+<button class="universe-nav-btn active" data-cat="all">&#127784; 全景</button>
+</div>
+<script>
+// 嵌入数据
+var __EXPORT_DATA = {events: [{"school": "浙江大学（紫金港校区）", "major": "计算机科学与技术", "degree": "本科", "time": "2021.09 - 2025.06", "details": "主修：数据结构、操作系统、计算机网络、数据库原理、软件工程、人工智能基础等\n在校期间绩点 3.7/4.0，专业排名第 8/120，连续三年获学业奖学金", "cat": "education", "timeLabel": "2021.09 - 2025.06", "title": "浙江大学（紫金港校区）", "role": "计算机科学与技术 · 本科", "desc": "主修：数据结构、操作系统、计算机网络、数据库原理、软件工程、人工智能基础等\n在校期间绩点 3.7/4.0，专业排名第 8/120，连续三年获学业奖学金"}, {"title": "腾讯", "role": "前端开发实习生", "time": "2022.06 - 2022.09", "desc": "参与内部运营管理平台的前端重构，基于 Vue 3 + TypeScript 完成数据看板模块开发\n推动团队落地组件化规范，公共组件复用率提升 50%", "cat": "intern", "timeLabel": "2022.06 - 2022.09"}, {"title": "阿里巴巴", "role": "Java 开发实习生", "time": "2023.06 - 2023.09", "desc": "加入电商交易平台研发组，负责订单与支付链路的功能迭代与缺陷修复\n参与双 11 大促备战，协助完成全链路压测与容量评估，保障系统零故障", "cat": "intern", "timeLabel": "2023.06 - 2023.09"}, {"title": "字节跳动", "role": "后端开发实习生", "time": "2024.07 - 2024.09", "desc": "参与公司核心业务系统的微服务开发，独立完成两个功能模块的设计与上线\n优化现有接口性能，单接口吞吐量提升 30%，获实习团队好评与转正意向", "cat": "intern", "timeLabel": "2024.07 - 2024.09"}, {"title": "技术博客写作", "role": "独立博主", "time": "2022.03 - 至今", "desc": "在掘金、CSDN 平台持续输出技术文章 60 余篇，累计阅读量超 10 万\n多篇深度文章被官方推荐，建立个人技术品牌影响力", "cat": "practice", "timeLabel": "2022.03 - 至今"}, {"title": "开源社区贡献", "role": "贡献者", "time": "2023.06 - 至今", "desc": "积极参与开源项目，累计提交 PR 20 余个，修复多个核心模块缺陷\n在 GitHub 上获得 500+ Star，受邀成为某主流框架的 Collaborator", "cat": "practice", "timeLabel": "2023.06 - 至今"}, {"title": "校志愿者协会", "role": "活动协调员", "time": "2021.09 - 2022.06", "desc": "协调组织校园公益跑、敬老院探访等活动 10 余场，累计志愿服务时长超 100 小时\n获评校级\"优秀志愿者\"称号", "cat": "campus", "timeLabel": "2021.09 - 2022.06"}, {"title": "校ACM竞赛集训队", "role": "队员", "time": "2021.10 - 2023.05", "desc": "代表学校参加 ICPC 亚洲区域赛，获银奖 1 次、铜奖 2 次\n日常负责算法专题讲解与新人培训，带教 30 余名低年级队员", "cat": "campus", "timeLabel": "2021.10 - 2023.05"}, {"title": "校计算机协会", "role": "技术部部长", "time": "2022.09 - 2023.06", "desc": "组织策划多场技术分享会与编程竞赛，累计参与人数超 800 人次\n带领团队完成协会官网重构，提升页面加载速度与用户体验", "cat": "campus", "timeLabel": "2022.09 - 2023.06"}],images: {}};
+var catNames = {education: "\uD83C\uDF93 教育", intern: "\uD83D\uDCBC 实习", practice: "\uD83C\uDF10 实践", campus: "\uD83C\uDFDB 校园"};
+var catColors = {education: "#4ecdc4", intern: "#ff6b6b", practice: "#ffd93d", campus: "#a88bff"};
+var growthImages = {};
+var universeCurrentEventIndex = -1;
+
+function esc(s) {
+    if (!s) return "";
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+function descToListItems(t) {
+    if (!t || !t.trim()) return "";
+    return t.split("\n").map(function(l) { return l.trim(); }).filter(function(l) { return l; }).map(function(l) { return "<li>" + esc(l) + "</li>"; }).join("");
+}
+
+function closeDetailPanel() {
+    document.getElementById("planet-detail-panel").classList.remove("show");
+    universeCurrentEventIndex = -1;
+}
+
+function refreshDetailPhotos(index) {
+    var c = document.getElementById("detail-photos");
+    if (!c) return;
+    var imgs = __EXPORT_DATA.images[index] || [];
+    if (imgs.length === 0) { c.innerHTML = ""; return; }
+    c.innerHTML = imgs.map(function(s, j) {
+        return '<div class="photo-item"><img src="' + s + '" alt="照片' + (j + 1) + '"></div>';
+    }).join("");
+}
+
+function collectAllEvents() {
+    return __EXPORT_DATA.events;
+}
+// ============ Three.js 宇宙场景模块 v3 ============
+// 目标：更密集的星系链、更强的纵深层次、更真实的宇宙场
+(function() {
+    'use strict';
+
+    let scene, camera, renderer, controls;
+    let galaxies = {};
+    let planets = [];
+    let backgroundStars, midStars, nebulaParticles, cosmicDust, distantGalaxies;
+    let isInitialized = false;
+    let animationId = null;
+    let targetCameraPos = null;
+    let targetLookAt = null;
+    let cameraAnimating = false;
+    let cameraAnimProgress = 0;
+    let cameraAnimStart = null;
+    let cameraAnimDuration = 1500;
+    let cameraStartPos = null;
+    let cameraStartTarget = null;
+    let raycaster, mouse;
+    let currentCategory = 'all';
+    let clock;
+    let galaxyBridges = [];
+    let shootingStars = [];
+
+    const GALAXY_PALETTE = {
+        cyan: { color: '#4ecdc4', main: true },
+        red: { color: '#ff6b6b', main: true },
+        gold: { color: '#ffd93d', main: true },
+        purple: { color: '#a88bff', main: true },
+        pink: { color: '#ff6b9d', main: false },
+        blue: { color: '#45b7d1', main: false },
+        amber: { color: '#f9ca24', main: false },
+        violet: { color: '#be6bff', main: false },
+        coral: { color: '#ff7979', main: false },
+        teal: { color: '#7ed6df', main: false },
+        mint: { color: '#7bed9f', main: false },
+        orange: { color: '#ffa502', main: false },
+        rose: { color: '#ff4757', main: false },
+        indigo: { color: '#686de0', main: false },
+        lime: { color: '#badc58', main: false },
+        peach: { color: '#f0932b', main: false }
+    };
+
+    const galaxyConfigs = {
+        // 主星系：承载成长经历
+        education: { color: GALAXY_PALETTE.cyan.color, label: '🎓 教育', radius: 9.0, arms: 4, particles: 3500, isMain: true, bloom: 1.0 },
+        intern: { color: GALAXY_PALETTE.red.color, label: '💼 实习', radius: 8.2, arms: 5, particles: 3000, isMain: true, bloom: 1.0 },
+        practice: { color: GALAXY_PALETTE.gold.color, label: '🌐 实践', radius: 7.2, arms: 4, particles: 2600, isMain: true, bloom: 1.0 },
+        campus: { color: GALAXY_PALETTE.purple.color, label: '🏛️ 校园', radius: 6.5, arms: 3, particles: 2800, isMain: true, bloom: 1.0 },
+        // 装饰星系
+        deco1: { color: GALAXY_PALETTE.pink.color, label: '✨ 星云α', radius: 4.6, arms: 3, particles: 1100, isMain: false, bloom: 0.75 },
+        deco2: { color: GALAXY_PALETTE.blue.color, label: '✨ 星云β', radius: 5.4, arms: 4, particles: 1400, isMain: false, bloom: 0.85 },
+        deco3: { color: GALAXY_PALETTE.amber.color, label: '✨ 星云γ', radius: 3.4, arms: 2, particles: 700, isMain: false, bloom: 0.6 },
+        deco4: { color: GALAXY_PALETTE.violet.color, label: '✨ 星云δ', radius: 4.9, arms: 5, particles: 1200, isMain: false, bloom: 0.78 },
+        deco5: { color: GALAXY_PALETTE.coral.color, label: '✨ 星云ε', radius: 3.8, arms: 3, particles: 900, isMain: false, bloom: 0.65 },
+        deco6: { color: GALAXY_PALETTE.teal.color, label: '✨ 星云ζ', radius: 5.8, arms: 4, particles: 1600, isMain: false, bloom: 0.88 },
+        deco7: { color: GALAXY_PALETTE.mint.color, label: '✨ 星云η', radius: 2.9, arms: 2, particles: 550, isMain: false, bloom: 0.5 },
+        deco8: { color: GALAXY_PALETTE.orange.color, label: '✨ 星云θ', radius: 4.1, arms: 3, particles: 800, isMain: false, bloom: 0.62 },
+        deco9: { color: GALAXY_PALETTE.rose.color, label: '✨ 星云ι', radius: 4.7, arms: 4, particles: 1300, isMain: false, bloom: 0.72 },
+        deco10: { color: GALAXY_PALETTE.indigo.color, label: '✨ 星云κ', radius: 3.6, arms: 3, particles: 850, isMain: false, bloom: 0.6 },
+        deco11: { color: GALAXY_PALETTE.lime.color, label: '✨ 星云λ', radius: 5.0, arms: 4, particles: 1150, isMain: false, bloom: 0.7 },
+        deco12: { color: GALAXY_PALETTE.peach.color, label: '✨ 星云μ', radius: 3.2, arms: 2, particles: 650, isMain: false, bloom: 0.55 },
+        deco13: { color: GALAXY_PALETTE.pink.color, label: '✨ 星云ν', radius: 4.4, arms: 3, particles: 1000, isMain: false, bloom: 0.68 },
+        deco14: { color: GALAXY_PALETTE.blue.color, label: '✨ 星云ξ', radius: 3.9, arms: 4, particles: 880, isMain: false, bloom: 0.64 },
+        deco15: { color: GALAXY_PALETTE.violet.color, label: '✨ 星云ο', radius: 4.2, arms: 3, particles: 950, isMain: false, bloom: 0.66 },
+        deco16: { color: GALAXY_PALETTE.teal.color, label: '✨ 星云π', radius: 5.2, arms: 5, particles: 1250, isMain: false, bloom: 0.74 },
+        deco17: { color: GALAXY_PALETTE.amber.color, label: '✨ 星云ρ', radius: 3.5, arms: 2, particles: 720, isMain: false, bloom: 0.58 },
+        deco18: { color: GALAXY_PALETTE.coral.color, label: '✨ 星云σ', radius: 4.0, arms: 3, particles: 820, isMain: false, bloom: 0.62 }
+    };
+
+    // 星系链：沿大幅 S 形 3D 曲线分布，y/z 强烈错落
+    const chainPath = [
+        { cat: 'deco1', x: -68, z: 18, y: 8, scale: 0.55 },
+        { cat: 'deco2', x: -62, z: 12, y: 5, scale: 0.75 },
+        { cat: 'deco3', x: -56, z: 5, y: -2, scale: 0.45 },
+        { cat: 'deco4', x: -50, z: -1, y: -6, scale: 0.6 },
+        { cat: 'education', x: -44, z: -6, y: -1, scale: 1.0 },
+        { cat: 'deco5', x: -38, z: -10, y: 4, scale: 0.5 },
+        { cat: 'deco6', x: -32, z: -12, y: 7, scale: 0.7 },
+        { cat: 'deco7', x: -26, z: -11, y: -4, scale: 0.4 },
+        { cat: 'deco8', x: -20, z: -7, y: -8, scale: 0.55 },
+        { cat: 'intern', x: -14, z: -2, y: -1, scale: 1.0 },
+        { cat: 'deco9', x: -8, z: 3, y: 5, scale: 0.5 },
+        { cat: 'deco10', x: -2, z: 6, y: 8, scale: 0.65 },
+        { cat: 'deco11', x: 4, z: 7, y: -5, scale: 0.4 },
+        { cat: 'deco12', x: 10, z: 5, y: -9, scale: 0.5 },
+        { cat: 'practice', x: 16, z: 0, y: -1, scale: 1.0 },
+        { cat: 'deco13', x: 22, z: -5, y: 4, scale: 0.6 },
+        { cat: 'deco14', x: 28, z: -8, y: 7, scale: 0.45 },
+        { cat: 'deco15', x: 34, z: -7, y: -4, scale: 0.5 },
+        { cat: 'deco16', x: 40, z: -3, y: -8, scale: 0.7 },
+        { cat: 'campus', x: 46, z: 3, y: -1, scale: 1.0 },
+        { cat: 'deco17', x: 52, z: 9, y: 5, scale: 0.5 },
+        { cat: 'deco18', x: 58, z: 14, y: -3, scale: 0.55 }
+    ];
+
+    var pathMap = {};
+    chainPath.forEach(function(item, idx) {
+        var uniqueKey = item.cat + '_' + idx;
+        item.uniqueKey = uniqueKey;
+        pathMap[uniqueKey] = item;
+    });
+
+    const galaxyPositions = {};
+    const galaxyScales = {};
+    chainPath.forEach(function(item) {
+        galaxyPositions[item.uniqueKey] = { x: item.x, z: item.z, y: item.y || 0 };
+        galaxyScales[item.uniqueKey] = item.scale;
+    });
+
+    const mainGalaxyKeys = chainPath
+        .filter(function(item) { return galaxyConfigs[item.cat].isMain; })
+        .map(function(item) { return item.uniqueKey; });
+
+    var galaxySizeFactors = {};
+    chainPath.forEach(function(item) { galaxySizeFactors[item.uniqueKey] = 1.0; });
+
+    function initUniverse() {
+        if (isInitialized) {
+            resetCamera();
+            return;
+        }
+
+        const container = document.getElementById('universe-container');
+        if (!container) {
+            console.error('[Universe] 未找到容器元素');
+            return;
+        }
+
+        if (typeof THREE === 'undefined') {
+            container.innerHTML = '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);font-family:sans-serif;text-align:center;padding:2rem;"><div style="font-size:3rem;margin-bottom:1rem;">🌌</div><div style="font-size:1.1rem;margin-bottom:0.5rem;">3D 宇宙加载中...</div><div style="font-size:0.8rem;opacity:0.6;">请确保网络畅通，刷新页面重试</div></div>';
+            return;
+        }
+
+        try {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x020208);
+            scene.fog = new THREE.FogExp2(0x020208, 0.0045);
+
+            const aspect = container.clientWidth / container.clientHeight;
+            camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 2500);
+            camera.position.set(0, 40, 130);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.7;
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 3;
+            controls.maxDistance = 300;
+            controls.target.set(0, 0, 0);
+            controls.update();
+
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+            clock = new THREE.Clock();
+
+            createBackgroundStars();
+            createMidStars();
+            createNebula();
+            createCosmicDust();
+            createGalaxies();
+            createDistantGalaxies();
+            createGalaxyBridges();
+            createShootingStars();
+            createPlanets();
+            addAmbientLight();
+            createSizeControlPanel();
+
+            renderer.domElement.addEventListener('click', onCanvasClick);
+
+            console.log('[Universe] 宇宙场景初始化完成，星系数量:', chainPath.length);
+        } catch (e) {
+            console.error('[Universe] 初始化失败:', e);
+            container.innerHTML = '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);font-family:sans-serif;text-align:center;padding:2rem;"><div style="font-size:3rem;margin-bottom:1rem;">⚠️</div><div style="font-size:1.1rem;margin-bottom:0.5rem;">3D 场景加载失败</div><div style="font-size:0.8rem;opacity:0.6;">请刷新页面或检查浏览器是否支持 WebGL</div></div>';
+            return;
+        }
+
+        const resizeHandler = function() {
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+        };
+        window.addEventListener('resize', resizeHandler);
+
+        document.querySelectorAll('.universe-nav-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                focusGalaxy(this.dataset.cat);
+            });
+        });
+
+        isInitialized = true;
+
+        var loadingEl = document.getElementById('universe-loading');
+        if (loadingEl) {
+            loadingEl.style.opacity = '0';
+            setTimeout(function() { if (loadingEl.parentNode) loadingEl.parentNode.removeChild(loadingEl); }, 500);
+        }
+
+        animate();
+
+        setTimeout(function() {
+            const hint = document.querySelector('.universe-hint');
+            if (hint) hint.style.opacity = '1';
+        }, 2000);
+    }
+
+    // ============ 远景星空 ============
+    function createBackgroundStars() {
+        const count = 18000;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+
+        for (let i = 0; i < count; i++) {
+            const i3 = i * 3;
+            const radius = 250 + Math.random() * 800;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+
+            positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+            positions[i3 + 1] = radius * Math.cos(phi);
+            positions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+
+            const brightness = 0.15 + Math.random() * 0.55;
+            const tint = Math.random();
+            if (tint < 0.18) {
+                colors[i3] = brightness * 0.55; colors[i3+1] = brightness * 0.7; colors[i3+2] = brightness;
+            } else if (tint < 0.36) {
+                colors[i3] = brightness; colors[i3+1] = brightness * 0.75; colors[i3+2] = brightness * 0.55;
+            } else if (tint < 0.58) {
+                colors[i3] = brightness; colors[i3+1] = brightness; colors[i3+2] = brightness;
+            } else if (tint < 0.78) {
+                colors[i3] = brightness * 0.85; colors[i3+1] = brightness * 0.6; colors[i3+2] = brightness * 0.95;
+            } else {
+                colors[i3] = brightness * 0.6; colors[i3+1] = brightness * 0.9; colors[i3+2] = brightness * 0.75;
+            }
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.1,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.55,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            sizeAttenuation: true
+        });
+
+        backgroundStars = new THREE.Points(geometry, material);
+        scene.add(backgroundStars);
+    }
+
+    // ============ 中景星空 ============
+    function createMidStars() {
+        const count = 9000;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+        const sizes = new Float32Array(count);
+
+        for (let i = 0; i < count; i++) {
+            const i3 = i * 3;
+            const radius = 40 + Math.random() * 240;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+
+            positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+            positions[i3 + 1] = radius * Math.cos(phi);
+            positions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+
+            const brightness = 0.3 + Math.random() * 0.7;
+            const tint = Math.random();
+            if (tint < 0.2) {
+                colors[i3] = brightness * 0.65; colors[i3+1] = brightness * 0.8; colors[i3+2] = brightness;
+            } else if (tint < 0.4) {
+                colors[i3] = brightness; colors[i3+1] = brightness * 0.78; colors[i3+2] = brightness * 0.6;
+            } else if (tint < 0.65) {
+                colors[i3] = brightness; colors[i3+1] = brightness; colors[i3+2] = brightness;
+            } else {
+                colors[i3] = brightness * 0.85; colors[i3+1] = brightness * 0.65; colors[i3+2] = brightness * 0.95;
+            }
+            sizes[i] = 0.2 + Math.random() * 1.6;
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.22,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.85,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            sizeAttenuation: true
+        });
+
+        midStars = new THREE.Points(geometry, material);
+        scene.add(midStars);
+    }
+
+    // ============ 星云雾气（沿星系链分布） ============
+    function createNebula() {
+        const count = 5000;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+
+        const nebulaColors = [
+            [0.15, 0.05, 0.38], [0.03, 0.12, 0.45], [0.28, 0.05, 0.24],
+            [0.04, 0.28, 0.38], [0.38, 0.05, 0.14], [0.12, 0.04, 0.3],
+            [0.03, 0.2, 0.28], [0.22, 0.08, 0.45]
+        ];
+
+        for (let i = 0; i < count; i++) {
+            const i3 = i * 3;
+            // 70% 沿链分布，30% 全局随机
+            let cx, cy, cz;
+            if (Math.random() < 0.7) {
+                const segIdx = Math.floor(Math.random() * (chainPath.length - 1));
+                const a = chainPath[segIdx];
+                const b = chainPath[segIdx + 1];
+                const t = Math.random();
+                cx = a.x + (b.x - a.x) * t;
+                cy = (a.y || 0) + ((b.y || 0) - (a.y || 0)) * t;
+                cz = a.z + (b.z - a.z) * t;
+            } else {
+                cx = (Math.random() - 0.5) * 160;
+                cy = (Math.random() - 0.5) * 60;
+                cz = (Math.random() - 0.5) * 160;
+            }
+            const spread = 18 + Math.random() * 22;
+            positions[i3] = cx + (Math.random() - 0.5) * spread;
+            positions[i3 + 1] = cy + (Math.random() - 0.5) * spread * 0.6;
+            positions[i3 + 2] = cz + (Math.random() - 0.5) * spread;
+
+            const nc = nebulaColors[Math.floor(Math.random() * nebulaColors.length)];
+            const alpha = 0.05 + Math.random() * 0.16;
+            colors[i3] = nc[0] * alpha;
+            colors[i3 + 1] = nc[1] * alpha;
+            colors[i3 + 2] = nc[2] * alpha;
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 4.0,
+            vertexColors: true,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            opacity: 0.42,
+            sizeAttenuation: true
+        });
+
+        nebulaParticles = new THREE.Points(geometry, material);
+        scene.add(nebulaParticles);
+    }
+
+    // ============ 宇宙尘埃 ============
+    function createCosmicDust() {
+        const count = 12000;
+        const positions = new Float32Array(count * 3);
+
+        for (let i = 0; i < count; i++) {
+            const i3 = i * 3;
+            // 60% 沿链，40% 全局
+            if (Math.random() < 0.6) {
+                const item = chainPath[Math.floor(Math.random() * chainPath.length)];
+                const spread = 35;
+                positions[i3] = item.x + (Math.random() - 0.5) * spread;
+                positions[i3 + 1] = (item.y || 0) + (Math.random() - 0.5) * spread * 0.5;
+                positions[i3 + 2] = item.z + (Math.random() - 0.5) * spread;
+            } else {
+                positions[i3] = (Math.random() - 0.5) * 450;
+                positions[i3 + 1] = (Math.random() - 0.5) * 220;
+                positions[i3 + 2] = (Math.random() - 0.5) * 450;
+            }
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const material = new THREE.PointsMaterial({
+            color: 0x777799,
+            size: 0.06,
+            transparent: true,
+            opacity: 0.22,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            sizeAttenuation: true
+        });
+
+        cosmicDust = new THREE.Points(geometry, material);
+        scene.add(cosmicDust);
+    }
+
+    // ============ 星系 ============
+    function createGalaxies() {
+        chainPath.forEach(function(item) {
+            const cat = item.cat;
+            const config = galaxyConfigs[cat];
+            const pos = galaxyPositions[item.uniqueKey];
+            const scale = galaxyScales[item.uniqueKey];
+            const galaxy = createGalaxySystem(config, pos, scale, item.uniqueKey);
+            galaxies[item.uniqueKey] = galaxy;
+            scene.add(galaxy.group);
+        });
+    }
+
+    function createGalaxySystem(config, pos, scale, uniqueKey) {
+        const group = new THREE.Group();
+        group.position.set(pos.x, pos.y || 0, pos.z);
+
+        const baseScale = scale || 1.0;
+        group.scale.set(baseScale, baseScale, baseScale);
+
+        const color = new THREE.Color(config.color);
+        const count = config.particles;
+        const arms = config.arms;
+        const radius = config.radius;
+
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+
+        for (let i = 0; i < count; i++) {
+            const i3 = i * 3;
+            const armAngle = (i % arms) * (Math.PI * 2 / arms);
+            const dist = Math.random() * radius;
+            const spiralAngle = dist * 0.8 + armAngle;
+            const spread = (1 - dist / radius) * 0.38 + 0.07;
+
+            const x = Math.cos(spiralAngle) * dist + (Math.random() - 0.5) * spread;
+            const z = Math.sin(spiralAngle) * dist + (Math.random() - 0.5) * spread;
+            const y = (Math.random() - 0.5) * spread * 0.5;
+
+            positions[i3] = x;
+            positions[i3 + 1] = y;
+            positions[i3 + 2] = z;
+
+            const brightness = 0.35 + Math.random() * 0.65;
+            const fade = 1 - dist / radius;
+            colors[i3] = color.r * brightness * fade;
+            colors[i3 + 1] = color.g * brightness * fade;
+            colors[i3 + 2] = color.b * brightness * fade;
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.15,
+            vertexColors: true,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            opacity: 0.92,
+            sizeAttenuation: true
+        });
+
+        const points = new THREE.Points(geometry, material);
+        group.add(points);
+
+        // 星系核心发光
+        const coreSize = config.isMain ? 0.75 : 0.38;
+        const glowGeo = new THREE.SphereGeometry(coreSize, 22, 22);
+        const glowMat = new THREE.MeshBasicMaterial({
+            color: config.color,
+            transparent: true,
+            opacity: config.isMain ? 0.78 : 0.58,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+        const glow = new THREE.Mesh(glowGeo, glowMat);
+        group.add(glow);
+
+        // 星系盘光晕
+        const ringGeo = new THREE.RingGeometry(radius * 0.72, radius * 1.28, 60);
+        const ringMat = new THREE.MeshBasicMaterial({
+            color: config.color,
+            transparent: true,
+            opacity: config.isMain ? 0.12 : 0.07,
+            side: THREE.DoubleSide,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+        });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.rotation.x = Math.PI / 2;
+        group.add(ring);
+
+        return {
+            group: group,
+            points: points,
+            glow: glow,
+            ring: ring,
+            rotationSpeed: 0.05 + Math.random() * 0.1,
+            cat: config.isMain ? Object.keys(galaxyConfigs).find(function(k) { return galaxyConfigs[k] === config; }) : null,
+            baseScale: baseScale,
+            uniqueKey: uniqueKey
+        };
+    }
+
+    // ============ 远景小星系（增强宇宙密度） ============
+    function createDistantGalaxies() {
+        const colors = Object.values(GALAXY_PALETTE).map(function(p) { return new THREE.Color(p.color); });
+        const group = new THREE.Group();
+
+        for (let i = 0; i < 28; i++) {
+            let x, y, z, tooClose;
+            let attempts = 0;
+            do {
+                tooClose = false;
+                x = (Math.random() - 0.5) * 420;
+                y = (Math.random() - 0.5) * 180;
+                z = (Math.random() - 0.5) * 420;
+                for (let j = 0; j < chainPath.length; j++) {
+                    const p = chainPath[j];
+                    const dx = x - p.x;
+                    const dy = y - (p.y || 0);
+                    const dz = z - p.z;
+                    if (Math.sqrt(dx*dx + dy*dy + dz*dz) < 55) {
+                        tooClose = true;
+                        break;
+                    }
+                }
+                attempts++;
+            } while (tooClose && attempts < 30);
+
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const radius = 2.2 + Math.random() * 2.5;
+            const count = 350 + Math.floor(Math.random() * 400);
+            const arms = 2 + Math.floor(Math.random() * 3);
+            const scale = 0.2 + Math.random() * 0.35;
+
+            const positions = new Float32Array(count * 3);
+            const gColors = new Float32Array(count * 3);
+
+            for (let k = 0; k < count; k++) {
+                const k3 = k * 3;
+                const armAngle = (k % arms) * (Math.PI * 2 / arms);
+                const dist = Math.random() * radius;
+                const spiralAngle = dist * 0.9 + armAngle;
+                const spread = (1 - dist / radius) * 0.25 + 0.04;
+                positions[k3] = Math.cos(spiralAngle) * dist + (Math.random() - 0.5) * spread;
+                positions[k3 + 1] = (Math.random() - 0.5) * spread * 0.4;
+                positions[k3 + 2] = Math.sin(spiralAngle) * dist + (Math.random() - 0.5) * spread;
+                const fade = 1 - dist / radius;
+                gColors[k3] = color.r * fade * 0.7;
+                gColors[k3 + 1] = color.g * fade * 0.7;
+                gColors[k3 + 2] = color.b * fade * 0.7;
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(gColors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.12,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                opacity: 0.55,
+                sizeAttenuation: true
+            });
+
+            const pts = new THREE.Points(geometry, material);
+            const g = new THREE.Group();
+            g.add(pts);
+            g.position.set(x, y, z);
+            g.scale.set(scale, scale, scale);
+            g.rotation.z = Math.random() * Math.PI;
+            g.rotation.x = (Math.random() - 0.5) * 0.5;
+            group.add(g);
+        }
+
+        distantGalaxies = group;
+        scene.add(distantGalaxies);
+    }
+
+    // ============ 星系桥（连接链上相邻星系） ============
+    function createGalaxyBridges() {
+        for (var i = 0; i < chainPath.length - 1; i++) {
+            var from = chainPath[i];
+            var to = chainPath[i + 1];
+            var fromPos = new THREE.Vector3(from.x, from.y || 0, from.z);
+            var toPos = new THREE.Vector3(to.x, to.y || 0, to.z);
+
+            var bridgeCount = 380;
+            var positions = new Float32Array(bridgeCount * 3);
+            var colors = new Float32Array(bridgeCount * 3);
+
+            for (var j = 0; j < bridgeCount; j++) {
+                var t = Math.random();
+                var j3 = j * 3;
+                var point = new THREE.Vector3().lerpVectors(fromPos, toPos, t);
+                var spread = 2.4;
+                point.x += (Math.random() - 0.5) * spread;
+                point.y += (Math.random() - 0.5) * spread;
+                point.z += (Math.random() - 0.5) * spread;
+
+                positions[j3] = point.x;
+                positions[j3 + 1] = point.y;
+                positions[j3 + 2] = point.z;
+
+                var fromColor = new THREE.Color(galaxyConfigs[from.cat].color);
+                var toColor = new THREE.Color(galaxyConfigs[to.cat].color);
+                var c = fromColor.clone().lerp(toColor, t);
+                var alpha = 0.2 + Math.random() * 0.4;
+                colors[j3] = c.r * alpha;
+                colors[j3 + 1] = c.g * alpha;
+                colors[j3 + 2] = c.b * alpha;
+            }
+
+            var geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            var material = new THREE.PointsMaterial({
+                size: 0.11,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                opacity: 0.5,
+                sizeAttenuation: true
+            });
+
+            var bridge = new THREE.Points(geometry, material);
+            scene.add(bridge);
+            galaxyBridges.push(bridge);
+        }
+    }
+
+    // ============ 流星 ============
+    function createShootingStars() {
+        for (var i = 0; i < 12; i++) {
+            var geometry = new THREE.BufferGeometry();
+            var positions = new Float32Array(20 * 3);
+            for (var j = 0; j < 20; j++) {
+                positions[j * 3] = 0;
+                positions[j * 3 + 1] = 0;
+                positions[j * 3 + 2] = 0;
+            }
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            var material = new THREE.LineBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0,
+                blending: THREE.AdditiveBlending
+            });
+
+            var line = new THREE.Line(geometry, material);
+            scene.add(line);
+
+            shootingStars.push({
+                line: line,
+                active: false,
+                life: 0,
+                maxLife: 0,
+                pos: new THREE.Vector3(),
+                vel: new THREE.Vector3()
+            });
+        }
+    }
+
+    function updateShootingStars() {
+        shootingStars.forEach(function(s) {
+            if (!s.active) {
+                if (Math.random() < 0.006) {
+                    s.active = true;
+                    s.life = 0;
+                    s.maxLife = 40 + Math.random() * 45;
+                    s.pos.set(
+                        (Math.random() - 0.5) * 180,
+                        30 + Math.random() * 40,
+                        (Math.random() - 0.5) * 100 - 50
+                    );
+                    s.vel.set(
+                        (Math.random() - 0.5) * 2.0 - 0.6,
+                        -0.6 - Math.random() * 0.7,
+                        (Math.random() - 0.5) * 1.2 + 0.6
+                    );
+                }
+            } else {
+                var positions = s.line.geometry.attributes.position.array;
+                for (var i = 19; i > 0; i--) {
+                    positions[i * 3] = positions[(i - 1) * 3];
+                    positions[i * 3 + 1] = positions[(i - 1) * 3 + 1];
+                    positions[i * 3 + 2] = positions[(i - 1) * 3 + 2];
+                }
+                s.pos.add(s.vel);
+                positions[0] = s.pos.x;
+                positions[1] = s.pos.y;
+                positions[2] = s.pos.z;
+                s.line.geometry.attributes.position.needsUpdate = true;
+                s.line.material.opacity = 0.65 * (1 - s.life / s.maxLife);
+                s.life++;
+                if (s.life > s.maxLife) {
+                    s.active = false;
+                    s.line.material.opacity = 0;
+                }
+            }
+        });
+    }
+
+    // ============ 行星（成长经历） ============
+    function createPlanets() {
+        const events = collectAllEvents();
+
+        events.forEach(function(evt, i) {
+            const cat = evt.cat;
+            const config = galaxyConfigs[cat];
+            var galaxyItem = chainPath.find(function(item) { return item.cat === cat && galaxyConfigs[item.cat].isMain; });
+            var uniqueKey = galaxyItem ? galaxyItem.uniqueKey : chainPath[0].uniqueKey;
+            const pos = galaxyPositions[uniqueKey];
+            const color = new THREE.Color(catColors[cat]);
+
+            const orbitRadius = 2.0 + Math.random() * (config.radius * 0.68);
+            const orbitAngle = Math.random() * Math.PI * 2;
+            const orbitSpeed = 0.12 + Math.random() * 0.22;
+            const yOffset = (Math.random() - 0.5) * 2.2;
+            const planetSize = 0.28 + Math.random() * 0.24;
+
+            const geo = new THREE.SphereGeometry(planetSize, 18, 18);
+            const mat = new THREE.MeshPhongMaterial({
+                color: color,
+                emissive: color,
+                emissiveIntensity: 0.4,
+                shininess: 40,
+                transparent: true,
+                opacity: 0.94
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+
+            // 行星光晕
+            const glowGeo = new THREE.SphereGeometry(planetSize * 2.6, 18, 18);
+            const glowMat = new THREE.MeshBasicMaterial({
+                color: color,
+                transparent: true,
+                opacity: 0.2,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+            mesh.add(glowMesh);
+
+            // 轨道环
+            const ringGeo = new THREE.RingGeometry(planetSize * 1.8, planetSize * 2.4, 20);
+            const ringMat = new THREE.MeshBasicMaterial({
+                color: color,
+                transparent: true,
+                opacity: 0.22,
+                side: THREE.DoubleSide,
+                depthWrite: false
+            });
+            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+            ringMesh.rotation.x = Math.PI / 2.5;
+            mesh.add(ringMesh);
+
+            // === 成长经历高亮光束柱 ===
+            var beamGroup = new THREE.Group();
+            var beamGeo = new THREE.CylinderGeometry(0.025, 0.1, 2.4, 8);
+            var beamMat = new THREE.MeshBasicMaterial({
+                color: color,
+                transparent: true,
+                opacity: 0.55,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            var beam = new THREE.Mesh(beamGeo, beamMat);
+            beam.position.y = 1.2;
+            beamGroup.add(beam);
+
+            var tipGlowGeo = new THREE.SphereGeometry(0.12, 10, 10);
+            var tipGlowMat = new THREE.MeshBasicMaterial({
+                color: color,
+                transparent: true,
+                opacity: 0.75,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            var tipGlow = new THREE.Mesh(tipGlowGeo, tipGlowMat);
+            tipGlow.position.y = 2.4;
+            beamGroup.add(tipGlow);
+
+            var crossGlowGeo = new THREE.SphereGeometry(0.07, 8, 8);
+            var crossGlowMat = new THREE.MeshBasicMaterial({
+                color: color,
+                transparent: true,
+                opacity: 0.35,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            var crossGlow = new THREE.Mesh(crossGlowGeo, crossGlowMat);
+            crossGlow.scale.set(1, 4, 1);
+            crossGlow.position.y = 1.2;
+            beamGroup.add(crossGlow);
+
+            var crossGlow2 = crossGlow.clone();
+            crossGlow2.scale.set(4, 1, 1);
+            crossGlow2.position.y = 1.2;
+            beamGroup.add(crossGlow2);
+
+            mesh.add(beamGroup);
+
+            // 标签精灵
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'rgba(0,0,0,0)';
+            ctx.fillRect(0, 0, 256, 64);
+            ctx.fillStyle = 'rgba(255,255,255,0.85)';
+            ctx.font = '20px "Noto Sans SC", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const label = evt.title.length > 8 ? evt.title.substring(0, 8) + '..' : evt.title;
+            ctx.fillText(label, 128, 32);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const spriteMat = new THREE.SpriteMaterial({
+                map: texture,
+                transparent: true,
+                opacity: 0.75,
+                depthWrite: false
+            });
+            const sprite = new THREE.Sprite(spriteMat);
+            sprite.scale.set(2.2, 0.55, 1);
+            sprite.position.y = planetSize * 3.8 + 1.3;
+
+            const planet = {
+                mesh: mesh,
+                sprite: sprite,
+                beamGroup: beamGroup,
+                eventIndex: i,
+                cat: cat,
+                orbitRadius: orbitRadius,
+                orbitAngle: orbitAngle,
+                orbitSpeed: orbitSpeed,
+                yOffset: yOffset,
+                galaxyPos: pos,
+                rotationSpeed: 0.5 + Math.random() * 0.5,
+                isHovered: false
+            };
+
+            updatePlanetPosition(planet, 0);
+
+            scene.add(mesh);
+            scene.add(sprite);
+
+            planets.push(planet);
+        });
+    }
+
+    function updatePlanetPosition(planet, time) {
+        const angle = planet.orbitAngle + time * planet.orbitSpeed;
+        const x = Math.cos(angle) * planet.orbitRadius;
+        const z = Math.sin(angle) * planet.orbitRadius;
+        const y = planet.yOffset + Math.sin(time * 0.5 + planet.orbitAngle) * 0.4;
+
+        planet.mesh.position.set(
+            planet.galaxyPos.x + x,
+            y,
+            planet.galaxyPos.z + z
+        );
+        planet.sprite.position.copy(planet.mesh.position);
+        planet.sprite.position.y += 1.1;
+    }
+
+    // ============ 大小控制面板 ============
+    function createSizeControlPanel() {
+        var oldPanel = document.getElementById('size-control-panel');
+        if (oldPanel) oldPanel.parentNode.removeChild(oldPanel);
+
+        var panel = document.createElement('div');
+        panel.id = 'size-control-panel';
+        panel.style.cssText = 'position:absolute;left:16px;top:50%;transform:translateY(-50%);z-index:25;background:rgba(8,8,22,0.88);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px;width:210px;color:rgba(255,255,255,0.8);font-family:Quicksand,\'Noto Sans SC\',sans-serif;font-size:0.72rem;transition:opacity 0.4s,transform 0.4s;opacity:0;transform:translateY(-50%) translateX(-20px);max-height:80vh;overflow-y:auto;';
+
+        var title = document.createElement('div');
+        title.textContent = '⚙ 星系大小';
+        title.style.cssText = 'font-size:0.78rem;font-weight:500;margin-bottom:10px;color:rgba(255,255,255,0.6);letter-spacing:1px;';
+        panel.appendChild(title);
+
+        var toggleBtn = document.createElement('button');
+        toggleBtn.textContent = '✕';
+        toggleBtn.style.cssText = 'position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:0.8rem;padding:2px;';
+        toggleBtn.onclick = function() {
+            panel.style.opacity = '0';
+            panel.style.transform = 'translateY(-50%) translateX(-20px)';
+            panel.style.pointerEvents = 'none';
+        };
+        panel.appendChild(toggleBtn);
+
+        var mainGroup = document.createElement('div');
+        mainGroup.style.cssText = 'margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);';
+        var mainLabel = document.createElement('div');
+        mainLabel.textContent = '🌟 主星系';
+        mainLabel.style.cssText = 'font-size:0.62rem;color:rgba(255,255,255,0.35);margin-bottom:6px;letter-spacing:1px;';
+        mainGroup.appendChild(mainLabel);
+
+        var decoGroup = document.createElement('div');
+        var decoLabel = document.createElement('div');
+        decoLabel.textContent = '✨ 装饰星云';
+        decoLabel.style.cssText = 'font-size:0.62rem;color:rgba(255,255,255,0.35);margin-bottom:6px;letter-spacing:1px;';
+        decoGroup.appendChild(decoLabel);
+
+        var labelMap = {};
+        chainPath.forEach(function(item) {
+            labelMap[item.uniqueKey] = galaxyConfigs[item.cat].label;
+        });
+
+        chainPath.forEach(function(item) {
+            var uniqueKey = item.uniqueKey;
+            var isMain = galaxyConfigs[item.cat].isMain;
+            var row = document.createElement('div');
+            row.style.cssText = 'display:flex;align-items:center;gap:6px;margin-bottom:5px;';
+
+            var label = document.createElement('span');
+            label.textContent = labelMap[uniqueKey];
+            label.style.cssText = 'flex:0 0 70px;font-size:0.62rem;color:rgba(255,255,255,0.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+
+            var slider = document.createElement('input');
+            slider.type = 'range';
+            slider.min = 0.2;
+            slider.max = 3.0;
+            slider.step = 0.05;
+            slider.value = 1.0;
+            slider.style.cssText = 'flex:1;height:3px;accent-color:' + galaxyConfigs[item.cat].color + ';cursor:pointer;';
+
+            var valDisplay = document.createElement('span');
+            valDisplay.textContent = '1.0';
+            valDisplay.style.cssText = 'flex:0 0 26px;text-align:right;font-size:0.58rem;color:rgba(255,255,255,0.45);';
+
+            slider.oninput = function() {
+                var v = parseFloat(this.value);
+                valDisplay.textContent = v.toFixed(1);
+                galaxySizeFactors[uniqueKey] = v;
+                if (galaxies[uniqueKey]) {
+                    var g = galaxies[uniqueKey];
+                    g.group.scale.set(g.baseScale * v, g.baseScale * v, g.baseScale * v);
+                }
+            };
+
+            row.appendChild(label);
+            row.appendChild(slider);
+            row.appendChild(valDisplay);
+
+            if (isMain) {
+                mainGroup.appendChild(row);
+            } else {
+                decoGroup.appendChild(row);
+            }
+        });
+
+        panel.appendChild(mainGroup);
+        panel.appendChild(decoGroup);
+
+        var btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex;gap:4px;margin-top:8px;';
+
+        var resetBtn = document.createElement('button');
+        resetBtn.textContent = '重置';
+        resetBtn.style.cssText = 'flex:1;padding:4px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:rgba(255,255,255,0.6);cursor:pointer;font-size:0.65rem;';
+        resetBtn.onclick = function() {
+            Object.keys(galaxySizeFactors).forEach(function(k) {
+                galaxySizeFactors[k] = 1.0;
+                if (galaxies[k]) {
+                    var g = galaxies[k];
+                    g.group.scale.set(g.baseScale, g.baseScale, g.baseScale);
+                }
+            });
+            panel.querySelectorAll('input[type="range"]').forEach(function(s) {
+                s.value = '1.0';
+                s.nextElementSibling.textContent = '1.0';
+            });
+        };
+        btnRow.appendChild(resetBtn);
+
+        var showAllBtn = document.createElement('button');
+        showAllBtn.textContent = '全景';
+        showAllBtn.style.cssText = 'flex:1;padding:4px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:rgba(255,255,255,0.6);cursor:pointer;font-size:0.65rem;';
+        showAllBtn.onclick = function() { resetCamera(); };
+        btnRow.appendChild(showAllBtn);
+
+        panel.appendChild(btnRow);
+
+        var container = document.getElementById('universe-container');
+        if (container) {
+            container.appendChild(panel);
+            setTimeout(function() {
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(-50%) translateX(0)';
+                panel.style.pointerEvents = 'auto';
+            }, 1500);
+        }
+    }
+
+    // ============ 环境光 ============
+    function addAmbientLight() {
+        const ambient = new THREE.AmbientLight(0x222244, 0.55);
+        scene.add(ambient);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.75);
+        dirLight.position.set(10, 30, 20);
+        scene.add(dirLight);
+
+        const pointLight = new THREE.PointLight(0x4488ff, 0.45, 80);
+        pointLight.position.set(0, 15, 0);
+        scene.add(pointLight);
+
+        // 在主星系位置放置彩色氛围光
+        chainPath.filter(function(item) { return galaxyConfigs[item.cat].isMain; }).forEach(function(item) {
+            var pl = new THREE.PointLight(galaxyConfigs[item.cat].color, 0.45, 60);
+            pl.position.set(item.x, 5, item.z);
+            scene.add(pl);
+        });
+    }
+
+    // ============ 交互 ============
+    function onCanvasClick(event) {
+        const rect = renderer.domElement.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        const meshes = planets.map(function(p) { return p.mesh; });
+        const intersects = raycaster.intersectObjects(meshes, true);
+
+        if (intersects.length > 0) {
+            const hit = intersects[0].object;
+            let rootMesh = hit;
+            while (rootMesh.parent && meshes.indexOf(rootMesh) === -1) {
+                rootMesh = rootMesh.parent;
+            }
+            for (let i = 0; i < planets.length; i++) {
+                if (planets[i].mesh === rootMesh) {
+                    showPlanetDetail(planets[i].eventIndex);
+                    break;
+                }
+            }
+        }
+    }
+
+    function showPlanetDetail(index) {
+        const events = collectAllEvents();
+        const evt = events[index];
+        if (!evt) return;
+
+        universeCurrentEventIndex = index;
+
+        const panel = document.getElementById('planet-detail-panel');
+        if (!panel) return;
+
+        document.getElementById('detail-cat').textContent = catNames[evt.cat] || evt.cat;
+        document.getElementById('detail-cat').style.background = catColors[evt.cat] || '#888';
+        document.getElementById('detail-time').textContent = evt.timeLabel || '';
+        document.getElementById('detail-title').textContent = evt.title || '';
+        document.getElementById('detail-role').textContent = evt.role || '';
+        document.getElementById('detail-role').style.background = catColors[evt.cat] || '#888';
+
+        var subtitleEl = document.getElementById('detail-subtitle');
+        if (evt.cat === 'education') {
+            subtitleEl.textContent = [evt.school, evt.major, evt.degree].filter(Boolean).join(' · ') || '';
+            subtitleEl.style.display = subtitleEl.textContent ? 'block' : 'none';
+        } else {
+            subtitleEl.textContent = '';
+            subtitleEl.style.display = 'none';
+        }
+
+        var descEl = document.getElementById('detail-desc');
+        var descLabel = document.querySelector('.planet-detail-desc-label');
+        if (evt.desc && evt.desc.trim()) {
+            descEl.innerHTML = descToListItems(evt.desc);
+            descLabel.style.display = 'block';
+            descEl.style.display = 'block';
+        } else {
+            descEl.innerHTML = '';
+            descLabel.style.display = 'none';
+            descEl.style.display = 'none';
+        }
+
+        refreshDetailPhotos(index);
+
+        const uploadInput = document.getElementById('detail-photo-input');
+        if (uploadInput) {
+            uploadInput.onchange = function(e) {
+                handleGrowthImageUpload(e, index);
+            };
+        }
+
+        panel.classList.add('show');
+    }
+
+    // ============ 相机控制 ============
+    function animateCamera(targetPos, targetLook, duration) {
+        targetCameraPos = targetPos.clone();
+        targetLookAt = targetLook ? targetLook.clone() : new THREE.Vector3(0, 0, 0);
+        cameraAnimating = true;
+        cameraAnimProgress = 0;
+        cameraAnimStart = null;
+        cameraAnimDuration = duration || 1500;
+        cameraStartPos = camera.position.clone();
+        cameraStartTarget = controls.target.clone();
+    }
+
+    function resetCamera() {
+        animateCamera(
+            new THREE.Vector3(0, 40, 130),
+            new THREE.Vector3(0, 0, 0),
+            1400
+        );
+    }
+
+    function focusGalaxy(cat) {
+        currentCategory = cat;
+
+        document.querySelectorAll('.universe-nav-btn').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.cat === cat);
+        });
+
+        if (cat === 'all') {
+            resetCamera();
+            return;
+        }
+
+        var item = chainPath.find(function(i) { return i.cat === cat && galaxyConfigs[i.cat].isMain; });
+        if (!item) return;
+        var pos = galaxyPositions[item.uniqueKey];
+        var config = galaxyConfigs[cat];
+        var baseScale = galaxyScales[item.uniqueKey] || 1.0;
+        var sizeFactor = galaxySizeFactors[item.uniqueKey] || 1.0;
+        var effectiveRadius = config.radius * baseScale * sizeFactor;
+        var targetPos = new THREE.Vector3(pos.x * 0.2, effectiveRadius * 0.42 + 6, effectiveRadius * 1.9 + 18);
+        var targetLook = new THREE.Vector3(pos.x, pos.y || 0, pos.z);
+
+        animateCamera(targetPos, targetLook, 1500);
+    }
+
+    // ============ 动画循环 ============
+    function animate() {
+        animationId = requestAnimationFrame(animate);
+
+        const time = clock.getElapsedTime();
+
+        if (backgroundStars) {
+            backgroundStars.rotation.y += 0.00003;
+            backgroundStars.rotation.x += 0.00001;
+        }
+
+        if (midStars) {
+            midStars.rotation.y += 0.00006;
+        }
+
+        if (nebulaParticles) {
+            nebulaParticles.rotation.y += 0.0001;
+        }
+
+        if (cosmicDust) {
+            cosmicDust.rotation.y += 0.00003;
+        }
+
+        if (distantGalaxies) {
+            distantGalaxies.rotation.y += 0.00004;
+        }
+
+        Object.keys(galaxies).forEach(function(key) {
+            const g = galaxies[key];
+            g.group.rotation.y += 0.0015 * g.rotationSpeed;
+        });
+
+        planets.forEach(function(p) {
+            updatePlanetPosition(p, time);
+            p.mesh.rotation.x += 0.008 * p.rotationSpeed;
+            p.mesh.rotation.y += 0.015 * p.rotationSpeed;
+
+            const glow = p.mesh.children[0];
+            if (glow && glow.material) {
+                glow.material.opacity = 0.12 + Math.sin(time * 2 + p.orbitAngle) * 0.06;
+            }
+
+            if (p.beamGroup) {
+                var beam = p.beamGroup.children[0];
+                if (beam && beam.material) {
+                    beam.material.opacity = 0.35 + Math.sin(time * 1.5 + p.orbitAngle) * 0.35;
+                }
+                var tip = p.beamGroup.children[1];
+                if (tip && tip.material) {
+                    tip.material.opacity = 0.5 + Math.sin(time * 2.5 + p.orbitAngle) * 0.45;
+                }
+                p.beamGroup.rotation.y += 0.025;
+            }
+        });
+
+        updateShootingStars();
+
+        if (cameraAnimating) {
+            if (!cameraAnimStart) cameraAnimStart = time;
+            const elapsed = (time - cameraAnimStart) * 1000;
+            cameraAnimProgress = Math.min(elapsed / cameraAnimDuration, 1);
+
+            const t = 1 - Math.pow(1 - cameraAnimProgress, 3);
+
+            camera.position.lerpVectors(cameraStartPos, targetCameraPos, t);
+            controls.target.lerpVectors(cameraStartTarget, targetLookAt, t);
+
+            if (cameraAnimProgress >= 1) {
+                cameraAnimating = false;
+                camera.position.copy(targetCameraPos);
+                controls.target.copy(targetLookAt);
+            }
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    // 公共API
+    window.__universeModule = {
+        initUniverse: initUniverse,
+        focusGalaxy: focusGalaxy
+    };
+})();
+// 自动初始化
+var initTimer = setInterval(function() {
+    if (window.__universeModule && typeof THREE !== "undefined" && THREE.OrbitControls) {
+        clearInterval(initTimer);
+        console.log("[Export] 3D宇宙开始初始化...");
+        setTimeout(function() {
+            window.__universeModule.initUniverse();
+        }, 500);
+    }
+}, 300);
+</script>
+</body>
+</html>
