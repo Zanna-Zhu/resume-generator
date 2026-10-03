@@ -4563,6 +4563,21 @@
             <button class="add-btn" onclick="addCampus()">+ 添加校园经历</button>
             </div>
 
+            <!-- 自我评价 -->
+            <div class="form-section-wrap" data-section="selfeval">
+            <div class="section-title" style="margin-top:1.5rem">💡 自我评价<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('selfeval','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('selfeval','down')" title="下移">▼</button></span></div>
+            <div class="form-group">
+                <label>自我评价（多行，建议 3-5 条）</label>
+                <textarea id="selfeval" rows="5" placeholder="每行一条，如：
+性格开朗，善于沟通，具备良好的团队协作能力
+学习能力强，能快速适应新环境和新技术
+工作认真负责，注重细节，有较强的执行力">性格开朗乐观，具备良好的沟通能力与团队协作精神，能快速融入新环境
+学习能力强，善于主动思考和解决问题，对新技术保持浓厚兴趣
+工作认真负责，注重细节，具备较强的抗压能力和执行力
+有良好的时间管理能力，能高效完成多任务并行工作</textarea>
+            </div>
+            </div>
+
             <!-- 爱好与特长 -->
             <div class="form-section-wrap" data-section="hobbies">
             <div class="section-title" style="margin-top:1.5rem">🎨 爱好与特长<span class="section-sort-btns"><button class="sort-btn" onclick="moveSection('hobbies','up')" title="上移">▲</button><button class="sort-btn" onclick="moveSection('hobbies','down')" title="下移">▼</button></span></div>
@@ -4649,6 +4664,12 @@
                     <div class="resume-section" id="p-campus-section">
                         <div class="section-header">校园经历</div>
                         <div class="section-body" id="p-campus-list"></div>
+                    </div>
+
+                    <!-- 自我评价 -->
+                    <div class="resume-section" id="p-selfeval-section">
+                        <div class="section-header">自我评价</div>
+                        <div class="section-body" id="p-selfeval-list"></div>
                     </div>
 
                     <!-- 爱好与特长 -->
@@ -4922,6 +4943,7 @@
                 name: val('name'), birthDate: val('birthDate'), age: val('age'), phone: val('phone'),
                 politicalStatus: val('politicalStatus'), email: val('email'), city: val('city'),
                 certifications: val('certifications'), skills: val('skills'), hobbies: val('hobbies'),
+                selfeval: val('selfeval'),
                 // 不在每条历史记录中存储完整照片，改为存储标志位，节省 localStorage 空间
                 hasPhoto: !!photoData,
                 hiddenBasicFields: getHiddenBasicFields(),
@@ -4937,7 +4959,7 @@
         function restoreFormData(data) {
             if (!data) return;
             ['name', 'birthDate', 'age', 'phone', 'politicalStatus', 'email', 'city',
-             'certifications', 'skills', 'hobbies'].forEach(id => {
+             'certifications', 'skills', 'hobbies', 'selfeval'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el && data[id] !== undefined) el.value = data[id];
             });
@@ -6480,6 +6502,7 @@ ${companyContext}
             project: 'p-project-section',
             practice: 'p-practice-section',
             campus: 'p-campus-section',
+            selfeval: 'p-selfeval-section',
             hobbies: 'p-hobbies-section'
         };
         var SECTION_ORDER_KEY = 'resume_section_order';
@@ -6497,7 +6520,7 @@ ${companyContext}
                     }
                 } catch(e) {}
             }
-            return ['education', 'cert', 'project', 'practice', 'campus', 'hobbies'];
+            return ['education', 'cert', 'project', 'practice', 'campus', 'selfeval', 'hobbies'];
         }
 
         // 保存板块顺序
@@ -6691,7 +6714,7 @@ ${companyContext}
 
         // 绑定输入事件
         function bindEvents() {
-            ['name', 'birthDate', 'age', 'phone', 'politicalStatus', 'email', 'city', 'certifications', 'skills', 'hobbies'].forEach(id => {
+            ['name', 'birthDate', 'age', 'phone', 'politicalStatus', 'email', 'city', 'certifications', 'skills', 'hobbies', 'selfeval'].forEach(id => {
                 document.getElementById(id).addEventListener('input', updatePreview);
             });
         }
@@ -7137,6 +7160,18 @@ ${companyContext}
             renderExperiencePreview('project', projectData, 'p-project-section', 'p-project-list');
             renderExperiencePreview('practice', practiceData, 'p-practice-section', 'p-practice-list');
             renderExperiencePreview('campus', campusData, 'p-campus-section', 'p-campus-list');
+
+            // 自我评价
+            const selfevalSection = document.getElementById('p-selfeval-section');
+            const selfevalText = val('selfeval');
+            const selfevalLines = selfevalText.split('\n').map(l => l.trim()).filter(l => l);
+            if (selfevalLines.length > 0) {
+                selfevalSection.style.display = 'block';
+                document.getElementById('p-selfeval-list').innerHTML =
+                    '<ul class="bullet-list">' + selfevalLines.map(l => `<li>${esc(l)}</li>`).join('') + '</ul>';
+            } else {
+                selfevalSection.style.display = 'none';
+            }
 
             // 爱好与特长
             const hobbiesSection = document.getElementById('p-hobbies-section');
