@@ -1,5 +1,5 @@
 window.JOB_LANG_LIB = {
-  updatedAt: '2026-10-04',
+  updatedAt: '2026-11-04',
 
   companies: {
     '字节跳动': {
@@ -17,9 +17,20 @@ window.JOB_LANG_LIB = {
         'AI全栈工程师', '广告大模型算法', 'AI infra', 'AI基础设施',
         'Physical AI', '机器人算法', '多智能体', 'Multi-Agent',
         'Graph-RAG', 'Model-as-a-Service', 'MaaS', 'Harness Engineering',
-        'MCP协议', 'Seed大模型'
+        'MCP协议', 'Seed大模型',
+        'AI Coding', 'Vibe Coding', 'Context Engineering', 'Agent Loop', 'Tool Use', 'Memory',
+        'AI应用研发', '全栈工程师', 'AI原生应用', '豆包大模型', 'AI搜索',
+        'Seedance', '视频生成', '3D生成', '语音合成', '音乐算法', 'AI岗位占比42%',
+        'AI搜索Agent', '视觉理解大模型', '世界模型', 'Agent沙箱', 'A2A协议',
+        'AI全栈工程师-视频与边缘', 'Agent服务编排', '多端SDK', 'Agent岗位1205个',
+        '豆包视觉理解', '具身智能数据生产', '模型能力评测', '数据寻源',
+        'AI搜索Agent算法', '电商多模态大模型', '电商LLM底座', '电商预训练链路',
+        'Agent架构', '语义检索', '大规模语言模型训练优化', 'Prompt微调',
+        'AI生成UI组件', 'Agent Harness', 'AI Coding Agent',
+        '前沿技术领域人才', '筋斗云计划', '大模型应用岗位', 'AI搜索岗位', 'AI算法与高性能计算',
+        'AI成为第二大招聘技能', '多模态电商推荐', 'Agent岗位7个方向', 'Agent规划决策', '记忆管理'
       ],
-      style: '数据驱动·敏捷迭代·增长导向',
+      style: '数据驱动·敏捷迭代·AI原生增长',
       phrases: [
         '基于数据洞察驱动业务增长',
         '通过AB实验验证产品假设',
@@ -28,7 +39,11 @@ window.JOB_LANG_LIB = {
         '利用因果推断评估策略真实增量',
         '推动产品指标提升XX%',
         '以数据驱动决策优化用户体验',
-        '设计并落地增长策略实现用户规模化增长'
+        '设计并落地增长策略实现用户规模化增长',
+        '主导Seedance视频生成算法迭代',
+        '推动AI Native产品能力矩阵建设',
+        '主导AI搜索Agent算法在搜索场景落地',
+        '构建电商多模态大模型底座赋能业务增长'
       ]
     },
     '腾讯': {
@@ -47,9 +62,19 @@ window.JOB_LANG_LIB = {
         '科技向善', '正直', '进取', '协作', '创造',
         'AI全栈工程师', 'AI基础设施', 'Physical AI', '机器人',
         '多智能体', 'Multi-Agent', '前沿部署',
-        'Harness Engineering', 'Loop Engineering', 'MCP协议', 'Graph-RAG'
+        'Harness Engineering', 'Loop Engineering', 'MCP协议', 'Graph-RAG',
+        '大模型推理引擎', '推理加速', 'AI Coding', '全栈工程师',
+        'Agent Loop', 'Tool Use', 'Context Engineering', 'AI应用研发',
+        '技术岗扩招36%', 'AI岗位为主', 'AI全栈', 'Agent开发工程师',
+        '混元多模态数据', '后训练数据建设', 'A2A协议', 'Agent Cards',
+        'Claude Agent SDK', '异步谈判', 'AI岗位8000+',
+        'AI辅助前端开发', 'AI生成UI组件', '智能代码重构', 'AI驱动前端工具链',
+        '组件智能化', 'AI交互组件', '智能表单', '对话式UI',
+        '向量索引', 'BitSet索引', 'Segment管理', '跨平台框架',
+        '高性能计算技术研究', 'AI算法岗位', 'Agent规划决策', '记忆管理',
+        'RAG幻觉治理', '知识更新闭环', 'MCP工具服务开发', '企业系统安全对接', 'AI岗位8000余人'
       ],
-      style: '用户体验·产品思维·海量服务',
+      style: '用户体验·产品思维·海量服务·AI应用',
       phrases: [
         '以用户价值为依归打造极致体验',
         '基于微信生态实现产品增长',
@@ -58,7 +83,9 @@ window.JOB_LANG_LIB = {
         '打造腾讯级海量服务稳定性',
         '结合社交关系链实现病毒式增长',
         '优化用户路径提升核心指标XX%',
-        '构建AI Native产品能力矩阵'
+        '构建AI Native产品能力矩阵',
+        '主导Agent开发工程师技术体系建设',
+        '推动混元大模型在XX场景落地'
       ]
     },
     '阿里巴巴': {
@@ -78,9 +105,16 @@ window.JOB_LANG_LIB = {
         '严谨正确', '工程质量', '代码规范',
         'AI全栈', '前沿部署工程师', 'AI基础设施', 'Physical AI',
         '多智能体', 'Multi-Agent', 'AI infra',
-        'Model-as-a-Service', 'MaaS', 'MCP协议'
+        'Model-as-a-Service', 'MaaS', 'MCP协议',
+        'AI Coding', '全栈工程师', 'AI原生应用', 'Agent Loop', 'Context Engineering', 'AI应用研发',
+        'AI岗超60%', 'Accio', '国际站Agent', 'Agentic SFT', 'Reasoning RL', '多工具协作', '持续记忆',
+        '钉钉AI Agent应用开发', 'AI岗占比80%', '淘天AI技术岗超九成', 'A2A协议', 'Agent Cards',
+        'AI Coding Agent', 'Agent Harness', '自主编程系统', '代码理解与生成',
+        '复杂代码库任务', 'ATH-AI创新事业部', '研发场景智能化',
+        'AI智能体岗位增速455%', 'Agent规划决策', 'RAG幻觉治理', 'MCP业务工具服务',
+        'AI岗位占比超60%', 'Agent记忆管理', '多轮对话编排'
       ],
-      style: '业务理解·商业洞察·技术落地',
+      style: '业务理解·商业洞察·AI落地',
       phrases: [
         '深入业务场景提供技术解决方案',
         '支撑双11亿级并发交易系统',
@@ -89,7 +123,11 @@ window.JOB_LANG_LIB = {
         '构建电商级高可用分布式系统',
         '落地金融级安全合规体系',
         '通过技术创新驱动商业增长',
-        '打造中台化能力支撑多业务线'
+        '打造中台化能力支撑多业务线',
+        '主导Accio国际站Agent系统研发',
+        '推动Agentic SFT与Reasoning RL落地',
+        '参与设计面向真实研发场景的AI Coding Agent',
+        '构建复杂代码库自主编程系统提升研发效率'
       ]
     },
     '百度': {
@@ -108,7 +146,12 @@ window.JOB_LANG_LIB = {
         '简单可依赖', '用科技让复杂的世界更简单',
         'AI全栈', 'AI infra', '前沿部署', 'Physical AI',
         '多智能体', 'Multi-Agent', 'AI基础设施',
-        'Graph-RAG', 'MCP协议', 'AI科学家'
+        'Graph-RAG', 'MCP协议', 'AI科学家',
+        'AI Coding', '全栈工程师', '文心智能体', 'Agent Loop', 'Context Engineering',
+        '文心一言4.5', '智能体平台', 'AI搜索重构',
+        'A2A协议', 'Agent Cards', '视觉理解大模型', '世界模型',
+        'AI Coding Agent', 'Agent Harness', '智能体开发', 'AI应用能力',
+        'AI岗位占比超90%', 'Agent规划决策', 'AI搜索Agent', 'RAG知识更新', 'MCP工具服务'
       ],
       style: '技术引领·AI驱动·搜索基因',
       phrases: [
@@ -119,7 +162,9 @@ window.JOB_LANG_LIB = {
         '从0到1搭建自动驾驶感知系统',
         '提升搜索相关性准确率XX%',
         '打造AI原生产品重塑用户体验',
-        '以技术创新驱动搜索体验升级'
+        '以技术创新驱动搜索体验升级',
+        '主导文心智能体平台能力建设',
+        '推动AI搜索重构提升用户满意度'
       ]
     },
     '美团': {
@@ -137,9 +182,15 @@ window.JOB_LANG_LIB = {
         '共同富裕', '帮大家吃得更好生活更好',
         '数据驱动', '精细化运营', '供给侧优化',
         'AI全栈', '多智能体', 'Physical AI', 'AI基础设施',
-        'MCP协议', 'GenAI应用', '配送AI'
+        'MCP协议', 'GenAI应用', '配送AI',
+        'BA Agent', 'Agent系统', '策略执行智能体', '全栈工程师', 'AI Coding', 'Context Engineering',
+        'Agent架构', 'ReAct', 'Plan-and-Execute', '多Agent协作', 'Tool Calling',
+        '湖仓架构', '分层建模', '任务编排', '跨时区多币种', 'Data+AI',
+        '端到端自动驾驶', '千卡集群', '训练优化器', '高价值数据获取', '交互预测决策',
+        'Flink', 'Kafka', '2026届补招6000人', 'AI智能体岗位', 'Agent规划决策',
+        'RAG幻觉治理', '即时零售AI'
       ],
-      style: '执行高效·务实落地·本地生活',
+      style: '执行高效·务实落地·本地生活·Agent落地',
       phrases: [
         '通过精细化运营提升供给侧效率',
         '优化骑手调度算法降低配送时长',
@@ -148,7 +199,11 @@ window.JOB_LANG_LIB = {
         '支撑日均千万级订单调度系统',
         '打造LBS推荐系统提升到店转化率',
         '小成本撬动大增长实现业务突破',
-        '构建即时配送智能调度体系'
+        '构建即时配送智能调度体系',
+        '推动BA Agent系统在业务场景落地',
+        '以Agent系统提升运营决策效率XX%',
+        '构建ReAct与多Agent协作的智能体系统',
+        '完善湖仓分层建模支撑跨时区多币种数据场景'
       ]
     },
     '京东': {
@@ -165,7 +220,11 @@ window.JOB_LANG_LIB = {
         '供应链金融', '金融科技',
         '技术驱动', '降本增效', '体验提升',
         'AI全栈', '多智能体', '前沿部署', 'AI基础设施',
-        'MCP协议', '数字孪生', '供应链AI'
+        'MCP协议', '数字孪生', '供应链AI',
+        'AI Coding', '全栈工程师', '智能体', 'AI应用研发',
+        '京东物流大模型', '智能决策', '无人仓',
+        'AI Coding Agent', '智能体应用', 'AI应用能力',
+        'MCP工具服务', '供应链Agent', 'RAG知识更新', 'AI岗位需求'
       ],
       style: '技术驱动·供应链优势·客户为先',
       phrases: [
@@ -176,7 +235,9 @@ window.JOB_LANG_LIB = {
         '打造言犀大模型赋能客服场景',
         '通过数据化运营提升用户复购率',
         '落地物流智能调度系统降本XX%',
-        '构建全链路供应链数字化能力'
+        '构建全链路供应链数字化能力',
+        '推动无人仓智能决策系统落地',
+        '以供应链AI实现降本增效XX%'
       ]
     },
     '网易': {
@@ -192,7 +253,10 @@ window.JOB_LANG_LIB = {
         '精品战略', '匠心精神', '游戏品质',
         '社区运营', '内容生态', 'UGC',
         'AI全栈', '多智能体', 'AIGC游戏', 'Physical AI',
-        'AI NPC', 'AI音乐', 'MCP协议'
+        'AI NPC', 'AI音乐', 'MCP协议',
+        'AI Coding', '全栈工程师', 'AI游戏引擎', 'AIGC美术管线', '智能NPC',
+        'AI应用能力', 'AI Coding Agent',
+        'AI原生游戏管线', 'Agent规划决策', 'MCP工具服务'
       ],
       style: '精品战略·产品匠心·平台影响力',
       phrases: [
@@ -203,7 +267,9 @@ window.JOB_LANG_LIB = {
         '支撑千万级DAU产品稳定运行',
         '通过社区运营提升用户留存XX%',
         '从0到1搭建游戏服务端架构',
-        '以精品战略打造行业标杆产品'
+        '以精品战略打造行业标杆产品',
+        '推动AIGC美术管线提升内容生产效率XX倍',
+        '构建AI NPC系统提升游戏交互体验'
       ]
     },
     '华为': {
@@ -211,8 +277,8 @@ window.JOB_LANG_LIB = {
         '鸿蒙', 'HarmonyOS', '鸿蒙系统', '鸿蒙生态',
         '麒麟', 'Kirin', '芯片', '自研芯片',
         '云计算', '华为云', '鲲鹏', '昇腾',
-        '5G', '通信', '基站', '通信技术',
-        '欧拉', 'openEuler', '操作系统',
+        '5G', '通信', '基站', '通信技术', '5G-A',
+        '欧拉', 'openEuler', '操作系统', 'openGauss',
         'CANN', 'MindSpore', 'AI框架',
         '盘古大模型', '华为大模型',
         '嵌入式', '底层开发', '内核优化',
@@ -224,7 +290,12 @@ window.JOB_LANG_LIB = {
         'ATS筛选', 'Technical Summary', '一页纸技术摘要',
         'AI全栈', 'Physical AI', '机器人算法', 'AI基础设施',
         '多智能体', '前沿部署',
-        'MCP协议', 'AI Native'
+        'MCP协议', 'AI Native',
+        '鸿蒙原生开发', 'ArkTS', 'AI Coding', '全栈工程师', '盘古行业大模型',
+        '芯片与器件BU', 'ASIC设计', '模拟芯片', '射频芯片', '芯片封装',
+        '昇腾950', '昇腾950超节点', '超节点', '算力集群', '18A制程',
+        'AI Coding Agent', 'Agent Harness', 'AI应用能力',
+        '高性能计算HPC', 'AI算法研究', 'Agent工具服务', '昇腾算力生态'
       ],
       style: '技术深度·自主研发·工程师文化',
       phrases: [
@@ -235,7 +306,9 @@ window.JOB_LANG_LIB = {
         '实现关键技术自主可控突破',
         '优化内核性能提升系统效率XX%',
         '从0到1构建智能驾驶感知系统',
-        '以技术深度驱动产品创新突破'
+        '以技术深度驱动产品创新突破',
+        '主导ASIC芯片设计与验证流程',
+        '推动5G-A技术在智能世界落地'
       ]
     },
     '小米': {
@@ -252,7 +325,10 @@ window.JOB_LANG_LIB = {
         '生态链', '小米生态链', '万物互联',
         'Physical AI', '具身智能', '机器人算法', 'AI全栈',
         '多智能体', 'AI基础设施',
-        'MCP协议', 'AI Native'
+        'MCP协议', 'AI Native',
+        '端侧大模型', '人车家全生态', 'AI Coding', '全栈工程师', '澎湃OS',
+        'CyberOne', '铁蛋', 'CyberDog',
+        '端侧Agent', '人车家AI协同', 'Agent工具调用'
       ],
       style: '工程师文化·软硬一体·生态协同',
       phrases: [
@@ -263,7 +339,9 @@ window.JOB_LANG_LIB = {
         '优化系统底层性能提升流畅度XX%',
         '从0到1搭建IoT设备管理平台',
         '通过生态链协同打造智能生活体验',
-        '以技术性价比赢得用户口碑'
+        '以技术性价比赢得用户口碑',
+        '推动端侧大模型在移动设备落地',
+        '构建人车家全生态智能协同体验'
       ]
     },
     '拼多多': {
@@ -279,7 +357,10 @@ window.JOB_LANG_LIB = {
         '快速迭代', '小成本撬大事',
         '拼多多模式', '社交裂变', '病毒式增长',
         'AI全栈', '多智能体', 'Physical AI', 'AI基础设施',
-        'MCP协议', '社交裂变AI'
+        'MCP协议', '社交裂变AI',
+        'AI Coding', '全栈工程师', 'Temu AI', '智能体', '跨境电商AI',
+        '搜索广告', '图片搜索', '多语种', '冷启动',
+        '跨境电商Agent', 'RAG商品知识库', 'MCP工具服务'
       ],
       style: '执行极致·增长优先·性价比思维',
       phrases: [
@@ -290,7 +371,9 @@ window.JOB_LANG_LIB = {
         '通过社交裂变实现低成本获客',
         '从0到1搭建跨境电商技术体系',
         '用数据驱动增长提升用户留存XX%',
-        '以小成本撬动大流量实现业务突破'
+        '以小成本撬动大流量实现业务突破',
+        '主导多语种搜索推荐系统建设',
+        '推动Temu AI在跨境场景规模化落地'
       ]
     },
     '小红书': {
@@ -300,7 +383,9 @@ window.JOB_LANG_LIB = {
         '图文内容', '视频内容', 'AI内容理解', '多模态推荐',
         '社区氛围', '真实体验', '人感运营', '数据驱动',
         '增长黑客', '品牌合作', '本地生活', 'MCP协议',
-        'AI全栈', '多智能体', 'Physical AI', 'AI基础设施'
+        'AI全栈', '多智能体', 'Physical AI', 'AI基础设施',
+        'AI Coding', '全栈工程师', 'AI搜索', 'AI内容理解', '智能体',
+        'AI搜索Agent', '多模态内容理解', 'RAG笔记知识库'
       ],
       style: '内容社区·种草生态·真实体验',
       phrases: [
@@ -321,7 +406,9 @@ window.JOB_LANG_LIB = {
         '智能交通', '数据驱动', '实时计算', '路径规划',
         '司机服务', '城市出行', 'AI驱动', '智慧城市',
         '共享出行', '绿色出行', '国际化', 'MCP协议',
-        'AI全栈', '多智能体', 'Physical AI', 'AI基础设施'
+        'AI全栈', '多智能体', 'Physical AI', 'AI基础设施',
+        'AI Agent', 'Agent Loop', 'Tool Use', 'Context Engineering', 'AI Coding', '全栈工程师',
+        '出行Agent', '智能调度大模型', 'MCP工具服务'
       ],
       style: '出行科技·智能调度·数据驱动',
       phrases: [
@@ -342,7 +429,9 @@ window.JOB_LANG_LIB = {
         '商业化', '磁力引擎', 'AI内容创作', '多模态理解',
         '直播技术', '实时互动', '下沉用户', '私域流量',
         '社交关系', '内容分发', '创作者生态', 'MCP协议',
-        'AI全栈', '多智能体', 'Physical AI', 'AI基础设施'
+        'AI全栈', '多智能体', 'Physical AI', 'AI基础设施',
+        '可灵', 'AI视频生成', 'AI Coding', '全栈工程师', '智能体',
+        '可灵视频Agent', 'AIGC内容生产', 'Agent工具服务'
       ],
       style: '内容生态·信任电商·下沉市场',
       phrases: [
@@ -363,7 +452,9 @@ window.JOB_LANG_LIB = {
         '金融AI', '智能客服', '信用风控', '反欺诈',
         '跨境支付', '数字金融', '技术普惠', '绿色金融',
         '数据安全', '隐私计算', '智能投顾', 'MCP协议',
-        'AI全栈', '多智能体', 'Physical AI', 'AI基础设施'
+        'AI全栈', '多智能体', 'Physical AI', 'AI基础设施',
+        'AI Coding', '全栈工程师', '智能体', 'AI原生应用', '智能风控大模型',
+        'AI岗位占比70%+', '金融Agent', 'MCP工具服务', 'RAG金融知识库'
       ],
       style: '金融科技·智能风控·技术普惠',
       phrases: [
@@ -384,7 +475,9 @@ window.JOB_LANG_LIB = {
         'AI芯片', '大模型', '生成式AI', 'AIGC', '数字人',
         'AI原生', '视觉理解', '深度学习', '算法创新',
         '软硬协同', 'AI生态', 'MCP协议',
-        'AI全栈', '多智能体', 'Physical AI', 'AI infra'
+        'AI全栈', '多智能体', 'Physical AI', 'AI infra',
+        '具身智能', '世界模型', 'AI Coding', '全栈工程师', '多模态推理',
+        'Agent规划决策', 'RAG视觉知识库'
       ],
       style: 'AI算法·多模态大模型·软硬协同',
       phrases: [
@@ -397,20 +490,125 @@ window.JOB_LANG_LIB = {
         '构建生成式AI能力服务多行业客户',
         '打造数字人产品提升交互体验XX%'
       ]
+    },
+    'DeepSeek': {
+      keywords: [
+        '开源大模型', 'DeepSeek-V3', 'DeepSeek-R1', 'MoE', 'MLA',
+        '推理优化', '强化学习', 'RLVR', 'GRPO', '长上下文',
+        '代码大模型', '数学推理', '模型蒸馏', '低成本训练', '国产算力',
+        'AI for Science', 'Agent', 'MCP协议', 'AI Coding', '模型评测',
+        'DeepSeek-V4', 'DeepSeek-V3.2', 'DeepInfer', 'DSA注意力', 'MTP多Token预测',
+        'Agent工具调用', 'RAG知识更新', '模型生态集成'
+      ],
+      style: '开源开放·极致推理效率·技术理想主义',
+      phrases: [
+        '以极致工程优化降低大模型训练与推理成本',
+        '主导MoE架构与推理优化实现XX倍加速',
+        '推动开源模型在XX场景规模化落地',
+        '通过强化学习提升模型推理能力XX%',
+        '构建低成本高性能训练体系支撑千亿参数模型',
+        '以极简工程实现模型性能突破',
+        '开源模型生态建设覆盖X万开发者',
+        '将大模型能力产品化服务X万用户'
+      ]
+    },
+    '智谱AI': {
+      keywords: [
+        'GLM', 'ChatGLM', 'GLM-4', 'Agent', '智能体平台',
+        '代码大模型', '多模态', '开源', 'MaaS', '模型API',
+        '清言', '企业级大模型', '工具调用', 'MCP协议',
+        'AI Coding', '模型评测', '国产大模型', '全栈自研',
+        'GLM5', 'GLM-5', '多模态数据生产', 'A2A协议',
+        'GLM Agent', 'Agent规划决策', 'RAG知识更新'
+      ],
+      style: '全栈自研·开源生态·Agent平台',
+      phrases: [
+        '主导GLM系列模型研发与迭代',
+        '构建企业级智能体平台服务X+客户',
+        '推动开源模型生态建设覆盖X万开发者',
+        '将大模型能力封装为MaaS服务支撑X个业务场景',
+        '通过Agent工具调用实现复杂任务自动化',
+        '优化模型推理性能降低XX%成本',
+        '打造代码大模型提升研发效率XX%',
+        '以全栈自研能力实现关键技术突破'
+      ]
+    },
+    'MiniMax': {
+      keywords: [
+        '海螺AI', '视频生成', '语音合成', '多模态大模型', 'MoE',
+        'Agent', 'AI陪伴', '内容生成', '出海', '模型API',
+        'AI原生应用', '全球化', '模型推理优化', 'AI Coding', '多模态理解',
+        'Agent工具调用', '多模态Agent'
+      ],
+      style: '多模态生成·全球化产品·AI原生',
+      phrases: [
+        '主导多模态大模型研发与产品化落地',
+        '构建视频生成能力服务X万创作者',
+        '打造AI原生应用实现全球用户增长XX%',
+        '优化语音合成效果提升自然度XX%',
+        '通过Agent能力提升产品交互体验',
+        '推动模型API服务覆盖X个行业场景',
+        '以全球化产品思维实现出海增长',
+        '降低多模态推理成本XX%'
+      ]
+    },
+    '月之暗面': {
+      keywords: [
+        'Kimi', '长上下文', 'K2', '智能体', 'AI搜索',
+        '深度研究', 'Agent', '强化学习', '多模态', 'C端产品',
+        '推理模型', 'AI Coding', '工具调用', 'MCP协议', '上下文工程',
+        'Agent规划决策', 'RAG知识更新'
+      ],
+      style: '长上下文·智能体·深度研究',
+      phrases: [
+        '主导长上下文模型能力优化支撑X万字输入',
+        '构建深度研究智能体完成复杂信息任务',
+        '推动Kimi产品用户规模增长XX%',
+        '通过强化学习提升模型推理与工具调用能力',
+        '打造AI搜索体验提升答案准确率XX%',
+        '优化上下文工程降低XX%推理成本',
+        '将智能体能力落地X个高频场景',
+        '以C端产品思维打磨极致交互体验'
+      ]
+    },
+    'SHEIN': {
+      keywords: [
+        '跨境电商', '快时尚', '全球化', '出海', 'SHEIN',
+        '按需生产', '柔性供应链', '小单快反', '供应链数字化',
+        '搜索推荐算法', '召回', '粗排', '精排', '重排',
+        '多语种', '多模态检索', 'LLM搜推', '强化学习',
+        '用户建模', '冷启动', '海量流量', '全球化运营',
+        'Google', 'Meta', 'TikTok', 'Snap', '买量拓量',
+        '广告拉新', '转化漏斗', '落地页优化', 'Landing Page',
+        'AI全栈', '多智能体', 'MCP协议', 'AI Coding', '跨境电商AI',
+        '快时尚算法', '差异化搜推', '技术壁垒',
+        'Agent选品', 'MCP工具服务', '跨境电商Agent'
+      ],
+      style: '全球化快时尚·柔性供应链·数据驱动',
+      phrases: [
+        '主导跨境电商搜索推荐全链路算法体系规划',
+        '构建小单快反的柔性供应链数字化能力',
+        '优化召回/粗排/精排/重排提升GMV XX%',
+        '解决多语种海量流量的全球化搜推难题',
+        '设计差异化买量拓量模型提升ROI XX%',
+        '推动LLM搜推在跨境场景规模化落地',
+        '以数据驱动实现快时尚品类精准匹配',
+        '搭建全球化广告拉新转化漏斗体系'
+      ]
     }
   },
 
   positions: {
     '前端': {
       hotSkills: [
-        'React 18', 'React 19', 'Vue 3', 'Vue 3.4+', 'Angular',
-        'TypeScript 5', 'TypeScript', 'JavaScript', 'ES6+', 'ES2024',
-        'Next.js 14', 'Next.js 15', 'Nuxt 3', 'Nuxt 4', 'SSR', 'SSG', 'ISR',
+        'React 18', 'React 19', 'Vue 3', 'Vue 3.4+', 'Vue 3.5', 'Angular', 'Angular 18',
+        'TypeScript 5', 'TypeScript 5.5+', 'TypeScript 5.7', 'JavaScript', 'ES6+', 'ES2024',
+        'Next.js 14', 'Next.js 15', 'Next.js 16', 'Nuxt 3', 'Nuxt 4', 'SSR', 'SSG', 'ISR',
         'TailwindCSS', 'Tailwind v4', 'CSS-in-JS', 'Styled-Components', 'UnoCSS',
-        'Vite', 'Vite 5', 'Webpack 5', 'Rollup', 'Turbopack', '构建工具',
-        'Node.js', 'Express', 'Koa', 'NestJS', 'Hono',
+        'Vite', 'Vite 5', 'Vite 6', 'Rspack', 'Webpack 5', 'Rollup', 'Turbopack', '构建工具',
+        'Node.js', 'Express', 'Koa', 'NestJS', 'Hono', 'Bun 1.2',
         'Redux Toolkit', 'Zustand', 'Pinia', 'Jotai', '状态管理',
-        'React Hooks', 'Composition API', 'Suspense',
+        'React Hooks', 'Composition API', 'Suspense', 'Server Components',
         '微前端', 'qiankun', 'Module Federation', 'Micro-Frontends',
         '可视化', 'D3.js', 'ECharts', 'AntV', 'Three.js', 'WebGL', 'WebGPU',
         'WebAssembly', 'WASM', 'WASI', 'Rust + WASM',
@@ -423,7 +621,7 @@ window.JOB_LANG_LIB = {
         'AIGC前端', 'AI生成UI', 'AI组件库',
         '大模型前端', '流式输出', 'SSE', 'WebSocket',
         'AI对话界面', '智能体工作台', '多模态可视化',
-        'Svelte', 'Solid.js', 'Qwik', '新兴框架',
+        'Svelte', 'Svelte 5', 'Solid.js', 'Qwik', '新兴框架',
         'Electron', 'Tauri', '桌面端开发',
         'Taro', 'UniApp', '小程序', '跨端开发',
         'React Native', 'Flutter Web', '移动端H5',
@@ -432,7 +630,20 @@ window.JOB_LANG_LIB = {
         '国际化', 'i18n', '多语言',
         'AI全栈前端', '智能体前端开发', '多智能体工作台', 'AI Agent界面',
         'Physical AI前端', '机器人交互界面',
-        'MCP协议', 'Vibe Coding', 'Claude Code', 'Astro', 'Bun 1.2'
+        'MCP协议', 'Vibe Coding', 'Claude Code', 'Astro',
+        '端侧大模型', 'WebGPU AI', 'AI Native前端', '流式UI', 'Server Actions',
+        'React Compiler', 'Vite 6 RSC', 'Rspack', 'Oxide', 'Turbopack',
+        'CVA', 'Design Tokens', '设计系统', '组件库架构',
+        'Vite 7', 'Vite 8', 'Rolldown', 'Oxc', 'Next.js 16.3', 'Next.js 16.4',
+        'Rust React Compiler', 'React Compiler', 'Turbopack', 'Rspack 增长',
+        'A2A协议', 'Agent Cards', 'AI全栈工程师-视频与边缘', 'Agent服务编排',
+        '多端SDK', 'AI API集成', '流式渲染', 'AI应用前端',
+        'AI辅助前端开发', 'AI生成UI组件', '智能代码重构', 'AI驱动前端工具链',
+        '组件智能化', 'AI交互组件', '智能表单', '对话式UI', '跨平台框架',
+        '浏览器事件循环', 'DOM渲染', '内存机制', '虚拟DOM Diff',
+        '代码分割', 'Tree Shaking', '懒加载',
+        'AI Coding工作流', 'Agentic前端', '多端SDK前端', '音视频前端', '云平台前端',
+        '交互式数据可视化', '前端岗位增长23%'
       ],
       jdKeywords: [
         '组件化', '前端工程化', '性能优化', '跨端开发',
@@ -445,7 +656,9 @@ window.JOB_LANG_LIB = {
         '团队协作', 'Code Review', '技术分享',
         '业务理解', '需求分析', '产品思维',
         'AI应用', '大模型应用', 'AI原生前端',
-        'MCP协议', 'Vibe Coding', 'AI代码生成'
+        'MCP协议', 'Vibe Coding', 'AI代码生成',
+        '端侧大模型', 'AI Native', '流式交互',
+        'AI辅助开发', '组件复用', 'AI工具链', '技术方案优化', '交互体验提升'
       ],
       phrases: [
         '基于React/Vue框架搭建企业级组件库',
@@ -457,7 +670,12 @@ window.JOB_LANG_LIB = {
         '通过性能优化将LCP降低至X秒以内',
         '搭建AI对话界面支持流式输出与多模态交互',
         '建立前端监控体系实现错误率降低XX%',
-        '推动组件库建设覆盖X+业务线复用'
+        '推动组件库建设覆盖X+业务线复用',
+        '基于WebGPU实现端侧大模型推理加速',
+        '构建AI Native前端应用支持多模态交互',
+        '实践AI辅助前端开发提升研发效率XX%',
+        '抽离通用组件实现X+业务线复用',
+        '探索AI交互组件与对话式UI落地'
       ]
     },
     '后端': {
@@ -502,7 +720,16 @@ window.JOB_LANG_LIB = {
         'AI全栈工程师', '前沿部署工程师', 'AI infra', 'AI基础设施',
         'Physical AI', '多智能体系统', 'Multi-Agent', '机器人后端',
         '高性能计算', 'HPC', 'GPU编程',
-        'MCP协议', 'Graph-RAG'
+        'MCP协议', 'Graph-RAG',
+        'Rust for AI', 'Go for MCP', '混合架构', 'WASM沙箱',
+        'Agentic后端', 'Tool Use后端', 'Memory后端', '上下文管理后端',
+        'A2A协议', 'Agent Cards', 'Claude Agent SDK', 'Agent沙箱',
+        'vLLM', 'SGLang', 'vLLM 0.30', 'KV Cache', 'KV Pool',
+        'tool-call解析器', 'DeepInfer', 'DSA注意力', 'MTP多Token预测',
+        'I/O多路复用', 'epoll', 'gRPC/REST', '任务队列', '上下文管理',
+        '多模型切换与降级', '会话回放', '离线评测集', 'OpenTelemetry Trace', 'PGVector',
+        'Agent记忆管理', '多轮对话状态管理', 'MCP工具服务开发', '企业系统安全对接',
+        'RAG知识更新', 'Apache Doris', 'Trino', '湖仓实时处理', 'AI智能体岗位增速455%'
       ],
       jdKeywords: [
         '高并发', '分布式', '中间件', '容灾',
@@ -517,7 +744,9 @@ window.JOB_LANG_LIB = {
         '团队协作', '跨部门沟通', '项目推进',
         'AI应用', '大模型落地', '智能化升级',
         '降本增效', '技术债务', '重构优化',
-        'MCP协议', 'AI基础设施', '模型服务化', '推理优化'
+        'MCP协议', 'AI基础设施', '模型服务化', '推理优化',
+        'Agent开发', '智能体系统', 'MCP Server',
+        '限流熔断', '成本可控降级', 'Agent系统稳定性', '工程实践能力'
       ],
       phrases: [
         '设计高可用微服务架构支撑亿级请求',
@@ -529,7 +758,11 @@ window.JOB_LANG_LIB = {
         '搭建AI网关实现多模型统一调度',
         '通过架构优化降低服务器成本XX%',
         '推动微服务化改造提升迭代效率',
-        '构建容灾备份体系实现99.99%可用性'
+        '构建容灾备份体系实现99.99%可用性',
+        '基于Go+Rust混合架构构建AI Agent基础设施',
+        '搭建MCP Server实现智能体工具调用标准化',
+        '搭建RAG链路覆盖文档解析、向量检索与重排序',
+        '建设可观测与评测体系量化成功率、延迟与成本'
       ]
     },
     '算法': {
@@ -537,9 +770,10 @@ window.JOB_LANG_LIB = {
         'Python', 'PyTorch', 'PyTorch 2', 'TensorFlow', 'JAX', 'PaddlePaddle',
         '深度学习', '机器学习', '强化学习', '统计学习',
         '大模型', 'LLM', 'Large Language Model', '基座模型',
-        '预训练', '继续预训练', '指令微调', 'SFT',
+        '预训练', '继续预训练', '指令微调', 'SFT', 'Agentic SFT',
         'LoRA', 'QLoRA', 'PEFT', '参数高效微调',
-        'RLHF', 'RLAIF', 'DPO', 'PPO', 'KTO', '对齐', 'Alignment',
+        'RLHF', 'RLAIF', 'DPO', 'PPO', 'KTO', 'GRPO', 'RLVR', '对齐', 'Alignment',
+        'Reasoning RL', '推理强化学习',
         '多模态', '多模态大模型', '视觉语言模型', 'VLM', 'VLMs',
         'NLP', '自然语言处理', '文本生成', '文本理解', 'NLU',
         'CV', '计算机视觉', '图像识别', '目标检测', '图像分割',
@@ -575,7 +809,19 @@ window.JOB_LANG_LIB = {
         'AI全栈算法', '广告大模型算法', 'Physical AI', '具身智能算法',
         '前沿部署', 'AI infra', '多智能体系统', 'Multi-Agent系统',
         '机器人算法', '高性能计算', 'HPC',
-        'Graph-RAG', 'AIGC算法', '大模型NLP'
+        'Graph-RAG', 'AIGC算法', '大模型NLP',
+        '持续记忆', '多工具协作', '自我修正', 'Self-Correction',
+        'Skill/Tool/Memory编排', '长程任务执行', '异步谈判', '复杂规划',
+        'Harness Engineering', 'Observability', '可观测性',
+        'DeepSeek-V4', 'DeepSeek-V3.2', 'GLM5', 'SGLang', 'vLLM',
+        'DSA注意力', 'MTP多Token预测', '世界模型', '视觉理解大模型',
+        '具身智能数据生产', 'Agent能力评测', 'A2A协议', 'Agentic RL',
+        'LLM推理', 'Fine-tuning', 'Agent架构', 'ReAct', 'Plan-and-Execute',
+        '多Agent协作', 'Tool Calling', 'NeurIPS', 'ICML', 'ICLR', 'KDD', 'AAAI',
+        'ACM-ICPC', 'Kaggle', '千卡集群训练', '训练优化器', '高价值数据获取',
+        '端到端自动驾驶', '多模态大模型适配',
+        'Agent工作流设计', 'RAG幻觉抑制', '规划决策与记忆管理',
+        'Claude', 'Llama', 'Gemini', 'AI智能体岗位增速455%'
       ],
       jdKeywords: [
         '模型训练', '模型优化', '模型部署',
@@ -590,7 +836,9 @@ window.JOB_LANG_LIB = {
         '团队协作', '跨团队合作', '技术分享',
         '大模型', 'AIGC', 'AI应用',
         '大模型算法', 'AIGC算法', '具身智能', 'AI安全',
-        '多模态生成', 'RAG系统', '大语言模型', 'NLP算法'
+        '多模态生成', 'RAG系统', '大语言模型', 'NLP算法',
+        'Agent算法', '对齐工程师', 'Agentic SFT', 'Reasoning RL',
+        '模型评测', 'Agent架构设计', '学术成果', '顶会论文'
       ],
       phrases: [
         '主导大模型预训练与微调工作',
@@ -602,7 +850,11 @@ window.JOB_LANG_LIB = {
         '优化推理性能将延迟降低XX%',
         '发表顶会论文/取得技术专利X项',
         '设计因果推断框架评估策略增量价值',
-        '搭建分布式训练平台支撑千亿参数模型'
+        '搭建分布式训练平台支撑千亿参数模型',
+        '主导Agentic SFT与Reasoning RL算法研发',
+        '构建多工具协作与持续记忆的智能体系统',
+        '构建具备代码理解、生成、调试与优化能力的自主编程系统',
+        '在千卡规模集群完成端到端自动驾驶模型训练'
       ]
     },
     '数据': {
@@ -613,7 +865,7 @@ window.JOB_LANG_LIB = {
         'HBase', 'Redis', 'MongoDB', 'Cassandra',
         '数据仓库', '数仓建模', '维度建模', '星型模型', '雪花模型',
         'ETL', 'ELT', '数据清洗', '数据治理', '数据质量管理',
-        '数据湖', 'Iceberg', 'Hudi', 'Delta Lake', '湖仓一体',
+        '数据湖', 'Iceberg', 'Hudi', 'Delta Lake', '湖仓一体', 'Lakehouse',
         'SQL', 'MySQL', 'PostgreSQL', 'SQL调优',
         'Python', 'Pandas', 'NumPy', 'Scala', 'Java',
         '实时计算', '流计算', '批处理', '批流一体',
@@ -627,17 +879,25 @@ window.JOB_LANG_LIB = {
         '数据安全', '数据合规', '数据脱敏', '数据加密',
         'AI数据', '训练数据', '数据标注', '数据集构建',
         '向量数据库', 'Milvus', 'FAISS', 'Weaviate', 'Qdrant', 'Pinecone',
-        'Airflow', 'DolphinScheduler', 'Azkaban', '调度系统',
+        'Airflow', 'DolphinScheduler', 'Azkaban', '调度系统', 'Dagster', 'Prefect', 'Temporal',
         '数据同步', 'CDC', 'Debezium', 'Canal',
-        '数据湖仓', 'Lakehouse', 'Medallion架构',
+        '数据湖仓', 'Medallion架构', '快照', 'Compaction',
         '数据编织', 'Data Fabric', 'Data Mesh',
         '指标体系', '北极星指标', 'AB实验平台',
-        '用户行为分析', '漏斗分析', '留存分析', ' cohort分析',
+        '用户行为分析', '漏斗分析', '留存分析', 'Cohort分析',
         '增长数据', '运营数据', '商业分析', '财务分析',
         '预测分析', '时序分析', '异常检测',
         'AI数据工程', 'RAG数据管道', '训练数据工程', '多模态数据集',
         '数据标注平台', '数据合成', '数据增强',
-        '数据资产治理', 'AI数据中台', 'Embedding模型'
+        '数据资产治理', 'AI数据中台', 'Embedding模型',
+        'dbt', '数据转换', 'idempotent loads', '幂等加载',
+        '混合搜索', '关系过滤+全文+向量+图统一召回',
+        'AI数据库', '多模表', '先过滤再检索', 'Schema-on-Read',
+        '多模态数据生产', '数据寻源', '后训练数据建设', '视觉理解数据集',
+        '世界模型数据', '具身智能数据', 'Agent轨迹数据', '模型能力评测数据',
+        '湖仓架构', '分层建模', '数据集成', '任务编排',
+        '跨时区数据', '多币种数据', '多语言数据', 'Data+AI', '实时湖仓',
+        'Doris', 'Trino', '数据湖仓实时分析', 'AI智能体数据闭环', '多模态数据治理'
       ],
       jdKeywords: [
         '数据仓库', '大数据', '数据开发',
@@ -651,7 +911,9 @@ window.JOB_LANG_LIB = {
         '实时计算', '流式处理', '批流一体',
         '数据安全', '数据合规', '隐私保护',
         'AI数据', '大模型数据', '训练数据',
-        '数据资产治理', '模型评测数据', '实时数仓'
+        '数据资产治理', '模型评测数据', '实时数仓',
+        '湖仓一体', '数据湖', '向量数据库',
+        '数据集成', '任务编排', '多来源数据接入', '数据服务能力'
       ],
       phrases: [
         '从0到1搭建企业级数据仓库',
@@ -663,7 +925,11 @@ window.JOB_LANG_LIB = {
         '设计AB实验平台支撑日均X次实验',
         '构建PB级大数据平台支撑多业务线',
         '搭建数据中台实现数据资产化',
-        '利用数据挖掘发现高价值用户群体'
+        '利用数据挖掘发现高价值用户群体',
+        '构建湖仓一体架构实现存储计算分离',
+        '搭建RAG数据管道支撑大模型知识库',
+        '构建高性能可扩展湖仓架构支撑多来源跨区域数据场景',
+        '完善分层建模与任务编排提升数据服务效率XX%'
       ]
     },
     '产品': {
@@ -671,7 +937,7 @@ window.JOB_LANG_LIB = {
         '需求分析', '产品设计', '产品规划', '产品路线图', 'Roadmap',
         '用户研究', '用户体验', 'UX', '交互设计', 'UI/UX',
         'Axure', 'Figma', 'Sketch', '墨刀', '原型设计', 'PRD',
-        'PRD', 'MRD', 'BRD', '需求文档', '产品文档',
+        'MRD', 'BRD', '需求文档', '产品文档',
         '数据分析', '数据驱动', '用户增长', '增长黑客',
         'B端产品', 'C端产品', 'SaaS产品', 'PaaS', 'aPaaS',
         '商业化', '变现', '营收', '商业模式',
@@ -680,7 +946,7 @@ window.JOB_LANG_LIB = {
         'AI产品经理', 'AI产品', '大模型产品',
         'AI原生产品', 'AI Native', 'AI First',
         'AIGC产品', '生成式AI产品', '创意产品',
-        '智能体产品', 'Agent产品', 'Copilot产品',
+        '智能体产品', 'Agent产品', 'Copilot产品', 'Agent PM',
         'Prompt设计', '提示词工程', 'Prompt Engineering',
         'AI应用场景', 'AI落地', 'AI产品化',
         '大模型应用', 'LLM产品', '对话式产品',
@@ -701,7 +967,15 @@ window.JOB_LANG_LIB = {
         '跨部门协作', '项目推动', '资源协调',
         'AI全栈产品', '前沿部署产品', 'Physical AI产品', '机器人产品',
         '多智能体产品', 'AI基础设施产品',
-        'AI商业化', '大模型产品化', 'MCP协议'
+        'AI商业化', '大模型产品化', 'MCP协议',
+        'AGENT-PROOF框架', 'Skills体系', '技能化产品',
+        '生态整合', '跨平台技能调用', 'MCP Server',
+        'AI训练师', 'AI应用工程师', 'Skill拆解', '技能封装',
+        'Agent产品编排', 'A2A协议', 'Agent Cards', 'Claude Agent SDK产品化',
+        'Agent沙箱产品', '多模态数据产品', '模型能力评测产品',
+        'AI应用能力', '数据优先叙事', '量化产品结果',
+        'AI产品评测体系', 'Agent产品可观测性',
+        'AI智能体产品化', 'Agent工具生态', 'RAG产品幻觉治理', 'AI岗位占比洞察'
       ],
       jdKeywords: [
         '需求分析', '产品设计', '用户体验',
@@ -715,7 +989,8 @@ window.JOB_LANG_LIB = {
         'B端产品', 'C端产品', 'SaaS产品',
         '产品思维', '商业sense', '逻辑思维',
         '沟通能力', '推动能力', '抗压能力',
-        'AI原生', 'AIGC产品', 'AI商业化', '智能体平台', 'AI产品化'
+        'AI原生', 'AIGC产品', 'AI商业化', '智能体平台', 'AI产品化',
+        'Agent PM', 'MCP协议', 'Skills体系', '技能化'
       ],
       phrases: [
         '从0到1打造AI原生产品实现用户增长X万',
@@ -727,14 +1002,18 @@ window.JOB_LANG_LIB = {
         '构建产品指标体系支撑数据驱动决策',
         '主导B端SaaS产品从0到1全过程',
         '通过AB测试验证产品假设提升核心指标',
-        '打造智能体产品平台服务X+企业客户'
+        '打造智能体产品平台服务X+企业客户',
+        '基于MCP协议构建跨平台技能生态',
+        '主导Agent PM产品体系规划与落地',
+        '以数据优先叙事量化产品业务价值',
+        '将产品影响对齐公司核心战略杠杆'
       ]
     },
     '测试': {
       hotSkills: [
         '功能测试', '自动化测试', '性能测试', '安全测试',
         '接口测试', '单元测试', '集成测试', '端到端测试', 'E2E',
-        'Selenium', 'Appium', 'Cypress', 'Playwright', 'Puppeteer', 'Cypress',
+        'Selenium', 'Appium', 'Cypress', 'Playwright', 'Puppeteer',
         'JMeter', 'LoadRunner', 'Locust', 'Gatling', '压测', '性能压测',
         'Postman', 'Charles', 'Fiddler', '抓包', 'Wireshark',
         'Python', 'Java', 'Go', 'JavaScript', 'TypeScript',
@@ -761,7 +1040,15 @@ window.JOB_LANG_LIB = {
         '验收测试', 'UAT', '回归测试', '冒烟测试', 'Sanity测试',
         '多智能体测试', 'Agent评测', 'Physical AI测试', '机器人测试',
         'AI全栈测试', 'AI基础设施测试',
-        'AI自动化测试', '模型对齐测试', 'AIGC内容审核', 'AI质量保障'
+        'AI自动化测试', '模型对齐测试', 'AIGC内容审核', 'AI质量保障',
+        'Agent评测框架', 'LLM Benchmark', '幻觉检测', 'Hallucination',
+        '模型安全测试', '红队测试', 'Red Teaming', '越狱检测',
+        'Prompt注入测试', '多模态内容审核',
+        'Agent沙箱测试', 'Agent轨迹评测', '工具调用成功率评测',
+        'A2A协议互通测试', 'Agent Cards校验', '世界模型能力评测',
+        'LLM应用测试', 'Agent系统可观测性评测', '离线评测集建设',
+        '会话回放验证', '任务完成质量评测',
+        'RAG召回率评测', '知识时效性验证', 'Agent规划决策评测', 'MCP工具服务契约测试'
       ],
       jdKeywords: [
         '质量保障', '自动化测试', '测试开发',
@@ -775,7 +1062,8 @@ window.JOB_LANG_LIB = {
         '团队协作', '跨部门沟通', '项目推进',
         'AI测试', '大模型测试', 'LLM评测',
         '测试效率', '测试覆盖率', '质量提升',
-        '模型对齐', 'AIGC审核', 'AI质量'
+        '模型对齐', 'AIGC审核', 'AI质量',
+        'Agent评测', '模型安全', '红队测试'
       ],
       phrases: [
         '从0到1搭建自动化测试框架提升测试效率XX%',
@@ -787,7 +1075,11 @@ window.JOB_LANG_LIB = {
         '推动测试左移提升代码质量与交付效率',
         '设计大模型评测体系覆盖X+测试场景',
         '建立安全测试规范保障产品安全性',
-        '优化测试用例设计提升测试覆盖率至XX%'
+        '优化测试用例设计提升测试覆盖率至XX%',
+        '构建Agent评测框架量化智能体决策准确率',
+        '开展大模型红队测试发现并修复X+安全漏洞',
+        '搭建离线评测集量化Agent任务成功率XX%',
+        '建设会话回放与Trace体系定位X%问题'
       ]
     },
     '运维': {
@@ -824,7 +1116,15 @@ window.JOB_LANG_LIB = {
         '备份恢复', '数据备份', '灾难恢复', 'BCP', 'DRP',
         'AI infra运维', '算力基础设施', 'GPU集群运维', '多模态模型运维',
         'AI全栈运维', 'Physical AI运维', '机器人运维',
-        'MCP协议', 'MLOps平台', 'GPU调度', '模型部署', '推理服务'
+        'MCP协议', 'MLOps平台', 'GPU调度', '模型部署', '推理服务',
+        'vLLM运维', 'TensorRT-LLM运维', '推理加速', '模型推理监控',
+        'GPU虚拟化', 'MIG', 'vGPU', '算力利用率优化',
+        '大模型训练集群', '分布式训练运维', 'NCCL', 'RDMA',
+        'vLLM 0.30运维', 'SGLang运维', 'KV Cache运维', 'tool-call解析器运维',
+        '昇腾950超节点', '超节点运维', 'TPU推理运维', '推理引擎压测',
+        'Agent系统运维', '模型服务限流熔断', '推理成本优化',
+        'OpenTelemetry Trace运维', '多模型降级策略',
+        'RAG链路运维', '向量数据库运维', 'Doris/Trino运维', 'Agent服务成本优化'
       ],
       jdKeywords: [
         '运维', 'SRE', 'DevOps', '云原生',
@@ -852,7 +1152,11 @@ window.JOB_LANG_LIB = {
         '主导混沌工程平台建设提升系统韧性',
         '优化GPU资源调度提升算力利用率XX%',
         '构建容灾备份体系保障数据安全性',
-        '推动GitOps落地实现基础设施即代码'
+        '推动GitOps落地实现基础设施即代码',
+        '搭建大模型推理服务集群支撑X路并发',
+        '优化GPU虚拟化实现算力成本降低XX%',
+        '设计限流熔断与成本可控降级策略保障Agent系统稳定',
+        '建设Trace与会话回放体系提升故障定位效率XX%'
       ]
     },
     '运营': {
@@ -872,7 +1176,12 @@ window.JOB_LANG_LIB = {
         '智能客服运营', 'AI Agent运营', '多智能体运营',
         '数据看板', 'BI', 'Tableau', '帆软', '数据可视化',
         'ROI优化', 'GMV提升', '转化率优化', 'LTV', 'CAC',
-        'MCP协议', 'AI全栈运营', 'Physical AI运营', 'AI基础设施运营'
+        'MCP协议', 'AI全栈运营', 'Physical AI运营', 'AI基础设施运营',
+        'SHEIN运营', '快时尚运营', '全球化运营', '多语种运营',
+        '买量拓量', 'Landing Page优化', '广告拉新转化漏斗',
+        'Agent运营编排', 'A2A协议运营协同', '多模态内容运营', 'Agent沙箱运营',
+        'AI应用能力', '数据优先运营', 'AI内容评测',
+        '智能体活动运营', 'AI搜索运营', 'AI内容分发'
       ],
       jdKeywords: [
         '用户增长', '内容运营', '活动策划',
@@ -883,7 +1192,8 @@ window.JOB_LANG_LIB = {
         '内容生态', '社区氛围', 'UGC运营',
         '商业化', '变现', '营收增长',
         '跨部门协作', '项目推进', '资源协调',
-        'AI运营', 'AIGC内容', 'AI内容创作'
+        'AI运营', 'AIGC内容', 'AI内容创作',
+        '全球化运营', '跨境电商', '买量拓量'
       ],
       phrases: [
         '通过数据驱动的精细化运营提升核心指标XX%',
@@ -895,7 +1205,11 @@ window.JOB_LANG_LIB = {
         '设计增长黑客策略实现低成本获客XX%',
         '搭建AI Agent运营体系提升运营效率XX%',
         '通过用户分层运营提升高价值用户留存XX%',
-        '主导品牌IP打造实现品牌曝光量XX'
+        '主导品牌IP打造实现品牌曝光量XX',
+        '构建全球化多语种运营体系覆盖X+国家',
+        '优化买量拓量模型提升ROI XX%',
+        '以数据优先叙事量化运营成果',
+        '搭建AI内容评测体系提升内容质量XX%'
       ]
     }
   },
@@ -942,7 +1256,42 @@ window.JOB_LANG_LIB = {
     'AI基础设施搭建',
     '多模态能力构建',
     '具身智能探索',
-    '前沿部署'
+    '前沿部署',
+    'XYZ公式表达',
+    'STAR+R量化',
+    'Agent系统建设',
+    'MCP协议对接',
+    '技能体系构建',
+    '端侧大模型部署',
+    '推理加速落地',
+    '多工具协作编排',
+    '持续记忆机制设计',
+    'A2A协议打通',
+    'Agent间互操作设计',
+    'Agent沙箱构建',
+    '工具调用成功率调优',
+    '多模态数据生产体系建设',
+    '世界模型能力评测',
+    '超节点算力调度',
+    'Rust工具链迁移',
+    'Token吞吐优化',
+    '推理引擎选型与压测',
+    '参与设计并开发',
+    '研究并实现',
+    '深度参与落地',
+    '融合领域知识',
+    '沉淀技术链路',
+    '抽离通用组件',
+    '保障高可用与体验',
+    '量化结果导向',
+    '对标行业最佳实践',
+    '规划决策编排',
+    '记忆管理设计',
+    '知识更新闭环',
+    '工具服务化封装',
+    '幻觉治理',
+    '端到端任务自动化',
+    'AI技能体系升级'
   ],
 
   quantifiers: [
@@ -987,6 +1336,38 @@ window.JOB_LANG_LIB = {
     '降低XX%推理成本',
     '提升XX%模型准确率',
     '支撑XX亿参数大模型',
-    'AI任务并发XX路'
+    'AI任务并发XX路',
+    'GPU算力利用率提升XX%',
+    'AIGC内容产出效率提升XX倍',
+    '多语种覆盖X+国家',
+    'Agent工具调用成功率XX%',
+    '端侧推理延迟XXms',
+    'MCP协议接入X+系统',
+    '训练数据规模X万亿Token',
+    '模型上下文长度X万字',
+    '单卡吞吐提升XX倍',
+    'Token吞吐提升XX倍',
+    'MCP公共Server覆盖X+',
+    'Agent岗位X个',
+    'AI人才供需比0.97',
+    '推理引擎吞吐提升XX倍',
+    'Agent间任务委派成功率XX%',
+    '复杂代码库任务完成率XX%',
+    '端到端任务成功率XX%',
+    '首Token延迟降至XXms',
+    '单位任务成本降低XX%',
+    '千卡集群训练吞吐提升XX%',
+    '检索召回率提升XX%',
+    '跨X个时区数据一致性',
+    '支撑X种语言与货币',
+    '覆盖X个真实研发场景',
+    'AI技能出现在1/5岗位',
+    'AI智能体职位增速455%',
+    'AI岗位占比XX%',
+    '算法人才紧缺指数2.64',
+    '架构师岗位增长76.74%',
+    '前端岗位增长23%',
+    'RAG召回准确率XX%',
+    '知识更新时效X小时'
   ]
 };
