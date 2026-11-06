@@ -559,6 +559,71 @@ let currentTemplate = 'default';
 let templateStyleEl = null;
 
 /**
+ * 将模板CSS中的硬编码字号、行高、间距等转换为跟随紧凑度缩放的形式
+ * @param {string} cssText - 原始CSS文本
+ * @returns {string} - 处理后的CSS文本
+ */
+function makeCompactAware(cssText) {
+    if (!cssText) return cssText;
+
+    // 1. 处理 font-size: Xrem → font-size: calc(Xrem * var(--compact-scale))
+    cssText = cssText.replace(
+        /font-size:\s*([\d.]+)rem/g,
+        'font-size: calc($1rem * var(--compact-scale))'
+    );
+
+    // 2. 处理 font-size: Xpx → font-size: calc(Xpx * var(--compact-scale))
+    cssText = cssText.replace(
+        /font-size:\s*([\d.]+)px/g,
+        'font-size: calc($1px * var(--compact-scale))'
+    );
+
+    // 3. 处理 line-height 带单位的值（如 1.7rem, 20px）
+    // 无单位的line-height是相对倍数，font-size缩放后会自动联动，所以不需要处理
+    cssText = cssText.replace(
+        /line-height:\s*([\d.]+)(rem|px)/g,
+        'line-height: calc($1$2 * var(--compact-scale) + (1 - var(--compact-scale)) * 0.6em)'
+    );
+
+    // 4. 处理 margin-bottom 带 rem/px 的值
+    cssText = cssText.replace(
+        /margin-bottom:\s*([\d.]+)(rem|px)/g,
+        'margin-bottom: calc($1$2 * var(--compact-scale))'
+    );
+
+    // 5. 处理 margin-top 带 rem/px 的值
+    cssText = cssText.replace(
+        /margin-top:\s*([\d.]+)(rem|px)/g,
+        'margin-top: calc($1$2 * var(--compact-scale))'
+    );
+
+    // 6. 处理 padding 带 rem/px 的值（只处理单值和上下值的情况）
+    // 注意：padding 可能有多个值，需要谨慎处理
+    // 先处理 padding: Xrem Xrem 的情况（上下 左右）
+    cssText = cssText.replace(
+        /padding:\s*([\d.]+)(rem|px)\s+([\d.]+)(rem|px)/g,
+        'padding: calc($1$2 * var(--compact-scale)) calc($3$4 * var(--compact-scale))'
+    );
+    // 再处理单值 padding: Xrem
+    cssText = cssText.replace(
+        /padding:\s*([\d.]+)(rem|px)([;\s}])/g,
+        'padding: calc($1$2 * var(--compact-scale))$3'
+    );
+
+    // 7. 处理 gap 带 rem/px 的值
+    cssText = cssText.replace(
+        /gap:\s*([\d.]+)(rem|px)\s+([\d.]+)(rem|px)/g,
+        'gap: calc($1$2 * var(--compact-scale)) calc($3$4 * var(--compact-scale))'
+    );
+    cssText = cssText.replace(
+        /gap:\s*([\d.]+)(rem|px)([;\s}])/g,
+        'gap: calc($1$2 * var(--compact-scale))$3'
+    );
+
+    return cssText;
+}
+
+/**
  * 应用简历模板
  * @param {string} tplKey - 模板key
  */
@@ -583,7 +648,8 @@ function applyResumeTemplate(tplKey) {
         preview.classList.add('tpl-' + tplKey);
         templateStyleEl = document.createElement('style');
         templateStyleEl.id = 'resume-template-style';
-        templateStyleEl.textContent = tpl.css;
+        // 将模板CSS转换为支持紧凑度缩放的形式
+        templateStyleEl.textContent = makeCompactAware(tpl.css);
         document.head.appendChild(templateStyleEl);
     }
 
