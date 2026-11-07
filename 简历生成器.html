@@ -1993,6 +1993,34 @@
             text-justify: inter-ideograph;
         }
 
+        /* 局部加粗 */
+        .section-body strong {
+            font-weight: 700;
+            color: var(--resume-exp-title);
+        }
+
+        /* 悬浮加粗按钮 */
+        #bold-float-btn {
+            position: fixed;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.3rem 0.65rem;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent-soft, #4a9eff), var(--accent, #2b7de9));
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+        #bold-float-btn:hover {
+            transform: translateY(-1px) scale(1.03);
+        }
+
         /* 经历条目 */
         .exp-item {
             margin-bottom: var(--exp-item-margin-bottom);
@@ -7315,7 +7343,7 @@ ${companyContext}
             if (listEl) {
                 var lines = content.split('\n').map(function(l) { return l.trim(); }).filter(function(l) { return l; });
                 if (lines.length > 0) {
-                    listEl.innerHTML = '<ul class="bullet-list">' + lines.map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>';
+                    listEl.innerHTML = '<ul class="bullet-list">' + lines.map(function(l) { return '<li>' + fmt(l) + '</li>'; }).join('') + '</ul>';
                 } else {
                     listEl.innerHTML = '';
                 }
@@ -7368,7 +7396,7 @@ ${companyContext}
                 var isHidden = hidden.indexOf(section.key) >= 0;
                 var lines = section.content.split('\n').map(function(l) { return l.trim(); }).filter(function(l) { return l; });
                 var contentHtml = lines.length > 0
-                    ? '<ul class="bullet-list">' + lines.map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>'
+                    ? '<ul class="bullet-list">' + lines.map(function(l) { return '<li>' + fmt(l) + '</li>'; }).join('') + '</ul>'
                     : '';
                 var display = isHidden ? 'display:none;' : '';
                 return '<div class="resume-section" id="p-' + section.key + '-section" style="' + display + '">' +
@@ -7433,6 +7461,8 @@ ${companyContext}
             applySavedFont();
             // 应用保存的紧凑度设置
             initCompactness();
+            // 启用局部加粗功能
+            initBoldFeature();
             updatePreview();
             initAmbientDecor();
             // 应用保存的板块顺序
@@ -7865,6 +7895,102 @@ ${companyContext}
             updateCompactness(saved);
         }
 
+        // ============ 局部加粗功能 ============
+        // 用法：在任意多行输入框中选中文字，点击悬浮的「B 加粗」按钮或按 Ctrl+B
+        // 选中文字会被 ** 包裹，预览时渲染为粗体；再次操作可取消加粗
+        let boldTarget = null;
+
+        function initBoldFeature() {
+            // 创建悬浮按钮
+            const btn = document.createElement('button');
+            btn.id = 'bold-float-btn';
+            btn.type = 'button';
+            btn.innerHTML = '<b>B</b> 加粗';
+            btn.title = '加粗选中文字（Ctrl+B）';
+            document.body.appendChild(btn);
+
+            // mousedown 阻止默认行为，防止选区丢失
+            btn.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+                applyBoldToSelection();
+            });
+
+            // 鼠标抬起时：若在某个 textarea 内选中了文字，显示悬浮按钮
+            document.addEventListener('mouseup', function(e) {
+                setTimeout(() => {
+                    const ta = document.activeElement;
+                    if (ta && ta.tagName === 'TEXTAREA' && ta.selectionStart !== ta.selectionEnd) {
+                        boldTarget = ta;
+                        const rect = ta.getBoundingClientRect();
+                        btn.style.left = Math.min(rect.right - 70, rect.left + 10) + 'px';
+                        btn.style.top = (rect.top - 36) + 'px';
+                        btn.style.display = 'flex';
+                    } else {
+                        hideBoldBtn();
+                    }
+                }, 10);
+            });
+
+            // 键盘选中（Shift+方向键）后也显示按钮
+            document.addEventListener('keyup', function(e) {
+                const ta = document.activeElement;
+                if (ta && ta.tagName === 'TEXTAREA' && ta.selectionStart !== ta.selectionEnd && e.shiftKey) {
+                    boldTarget = ta;
+                    const rect = ta.getBoundingClientRect();
+                    btn.style.left = Math.min(rect.right - 70, rect.left + 10) + 'px';
+                    btn.style.top = (rect.top - 36) + 'px';
+                    btn.style.display = 'flex';
+                }
+            });
+
+            // Ctrl+B / Cmd+B 快捷键
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b'
+                    && e.target.tagName === 'TEXTAREA') {
+                    e.preventDefault();
+                    boldTarget = e.target;
+                    applyBoldToSelection();
+                }
+            });
+
+            // 点击其他位置或滚动时隐藏
+            document.addEventListener('mousedown', function(e) {
+                if (e.target !== btn) hideBoldBtn();
+            });
+            document.addEventListener('scroll', hideBoldBtn, true);
+
+            function hideBoldBtn() {
+                btn.style.display = 'none';
+            }
+        }
+
+        // 给选中文字加/取消加粗标记
+        function applyBoldToSelection() {
+            const ta = boldTarget;
+            if (!ta) return;
+            const s = ta.selectionStart;
+            const e = ta.selectionEnd;
+            if (s === e) return;
+            const text = ta.value;
+            const sel = text.slice(s, e);
+            let newText, ns, ne;
+            // 已被 ** 包裹 → 取消加粗
+            if (text.slice(s - 2, s) === '**' && text.slice(e, e + 2) === '**') {
+                newText = text.slice(0, s - 2) + sel + text.slice(e + 2);
+                ns = s - 2; ne = e - 2;
+            } else {
+                newText = text.slice(0, s) + '**' + sel + '**' + text.slice(e);
+                ns = s; ne = e + 4;
+            }
+            ta.value = newText;
+            ta.setSelectionRange(ns, ne);
+            ta.focus();
+            // 触发绑定的 input/change 处理器，实时刷新预览与保存
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+            ta.dispatchEvent(new Event('change', { bubbles: true }));
+            document.getElementById('bold-float-btn').style.display = 'none';
+        }
+
         // ============ 证件照 ============
         function handlePhotoUpload(event) {
             const file = event.target.files[0];
@@ -8015,12 +8141,17 @@ ${companyContext}
             return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
         }
 
+        // 转义 + 局部加粗：**文字** → <strong>文字</strong>
+        function fmt(str) {
+            return esc(str).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        }
+
         // 将多行文本转为 bullet-list HTML
         function bulletsToHtml(text) {
             if (!text || !text.trim()) return '';
             const lines = text.split('\n').map(l => l.trim()).filter(l => l);
             if (lines.length === 0) return '';
-            return '<ul class="bullet-list">' + lines.map(l => `<li>${esc(l)}</li>`).join('') + '</ul>';
+            return '<ul class="bullet-list">' + lines.map(l => `<li>${fmt(l)}</li>`).join('') + '</ul>';
         }
 
         // ============ 更新预览 ============
@@ -8091,7 +8222,7 @@ ${companyContext}
                 certHtml += '<div class="inline-list">' + certLines.map(c => `<span class="cert-item">${esc(c)}</span>`).join('') + '</div>';
             }
             if (skillLines.length > 0) {
-                certHtml += '<ul class="skill-bullets">' + skillLines.map(s => `<li>${esc(s)}</li>`).join('') + '</ul>';
+                certHtml += '<ul class="skill-bullets">' + skillLines.map(s => `<li>${fmt(s)}</li>`).join('') + '</ul>';
             }
             if (certHtml) {
                 certSection.style.display = 'block';
@@ -8112,7 +8243,7 @@ ${companyContext}
             if (selfevalLines.length > 0) {
                 selfevalSection.style.display = 'block';
                 document.getElementById('p-selfeval-list').innerHTML =
-                    '<ul class="bullet-list">' + selfevalLines.map(l => `<li>${esc(l)}</li>`).join('') + '</ul>';
+                    '<ul class="bullet-list">' + selfevalLines.map(l => `<li>${fmt(l)}</li>`).join('') + '</ul>';
             } else {
                 selfevalSection.style.display = 'none';
             }
@@ -8124,7 +8255,7 @@ ${companyContext}
             if (hobbyArr.length > 0) {
                 hobbiesSection.style.display = 'block';
                 document.getElementById('p-hobbies-list').innerHTML =
-                    '<div class="inline-list">' + hobbyArr.map(h => `<span class="cert-item">${esc(h)}</span>`).join('') + '</div>';
+                    '<div class="inline-list">' + hobbyArr.map(h => `<span class="cert-item">${fmt(h)}</span>`).join('') + '</div>';
             } else {
                 hobbiesSection.style.display = 'none';
             }
